@@ -512,3 +512,83 @@ textarea:focus {
   max-width: 600px;
   line-height: 1.5;
 }
+
+/* ==========================================================
+   ESTILOS DO GERADOR DE NÚMEROS
+   ========================================================== */
+.rng-inputs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.input-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.input-group input[type="number"] {
+  background-color: var(--textarea-bg);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.input-group input[type="number"]:focus {
+  border-color: var(--text-main);
+}
+
+.rng-results-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  min-height: 90px;
+  width: 100%;
+  padding: 16px;
+  background-color: var(--textarea-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  align-items: center;
+}
+
+.rng-badge-number {
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  min-width: 52px;
+  height: 52px;
+  padding: 0 16px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  animation: popNumber 0.2s ease-out;
+}
+
+@keyframes popNumber {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
