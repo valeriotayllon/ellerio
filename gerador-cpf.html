@@ -6,139 +6,204 @@
   <title>Gerador de CPF — ellerio</title>
   <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
   <link rel="stylesheet" href="style.css">
-  <script>(function(s){s.dataset.zone='11768463',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 </head>
 <body>
-
-  <!-- Barra Superior Horizontal Liquid Glass -->
-  <header class="navbar">
-    <div class="navbar-content">
+  
+  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
       <a href="index.html" class="brand">
-        <img src="images/fundo transparente fonte escura.png" alt="ellerio logo" class="logo logo-dark">
-        <img src="images/fundo transparente fonte clara.png" alt="ellerio logo" class="logo logo-light">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio" class="brand-logo logo-dark">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio" class="brand-logo logo-light">
       </a>
-
-      <div class="nav-actions">
-        <a href="index.html" class="nav-back">← Voltar</a>
-        <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
-          <span class="theme-icon">◐</span>
-          <span class="theme-label">Tema</span>
-        </button>
-      </div>
     </div>
-  </header>
 
-  <main class="main-content">
-    <div class="tool-wrapper">
-      <div class="tool-header">
-        <span class="badge">Ferramenta</span>
-        <h1>Gerador de CPF</h1>
-        <p class="hero-desc">Gere números de CPF válidos para testes de software, cadastros e desenvolvimento de sistemas.</p>
-      </div>
+    <span class="nav-label">Navegação</span>
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a href="index.html" class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">⌂</span> Início</span>
+        </a>
+      </li>
 
-      <!-- Caixa Principal do Gerador -->
-      <div class="generator-box">
-        <div class="display-cpf" id="cpfDisplay">000.000.000-00</div>
+      <!-- Menu Texto com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">✎</span> Texto</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="conversor.html" class="flyout-item">Conversor de Letras</a>
+          <a href="gerador-lorem-ipsum.html" class="flyout-item">Gerador de Lorem Ipsum</a>
+        </div>
+      </li>
 
-        <!-- Opção de Pontuação -->
-        <div class="options-row">
-          <label class="checkbox-label">
-            <input type="checkbox" id="maskCheckbox" checked>
-            <span>Gerar com pontuação (ex: 000.000.000-00)</span>
-          </label>
+      <!-- Menu Documentos Pessoais com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">🪪</span> Documentos</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="gerador-cpf.html" class="flyout-item">Gerador de CPF</a>
+          <a href="gerador-rg.html" class="flyout-item">Gerador de RG</a>
+          <a href="gerador-cnh.html" class="flyout-item">Gerador de CNH</a>
+          <a href="gerador-titulo-eleitor.html" class="flyout-item">Título de Eleitor</a>
+          <a href="gerador-certidoes.html" class="flyout-item">Certidões (Nasc/Casam)</a>
+        </div>
+      </li>
+
+      <!-- Menu Negócios & Empresas com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">🏢</span> Negócios</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="gerador-empresas.html" class="flyout-item">Gerador de Empresas (CNPJ)</a>
+          <a href="gerador-ie.html" class="flyout-item">Inscrição Estadual</a>
+          <a href="gerador-nomes.html" class="flyout-item">Gerador de Nomes</a>
+        </div>
+      </li>
+
+      <!-- Menu Utilitários Gerais com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">⚡</span> Utilitários</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="gerador-senha.html" class="flyout-item">Gerador de Senha</a>
+          <a href="gerador-numeros.html" class="flyout-item">Gerador de Números</a>
+          <a href="gerador-placa.html" class="flyout-item">Placas de Veículos</a>
+          <a href="gerador-imagem.html" class="flyout-item">Gerador de Imagem</a>
+        </div>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <button id="themeToggle" class="theme-toggle-btn">
+        <span>Modo Escuro / Claro</span>
+        <span class="nav-icon">◐</span>
+      </button>
+    </div>
+  </aside>
+
+
+  <div class="app-container">
+    <!-- Topbar para Mobile -->
+    <header class="mobile-topbar">
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+      <a href="index.html" class="brand">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio" class="brand-logo logo-dark" style="height:36px;">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio" class="brand-logo logo-light" style="height:36px;">
+      </a>
+      <button class="menu-toggle" id="mobileThemeToggle" aria-label="Alternar tema">◐</button>
+    </header>
+
+    <main class="main-content">
+      
+      <div class="tool-wrapper">
+        <div class="hero" style="margin-bottom: 28px;">
+          <span class="badge">Documentos</span>
+          <h1>Gerador de CPF</h1>
+          <p class="hero-desc">Gere números de CPF válidos com cálculo dos dígitos verificadores para desenvolvimento.</p>
         </div>
 
-        <!-- Botões de Ação -->
-        <div class="footer-buttons">
-          <button class="btn-copy" onclick="generateCPF()">Gerar Novo CPF</button>
-          <button class="btn-clear" onclick="copyCPF()">Copiar</button>
+        <div class="generator-box">
+          <div class="display-cpf" id="cpfDisplay">000.000.000-00</div>
+
+          <div class="options-row">
+            <label class="checkbox-label">
+              <input type="checkbox" id="maskCheckbox" checked onchange="generateCPF()">
+              <span>Gerar com pontuação (000.000.000-00)</span>
+            </label>
+          </div>
+
+          <div class="footer-buttons">
+            <button class="btn-copy" onclick="generateCPF()">Gerar Novo CPF</button>
+            <button class="btn-clear" onclick="copyCPF()">Copiar CPF</button>
+          </div>
         </div>
       </div>
+    
+    </main>
 
-      <p class="tool-disclaimer">
-        * Os números gerados seguem as regras de validação matemática do Ministério da Fazenda e destinam-se exclusivamente para testes e homologação de software.
-      </p>
-    </div>
-  </main>
+    <footer class="footer">
+      <p>&copy; ellerio. Feito para ser rápido, minimalista e satisfatório.</p>
+    </footer>
+  </div>
 
-  <footer class="footer">
-    <p>&copy; ellerio. Feito para ser rápido e direto.</p>
-  </footer>
+  <div id="toast" class="toast">Copiado com sucesso!</div>
 
-  <div id="toast" class="toast">CPF copiado!</div>
+  
+    <script>
+      function generateCPF() {
+        const mask = document.getElementById('maskCheckbox').checked;
+        const d = Array.from({ length: 9 }, () => Math.floor(Math.random() * 9));
+        let s1 = d.reduce((acc, v, i) => acc + v * (10 - i), 0);
+        let d1 = 11 - (s1 % 11);
+        d.push(d1 >= 10 ? 0 : d1);
 
+        let s2 = d.reduce((acc, v, i) => acc + v * (11 - i), 0);
+        let d2 = 11 - (s2 % 11);
+        d.push(d2 >= 10 ? 0 : d2);
+
+        let res = d.join('');
+        if (mask) res = res.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+        document.getElementById('cpfDisplay').innerText = res;
+      }
+      async function copyCPF() {
+        await navigator.clipboard.writeText(document.getElementById('cpfDisplay').innerText);
+        showToast('CPF copiado!');
+      }
+      window.addEventListener('DOMContentLoaded', generateCPF);
+    </script>
+    
+  
   <script>
-    // Algoritmo Oficial de Geração de CPF Válido
-    function generateCPF() {
-      const mask = document.getElementById('maskCheckbox').checked;
-      const randomDigits = () => Math.floor(Math.random() * 9);
-
-      // 9 primeiros dígitos
-      const digits = Array.from({ length: 9 }, () => randomDigits());
-
-      // Cálculo do 1º Dígito Verificador
-      let sum1 = 0;
-      for (let i = 0; i < 9; i++) {
-        sum1 += digits[i] * (10 - i);
-      }
-      let d1 = 11 - (sum1 % 11);
-      if (d1 >= 10) d1 = 0;
-      digits.push(d1);
-
-      // Cálculo do 2º Dígito Verificador
-      let sum2 = 0;
-      for (let i = 0; i < 10; i++) {
-        sum2 += digits[i] * (11 - i);
-      }
-      let d2 = 11 - (sum2 % 11);
-      if (d2 >= 10) d2 = 0;
-      digits.push(d2);
-
-      let cpfFinal = digits.join('');
-
-      if (mask) {
-        cpfFinal = cpfFinal.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-      }
-
-      document.getElementById('cpfDisplay').textContent = cpfFinal;
-    }
-
-    // Copiar para a área de transferência
-    async function copyCPF() {
-      const cpfText = document.getElementById('cpfDisplay').textContent;
-      if (!cpfText || cpfText === '000.000.000-00') {
-        generateCPF();
-      }
-      try {
-        await navigator.clipboard.writeText(document.getElementById('cpfDisplay').textContent);
-        showToast('CPF copiado com sucesso!');
-      } catch (e) {
-        showToast('Falha ao copiar.');
-      }
-    }
-
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      toast.textContent = msg;
-      toast.style.display = 'block';
-      setTimeout(() => { toast.style.display = 'none'; }, 2000);
-    }
-
-    // Gerar um automaticamente assim que abre a página
-    window.addEventListener('DOMContentLoaded', generateCPF);
-
-    // Gerenciador do Tema Claro/Escuro
+    // Theme toggle
     const themeBtn = document.getElementById('themeToggle');
+    const mobileThemeBtn = document.getElementById('mobileThemeToggle');
     const html = document.documentElement;
     const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
     html.setAttribute('data-theme', savedTheme);
 
-    themeBtn.addEventListener('click', () => {
-      const currentTheme = html.getAttribute('data-theme');
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      html.setAttribute('data-theme', newTheme);
-      localStorage.setItem('ellerio-theme', newTheme);
-    });
+    function toggleTheme() {
+      const current = html.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('ellerio-theme', next);
+    }
+    if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+    if (mobileThemeBtn) mobileThemeBtn.addEventListener('click', toggleTheme);
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const sidebar = document.getElementById('sidebar');
+    if (menuToggle && sidebar) {
+      menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        sidebar.classList.toggle('open');
+      });
+      document.addEventListener('click', (e) => {
+        if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+          sidebar.classList.remove('open');
+        }
+      });
+    }
+
+    function showToast(msg = 'Copiado com sucesso!') {
+      const t = document.getElementById('toast');
+      if (t) {
+        t.textContent = msg;
+        t.style.display = 'block';
+        setTimeout(() => { t.style.display = 'none'; }, 2000);
+      }
+    }
   </script>
+  <!-- Monetag ad zone -->
+  <script>(function(s){s.dataset.zone='11768463',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
 </body>
 </html>

@@ -3,88 +3,234 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conversor de Maiúsculas e Minúsculas — ellerio</title>
+  <title>Conversor de Letras — ellerio</title>
   <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
   <link rel="stylesheet" href="style.css">
-  <script>(function(s){s.dataset.zone='11768463',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 </head>
 <body>
-
-  <!-- Barra Superior Horizontal Liquid Glass -->
-  <header class="navbar">
-    <div class="navbar-content">
+  
+  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
       <a href="index.html" class="brand">
-        <img src="images/fundo transparente fonte escura.png" alt="ellerio logo" class="logo logo-dark">
-        <img src="images/fundo transparente fonte clara.png" alt="ellerio logo" class="logo logo-light">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio" class="brand-logo logo-dark">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio" class="brand-logo logo-light">
       </a>
-
-      <div class="nav-actions">
-        <a href="index.html" class="nav-back">← Voltar</a>
-        <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
-          <span class="theme-icon">◐</span>
-          <span class="theme-label">Tema</span>
-        </button>
-      </div>
     </div>
-  </header>
 
-  <main class="main-content">
-    <div class="tool-wrapper">
-      <div class="tool-header">
-        <span class="badge">Ferramenta</span>
-        <h1>Conversor de Letras</h1>
-        <p class="hero-desc">Digite ou cole o texto abaixo e selecione a opção desejada para formatar instantaneamente.</p>
-      </div>
+    <span class="nav-label">Navegação</span>
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a href="index.html" class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">⌂</span> Início</span>
+        </a>
+      </li>
 
-      <!-- Área de Edição e Contadores -->
-      <div class="editor-box">
-        <textarea id="textInput" placeholder="Digite ou cole seu texto aqui..." spellcheck="false"></textarea>
-        
-        <div class="stats-bar">
-          <div class="stat-item">Caracteres: <strong id="charCount">0</strong></div>
-          <div class="stat-item">Palavras: <strong id="wordCount">0</strong></div>
-          <div class="stat-item">Linhas: <strong id="lineCount">0</strong></div>
+      <!-- Menu Texto com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">✎</span> Texto</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="conversor.html" class="flyout-item">Conversor de Letras</a>
+          <a href="gerador-lorem-ipsum.html" class="flyout-item">Gerador de Lorem Ipsum</a>
+        </div>
+      </li>
+
+      <!-- Menu Documentos Pessoais com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">🪪</span> Documentos</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="gerador-cpf.html" class="flyout-item">Gerador de CPF</a>
+          <a href="gerador-rg.html" class="flyout-item">Gerador de RG</a>
+          <a href="gerador-cnh.html" class="flyout-item">Gerador de CNH</a>
+          <a href="gerador-titulo-eleitor.html" class="flyout-item">Título de Eleitor</a>
+          <a href="gerador-certidoes.html" class="flyout-item">Certidões (Nasc/Casam)</a>
+        </div>
+      </li>
+
+      <!-- Menu Negócios & Empresas com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">🏢</span> Negócios</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="gerador-empresas.html" class="flyout-item">Gerador de Empresas (CNPJ)</a>
+          <a href="gerador-ie.html" class="flyout-item">Inscrição Estadual</a>
+          <a href="gerador-nomes.html" class="flyout-item">Gerador de Nomes</a>
+        </div>
+      </li>
+
+      <!-- Menu Utilitários Gerais com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">⚡</span> Utilitários</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="gerador-senha.html" class="flyout-item">Gerador de Senha</a>
+          <a href="gerador-numeros.html" class="flyout-item">Gerador de Números</a>
+          <a href="gerador-placa.html" class="flyout-item">Placas de Veículos</a>
+          <a href="gerador-imagem.html" class="flyout-item">Gerador de Imagem</a>
+        </div>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <button id="themeToggle" class="theme-toggle-btn">
+        <span>Modo Escuro / Claro</span>
+        <span class="nav-icon">◐</span>
+      </button>
+    </div>
+  </aside>
+
+
+  <div class="app-container">
+    <!-- Topbar para Mobile -->
+    <header class="mobile-topbar">
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+      <a href="index.html" class="brand">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio" class="brand-logo logo-dark" style="height:36px;">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio" class="brand-logo logo-light" style="height:36px;">
+      </a>
+      <button class="menu-toggle" id="mobileThemeToggle" aria-label="Alternar tema">◐</button>
+    </header>
+
+    <main class="main-content">
+      
+      <div class="tool-wrapper">
+        <div class="hero" style="margin-bottom: 28px;">
+          <span class="badge">Texto</span>
+          <h1>Conversor de Letras</h1>
+          <p class="hero-desc">Digite ou cole o texto abaixo e selecione a transformação desejada.</p>
+        </div>
+
+        <div class="editor-box">
+          <textarea id="textInput" placeholder="Digite ou cole seu texto aqui..." spellcheck="false"></textarea>
+          <div class="stats-bar">
+            <span>Caracteres: <strong id="charCount">0</strong></span>
+            <span>Palavras: <strong id="wordCount">0</strong></span>
+            <span>Linhas: <strong id="lineCount">0</strong></span>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button onclick="transformText('upper')">MAIÚSCULAS</button>
+          <button onclick="transformText('lower')">minúsculas</button>
+          <button onclick="transformText('title')">Primeira Letra Em Maiúsculo</button>
+          <button onclick="transformText('sentence')">Primeira letra de cada frase</button>
+          <button onclick="transformText('alternating')">aLtErNaDaS</button>
+          <button onclick="transformText('inverse')">iNVERTER mAIÚSCULAS</button>
+        </div>
+
+        <div class="footer-buttons">
+          <button class="btn-copy" onclick="copyToClipboard()">Copiar Texto</button>
+          <button class="btn-clear" onclick="clearText()">Limpar Tudo</button>
         </div>
       </div>
+    
+    </main>
 
-      <!-- Botões de Formatação -->
-      <div class="button-group">
-        <button onclick="transformText('upper')">MAIÚSCULAS</button>
-        <button onclick="transformText('lower')">minúsculas</button>
-        <button onclick="transformText('title')">Primeira Letra De Cada Palavra</button>
-        <button onclick="transformText('sentence')">Primeira letra da frase</button>
-        <button onclick="transformText('alternating')">aLtErNaDaS</button>
-        <button onclick="transformText('inverse')">iNVERTER mAIÚSCULAS</button>
-      </div>
+    <footer class="footer">
+      <p>&copy; ellerio. Feito para ser rápido, minimalista e satisfatório.</p>
+    </footer>
+  </div>
 
-      <!-- Ações de Saída -->
-      <div class="footer-buttons">
-        <button class="btn-copy" onclick="copyToClipboard()">Copiar Texto</button>
-        <button class="btn-clear" onclick="clearText()">Limpar Tudo</button>
-      </div>
-    </div>
-  </main>
+  <div id="toast" class="toast">Copiado com sucesso!</div>
 
-  <footer class="footer">
-    <p>&copy; ellerio. Feito para ser rápido e direto.</p>
-  </footer>
+  
+    <script>
+      const textarea = document.getElementById('textInput');
+      const charCount = document.getElementById('charCount');
+      const wordCount = document.getElementById('wordCount');
+      const lineCount = document.getElementById('lineCount');
 
-  <div id="toast" class="toast">Texto copiado!</div>
+      function updateStats() {
+        const text = textarea.value;
+        charCount.textContent = text.length;
+        const words = text.trim().split(/\s+/).filter(Boolean);
+        wordCount.textContent = text.trim() === '' ? 0 : words.length;
+        const lines = text.split(/\r\n|\r|\n/);
+        lineCount.textContent = text === '' ? 0 : lines.length;
+      }
+      textarea.addEventListener('input', updateStats);
 
-  <script src="script.js"></script>
+      function transformText(type) {
+        const text = textarea.value;
+        if (!text) return;
+        switch (type) {
+          case 'upper': textarea.value = text.toUpperCase(); break;
+          case 'lower': textarea.value = text.toLowerCase(); break;
+          case 'title': textarea.value = text.toLowerCase().replace(/(?:^|\s)\S/g, m => m.toUpperCase()); break;
+          case 'sentence': textarea.value = text.toLowerCase().replace(/(^\s*|[.!?]\s+)(\p{L})/gu, (_, p, l) => p + l.toUpperCase()); break;
+          case 'alternating': textarea.value = text.split('').map((c, i) => i % 2 === 0 ? c.toLowerCase() : c.toUpperCase()).join(''); break;
+          case 'inverse': textarea.value = text.split('').map(c => c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()).join(''); break;
+        }
+        updateStats();
+      }
+
+      async function copyToClipboard() {
+        if (!textarea.value) return;
+        await navigator.clipboard.writeText(textarea.value);
+        showToast('Texto copiado com sucesso!');
+      }
+
+      function clearText() {
+        textarea.value = '';
+        updateStats();
+        textarea.focus();
+      }
+    </script>
+    
+  
   <script>
+    // Theme toggle
     const themeBtn = document.getElementById('themeToggle');
+    const mobileThemeBtn = document.getElementById('mobileThemeToggle');
     const html = document.documentElement;
-
     const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
     html.setAttribute('data-theme', savedTheme);
 
-    themeBtn.addEventListener('click', () => {
-      const currentTheme = html.getAttribute('data-theme');
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      html.setAttribute('data-theme', newTheme);
-      localStorage.setItem('ellerio-theme', newTheme);
-    });
+    function toggleTheme() {
+      const current = html.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('ellerio-theme', next);
+    }
+    if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+    if (mobileThemeBtn) mobileThemeBtn.addEventListener('click', toggleTheme);
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const sidebar = document.getElementById('sidebar');
+    if (menuToggle && sidebar) {
+      menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        sidebar.classList.toggle('open');
+      });
+      document.addEventListener('click', (e) => {
+        if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+          sidebar.classList.remove('open');
+        }
+      });
+    }
+
+    function showToast(msg = 'Copiado com sucesso!') {
+      const t = document.getElementById('toast');
+      if (t) {
+        t.textContent = msg;
+        t.style.display = 'block';
+        setTimeout(() => { t.style.display = 'none'; }, 2000);
+      }
+    }
   </script>
+  <!-- Monetag ad zone -->
+  <script>(function(s){s.dataset.zone='11768463',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
 </body>
 </html>

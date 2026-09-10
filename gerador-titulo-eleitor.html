@@ -8,67 +8,200 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="navbar">
-    <div class="navbar-content">
+  
+  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
       <a href="index.html" class="brand">
-        <img src="images/fundo transparente fonte escura.png" alt="ellerio logo" class="logo logo-dark">
-        <img src="images/fundo transparente fonte clara.png" alt="ellerio logo" class="logo logo-light">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio" class="brand-logo logo-dark">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio" class="brand-logo logo-light">
       </a>
-      <div class="nav-actions">
-        <a href="index.html" class="nav-back">← Voltar</a>
-        <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
-          <span class="theme-icon">◐</span>
-          <span class="theme-label">Tema</span>
-        </button>
-      </div>
     </div>
-  </header>
 
-  <main class="main-content">
-    <div class="tool-wrapper">
-      <div class="tool-header">
-        <span class="badge">Ferramenta</span>
-        <h1>Gerador de Título de Eleitor</h1>
-        <p class="hero-desc">Gere números de Título de Eleitor válidos segundo o cálculo oficial da Justiça Eleitoral (TSE).</p>
-      </div>
+    <span class="nav-label">Navegação</span>
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a href="index.html" class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">⌂</span> Início</span>
+        </a>
+      </li>
 
-      <div class="generator-box">
-        
-        <div class="display-cpf" id="tituloDisplay">0000 0000 0000</div>
-        
-        <div class="options-row" style="width: 100%; max-width: 320px; margin: 16px auto;">
-          <div class="input-group" style="width: 100%;">
-            <label>UF do Título</label>
-            <select id="tituloUf" onchange="generateTitulo()" style="padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--textarea-bg); color: var(--text-main); font-size: 1rem; outline: none;">
-              <option value="01">São Paulo (SP)</option>
-              <option value="02">Minas Gerais (MG)</option>
-              <option value="03">Rio de Janeiro (RJ)</option>
-              <option value="04">Rio Grande do Sul (RS)</option>
-              <option value="05">Bahia (BA)</option>
-              <option value="06">Paraná (PR)</option>
-              <option value="07">Ceará (CE)</option>
-              <option value="08">Pernambuco (PE)</option>
-            </select>
+      <!-- Menu Texto com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">✎</span> Texto</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="conversor.html" class="flyout-item">Conversor de Letras</a>
+          <a href="gerador-lorem-ipsum.html" class="flyout-item">Gerador de Lorem Ipsum</a>
+        </div>
+      </li>
+
+      <!-- Menu Documentos Pessoais com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">🪪</span> Documentos</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="gerador-cpf.html" class="flyout-item">Gerador de CPF</a>
+          <a href="gerador-rg.html" class="flyout-item">Gerador de RG</a>
+          <a href="gerador-cnh.html" class="flyout-item">Gerador de CNH</a>
+          <a href="gerador-titulo-eleitor.html" class="flyout-item">Título de Eleitor</a>
+          <a href="gerador-certidoes.html" class="flyout-item">Certidões (Nasc/Casam)</a>
+        </div>
+      </li>
+
+      <!-- Menu Negócios & Empresas com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">🏢</span> Negócios</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="gerador-empresas.html" class="flyout-item">Gerador de Empresas (CNPJ)</a>
+          <a href="gerador-ie.html" class="flyout-item">Inscrição Estadual</a>
+          <a href="gerador-nomes.html" class="flyout-item">Gerador de Nomes</a>
+        </div>
+      </li>
+
+      <!-- Menu Utilitários Gerais com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">⚡</span> Utilitários</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="gerador-senha.html" class="flyout-item">Gerador de Senha</a>
+          <a href="gerador-numeros.html" class="flyout-item">Gerador de Números</a>
+          <a href="gerador-placa.html" class="flyout-item">Placas de Veículos</a>
+          <a href="gerador-imagem.html" class="flyout-item">Gerador de Imagem</a>
+        </div>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <button id="themeToggle" class="theme-toggle-btn">
+        <span>Modo Escuro / Claro</span>
+        <span class="nav-icon">◐</span>
+      </button>
+    </div>
+  </aside>
+
+
+  <div class="app-container">
+    <!-- Topbar para Mobile -->
+    <header class="mobile-topbar">
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+      <a href="index.html" class="brand">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio" class="brand-logo logo-dark" style="height:36px;">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio" class="brand-logo logo-light" style="height:36px;">
+      </a>
+      <button class="menu-toggle" id="mobileThemeToggle" aria-label="Alternar tema">◐</button>
+    </header>
+
+    <main class="main-content">
+      
+      <div class="tool-wrapper">
+        <div class="hero" style="margin-bottom: 28px;">
+          <span class="badge">Documentos</span>
+          <h1>Título de Eleitor</h1>
+          <p class="hero-desc">Números de Título Eleitoral calculados segundo as regras do TSE.</p>
+        </div>
+
+        <div class="generator-box">
+          <div class="display-cpf" id="tituloDisplay">0000 0000 0000</div>
+          
+          <div class="options-row" style="width: 100%; max-width: 320px; margin: 16px auto;">
+            <div class="input-group" style="width: 100%;">
+              <label>UF do Título</label>
+              <select id="tituloUf" onchange="generateTitulo()">
+                <option value="01">São Paulo (SP)</option>
+                <option value="02">Minas Gerais (MG)</option>
+                <option value="03">Rio de Janeiro (RJ)</option>
+                <option value="04">Rio Grande do Sul (RS)</option>
+                <option value="05">Bahia (BA)</option>
+                <option value="06">Paraná (PR)</option>
+                <option value="07">Ceará (CE)</option>
+                <option value="08">Pernambuco (PE)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="footer-buttons">
+            <button class="btn-copy" onclick="generateTitulo()">Gerar Título</button>
+            <button class="btn-clear" onclick="copyTitulo()">Copiar Título</button>
           </div>
         </div>
-
-        <div class="footer-buttons">
-          <button class="btn-copy" onclick="generateTitulo()">Gerar Título de Eleitor</button>
-          <button class="btn-clear" onclick="copyTitulo()">Copiar Título</button>
-        </div>
-        <p class="tool-disclaimer" style="margin-top:20px;">* Segue as regras do algoritmo módulo 11 de dígitos verificadores do Tribunal Superior Eleitoral (TSE).</p>
-    
       </div>
-    </div>
-  </main>
+    
+    </main>
 
-  <footer class="footer">
-    <p>&copy; ellerio. Feito para ser rápido e direto.</p>
-  </footer>
+    <footer class="footer">
+      <p>&copy; ellerio. Feito para ser rápido, minimalista e satisfatório.</p>
+    </footer>
+  </div>
 
   <div id="toast" class="toast">Copiado com sucesso!</div>
 
+  
+    <script>
+      function generateTitulo() {
+        const ufCode = document.getElementById('tituloUf').value;
+        const rnd = () => Math.floor(Math.random() * 10);
+        const d = Array.from({length: 8}, () => rnd());
+        const uf = [parseInt(ufCode[0]), parseInt(ufCode[1])];
+
+        let s1 = d.reduce((acc, v, i) => acc + v * (2 + i), 0);
+        let d1 = s1 % 11; if (d1 === 10) d1 = 0;
+
+        let s2 = (uf[0] * 7) + (uf[1] * 8) + (d1 * 9);
+        let d2 = s2 % 11; if (d2 === 10) d2 = 0;
+
+        const num = d.join('') + ufCode + d1 + d2;
+        document.getElementById('tituloDisplay').innerText = num.replace(/^(\d{4})(\d{4})(\d{4})$/, '$1 $2 $3');
+      }
+      async function copyTitulo() {
+        await navigator.clipboard.writeText(document.getElementById('tituloDisplay').innerText);
+        showToast('Título copiado!');
+      }
+      window.addEventListener('DOMContentLoaded', generateTitulo);
+    </script>
+    
+  
   <script>
+    // Theme toggle
+    const themeBtn = document.getElementById('themeToggle');
+    const mobileThemeBtn = document.getElementById('mobileThemeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
+
+    function toggleTheme() {
+      const current = html.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('ellerio-theme', next);
+    }
+    if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+    if (mobileThemeBtn) mobileThemeBtn.addEventListener('click', toggleTheme);
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const sidebar = document.getElementById('sidebar');
+    if (menuToggle && sidebar) {
+      menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        sidebar.classList.toggle('open');
+      });
+      document.addEventListener('click', (e) => {
+        if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+          sidebar.classList.remove('open');
+        }
+      });
+    }
+
     function showToast(msg = 'Copiado com sucesso!') {
       const t = document.getElementById('toast');
       if (t) {
@@ -78,54 +211,7 @@
       }
     }
   </script>
-  
-    <script>
-      function generateTitulo() {
-        const ufCode = document.getElementById('tituloUf').value;
-        const rnd = () => Math.floor(Math.random() * 10);
-        const d = Array.from({length: 8}, () => rnd()); // 8 dígitos de inscrição
-        const ufDigits = [parseInt(ufCode[0]), parseInt(ufCode[1])];
-
-        // 1º dígito verificador
-        let s1 = 0;
-        for (let i = 0; i < 8; i++) {
-          s1 += d[i] * (2 + i);
-        }
-        let d1 = s1 % 11;
-        if (d1 === 10) d1 = 0;
-
-        // 2º dígito verificador
-        let s2 = (ufDigits[0] * 7) + (ufDigits[1] * 8) + (d1 * 9);
-        let d2 = s2 % 11;
-        if (d2 === 10) d2 = 0;
-
-        const num = d.join('') + ufCode + d1.toString() + d2.toString();
-        const formatted = num.replace(/^(\d{4})(\d{4})(\d{4})$/, '$1 $2 $3');
-        document.getElementById('tituloDisplay').innerText = formatted;
-      }
-
-      async function copyTitulo() {
-        await navigator.clipboard.writeText(document.getElementById('tituloDisplay').innerText);
-        showToast('Título de Eleitor copiado!');
-      }
-      window.addEventListener('DOMContentLoaded', generateTitulo);
-    </script>
-    
-  
-  <script>
-    const themeBtn = document.getElementById('themeToggle');
-    const html = document.documentElement;
-    const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
-    html.setAttribute('data-theme', savedTheme);
-    if (themeBtn) {
-      themeBtn.addEventListener('click', () => {
-        const currentTheme = html.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-        html.setAttribute('data-theme', newTheme);
-        localStorage.setItem('ellerio-theme', newTheme);
-      });
-    }
-  </script>
+  <!-- Monetag ad zone -->
   <script>(function(s){s.dataset.zone='11768463',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
 </body>

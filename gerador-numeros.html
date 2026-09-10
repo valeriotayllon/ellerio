@@ -8,184 +8,237 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <!-- Barra Superior Horizontal Liquid Glass -->
-  <header class="navbar">
-    <div class="navbar-content">
+  
+  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
       <a href="index.html" class="brand">
-        <img src="images/fundo transparente fonte escura.png" alt="ellerio logo" class="logo logo-dark">
-        <img src="images/fundo transparente fonte clara.png" alt="ellerio logo" class="logo logo-light">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio" class="brand-logo logo-dark">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio" class="brand-logo logo-light">
       </a>
-
-      <div class="nav-actions">
-        <a href="index.html" class="nav-back">← Voltar</a>
-        <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
-          <span class="theme-icon">◐</span>
-          <span class="theme-label">Tema</span>
-        </button>
-      </div>
     </div>
-  </header>
 
-  <main class="main-content">
-    <div class="tool-wrapper">
-      <div class="tool-header">
-        <span class="badge">Ferramenta</span>
-        <h1>Gerador de Números Aleatórios</h1>
-        <p class="hero-desc">Realize sorteios, gere números para rifas, jogos ou testes com intervalo configurável.</p>
-      </div>
+    <span class="nav-label">Navegação</span>
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a href="index.html" class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">⌂</span> Início</span>
+        </a>
+      </li>
 
-      <!-- Caixa Principal de Configuração -->
-      <div class="generator-box">
-        <!-- Campos de Configuração -->
-        <div class="rng-inputs-grid">
-          <div class="input-group">
-            <label for="quantityInput">Quantidade de números</label>
-            <input type="number" id="quantityInput" min="1" max="100" value="1">
-          </div>
-          <div class="input-group">
-            <label for="minInput">Número Mínimo</label>
-            <input type="number" id="minInput" value="1">
-          </div>
-          <div class="input-group">
-            <label for="maxInput">Número Máximo</label>
-            <input type="number" id="maxInput" value="100">
-          </div>
+      <!-- Menu Texto com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">✎</span> Texto</span>
+          <span class="nav-arrow">›</span>
         </div>
-
-        <!-- Opção de não repetir -->
-        <div class="options-row" style="margin-top: 18px; margin-bottom: 24px;">
-          <label class="checkbox-label">
-            <input type="checkbox" id="noRepeatCheckbox" checked>
-            <span>Não permitir números repetidos</span>
-          </label>
+        <div class="flyout-menu">
+          <a href="conversor.html" class="flyout-item">Conversor de Letras</a>
+          <a href="gerador-lorem-ipsum.html" class="flyout-item">Gerador de Lorem Ipsum</a>
         </div>
+      </li>
 
-        <!-- Área onde os números sorteados aparecem -->
-        <div class="rng-results-container" id="resultsContainer">
-          <div class="rng-badge-number">?</div>
+      <!-- Menu Documentos Pessoais com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">🪪</span> Documentos</span>
+          <span class="nav-arrow">›</span>
         </div>
+        <div class="flyout-menu">
+          <a href="gerador-cpf.html" class="flyout-item">Gerador de CPF</a>
+          <a href="gerador-rg.html" class="flyout-item">Gerador de RG</a>
+          <a href="gerador-cnh.html" class="flyout-item">Gerador de CNH</a>
+          <a href="gerador-titulo-eleitor.html" class="flyout-item">Título de Eleitor</a>
+          <a href="gerador-certidoes.html" class="flyout-item">Certidões (Nasc/Casam)</a>
+        </div>
+      </li>
 
-        <!-- Botões de Ação -->
-        <div class="footer-buttons" style="margin-top: 24px;">
-          <button class="btn-copy" onclick="drawNumbers()">Sortear Números</button>
-          <button class="btn-clear" onclick="copyResults()">Copiar Resultado</button>
+      <!-- Menu Negócios & Empresas com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">🏢</span> Negócios</span>
+          <span class="nav-arrow">›</span>
         </div>
-      </div>
+        <div class="flyout-menu">
+          <a href="gerador-empresas.html" class="flyout-item">Gerador de Empresas (CNPJ)</a>
+          <a href="gerador-ie.html" class="flyout-item">Inscrição Estadual</a>
+          <a href="gerador-nomes.html" class="flyout-item">Gerador de Nomes</a>
+        </div>
+      </li>
+
+      <!-- Menu Utilitários Gerais com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">⚡</span> Utilitários</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="gerador-senha.html" class="flyout-item">Gerador de Senha</a>
+          <a href="gerador-numeros.html" class="flyout-item">Gerador de Números</a>
+          <a href="gerador-placa.html" class="flyout-item">Placas de Veículos</a>
+          <a href="gerador-imagem.html" class="flyout-item">Gerador de Imagem</a>
+        </div>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <button id="themeToggle" class="theme-toggle-btn">
+        <span>Modo Escuro / Claro</span>
+        <span class="nav-icon">◐</span>
+      </button>
     </div>
-  </main>
+  </aside>
 
-  <footer class="footer">
-    <p>&copy; ellerio. Feito para ser rápido e direto.</p>
-  </footer>
 
-  <div id="toast" class="toast">Resultado copiado!</div>
+  <div class="app-container">
+    <!-- Topbar para Mobile -->
+    <header class="mobile-topbar">
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+      <a href="index.html" class="brand">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio" class="brand-logo logo-dark" style="height:36px;">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio" class="brand-logo logo-light" style="height:36px;">
+      </a>
+      <button class="menu-toggle" id="mobileThemeToggle" aria-label="Alternar tema">◐</button>
+    </header>
 
-  <!-- Script da Ferramenta -->
+    <main class="main-content">
+      
+      <div class="tool-wrapper">
+        <div class="hero" style="margin-bottom: 28px;">
+          <span class="badge">Utilitários</span>
+          <h1>Gerador de Números</h1>
+          <p class="hero-desc">Sorteie números aleatórios com intervalos e opções de repetição.</p>
+        </div>
+
+        <div class="generator-box">
+          <div class="rng-inputs-grid">
+            <div class="input-group">
+              <label>Quantidade</label>
+              <input type="number" id="qty" min="1" max="100" value="1">
+            </div>
+            <div class="input-group">
+              <label>Mínimo</label>
+              <input type="number" id="min" value="1">
+            </div>
+            <div class="input-group">
+              <label>Máximo</label>
+              <input type="number" id="max" value="100">
+            </div>
+          </div>
+
+          <div class="options-row" style="margin-top: 18px; margin-bottom: 24px;">
+            <label class="checkbox-label">
+              <input type="checkbox" id="noRepeat" checked>
+              <span>Não permitir números repetidos</span>
+            </label>
+          </div>
+
+          <div class="rng-results-container" id="resultsContainer">
+            <div class="rng-badge-number">?</div>
+          </div>
+
+          <div class="footer-buttons" style="margin-top: 24px;">
+            <button class="btn-copy" onclick="drawNumbers()">Sortear Números</button>
+            <button class="btn-clear" onclick="copyResults()">Copiar</button>
+          </div>
+        </div>
+      </div>
+    
+    </main>
+
+    <footer class="footer">
+      <p>&copy; ellerio. Feito para ser rápido, minimalista e satisfatório.</p>
+    </footer>
+  </div>
+
+  <div id="toast" class="toast">Copiado com sucesso!</div>
+
+  
+    <script>
+      let lastNumbers = [];
+      function drawNumbers() {
+        const q = parseInt(document.getElementById('qty').value) || 1;
+        const min = parseInt(document.getElementById('min').value) || 1;
+        const max = parseInt(document.getElementById('max').value) || 100;
+        const noRep = document.getElementById('noRepeat').checked;
+
+        if (min >= max) return alert('Mínimo deve ser menor que o máximo');
+        if (noRep && q > (max - min + 1)) return alert('Intervalo pequeno para quantidade sem repetição');
+
+        let res = [];
+        if (noRep) {
+          const pool = [];
+          for (let i = min; i <= max; i++) pool.push(i);
+          for (let i = pool.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [pool[i], pool[j]] = [pool[j], pool[i]];
+          }
+          res = pool.slice(0, q);
+        } else {
+          for (let i = 0; i < q; i++) res.push(Math.floor(Math.random() * (max - min + 1)) + min);
+        }
+        lastNumbers = res;
+        const container = document.getElementById('resultsContainer');
+        container.innerHTML = '';
+        res.forEach(n => {
+          const div = document.createElement('div');
+          div.className = 'rng-badge-number';
+          div.innerText = n;
+          container.appendChild(div);
+        });
+      }
+      async function copyResults() {
+        if (!lastNumbers.length) drawNumbers();
+        await navigator.clipboard.writeText(lastNumbers.join(', '));
+        showToast('Números copiados!');
+      }
+      window.addEventListener('DOMContentLoaded', drawNumbers);
+    </script>
+    
+  
   <script>
-    let lastResults = [];
-
-    function drawNumbers() {
-      const qty = parseInt(document.getElementById('quantityInput').value, 10);
-      const min = parseInt(document.getElementById('minInput').value, 10);
-      const max = parseInt(document.getElementById('maxInput').value, 10);
-      const noRepeat = document.getElementById('noRepeatCheckbox').checked;
-      const container = document.getElementById('resultsContainer');
-
-      if (isNaN(qty) || isNaN(min) || isNaN(max)) {
-        alert('Por favor, preencha todos os campos com valores válidos.');
-        return;
-      }
-
-      if (min >= max) {
-        alert('O número mínimo deve ser menor que o número máximo.');
-        return;
-      }
-
-      if (qty < 1 || qty > 200) {
-        alert('A quantidade deve ser entre 1 e 200.');
-        return;
-      }
-
-      const availableRange = (max - min) + 1;
-      if (noRepeat && qty > availableRange) {
-        alert(`Não é possível sortear ${qty} números sem repetição em um intervalo de ${availableRange} opções.`);
-        return;
-      }
-
-      const results = [];
-
-      if (noRepeat) {
-        const pool = [];
-        for (let i = min; i <= max; i++) pool.push(i);
-        // Algoritmo Fisher-Yates shuffle
-        for (let i = pool.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [pool[i], pool[j]] = [pool[j], pool[i]];
-        }
-        for (let i = 0; i < qty; i++) {
-          results.push(pool[i]);
-        }
-      } else {
-        for (let i = 0; i < qty; i++) {
-          const num = Math.floor(Math.random() * (max - min + 1)) + min;
-          results.push(num);
-        }
-      }
-
-      lastResults = results;
-      renderResults(results);
-    }
-
-    function renderResults(list) {
-      const container = document.getElementById('resultsContainer');
-      container.innerHTML = '';
-
-      list.forEach(num => {
-        const span = document.createElement('div');
-        span.className = 'rng-badge-number';
-        span.textContent = num;
-        container.appendChild(span);
-      });
-    }
-
-    async function copyResults() {
-      if (!lastResults.length) {
-        drawNumbers();
-      }
-      try {
-        await navigator.clipboard.writeText(lastResults.join(', '));
-        showToast('Números copiados com sucesso!');
-      } catch (e) {
-        showToast('Falha ao copiar.');
-      }
-    }
-
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      toast.textContent = msg;
-      toast.style.display = 'block';
-      setTimeout(() => { toast.style.display = 'none'; }, 2000);
-    }
-
-    // Gerenciador do Tema Claro/Escuro
+    // Theme toggle
     const themeBtn = document.getElementById('themeToggle');
+    const mobileThemeBtn = document.getElementById('mobileThemeToggle');
     const html = document.documentElement;
     const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
     html.setAttribute('data-theme', savedTheme);
 
-    themeBtn.addEventListener('click', () => {
-      const currentTheme = html.getAttribute('data-theme');
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      html.setAttribute('data-theme', newTheme);
-      localStorage.setItem('ellerio-theme', newTheme);
-    });
+    function toggleTheme() {
+      const current = html.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('ellerio-theme', next);
+    }
+    if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+    if (mobileThemeBtn) mobileThemeBtn.addEventListener('click', toggleTheme);
 
-    // Sorteia um inicial ao carregar
-    window.addEventListener('DOMContentLoaded', drawNumbers);
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const sidebar = document.getElementById('sidebar');
+    if (menuToggle && sidebar) {
+      menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        sidebar.classList.toggle('open');
+      });
+      document.addEventListener('click', (e) => {
+        if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+          sidebar.classList.remove('open');
+        }
+      });
+    }
+
+    function showToast(msg = 'Copiado com sucesso!') {
+      const t = document.getElementById('toast');
+      if (t) {
+        t.textContent = msg;
+        t.style.display = 'block';
+        setTimeout(() => { t.style.display = 'none'; }, 2000);
+      }
+    }
   </script>
-
-  <!-- Tag de Anúncio Monetag -->
+  <!-- Monetag ad zone -->
   <script>(function(s){s.dataset.zone='11768463',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
 </body>
 </html>

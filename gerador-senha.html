@@ -8,70 +8,138 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="navbar">
-    <div class="navbar-content">
+  
+  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
       <a href="index.html" class="brand">
-        <img src="images/fundo transparente fonte escura.png" alt="ellerio logo" class="logo logo-dark">
-        <img src="images/fundo transparente fonte clara.png" alt="ellerio logo" class="logo logo-light">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio" class="brand-logo logo-dark">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio" class="brand-logo logo-light">
       </a>
-      <div class="nav-actions">
-        <a href="index.html" class="nav-back">← Voltar</a>
-        <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
-          <span class="theme-icon">◐</span>
-          <span class="theme-label">Tema</span>
-        </button>
-      </div>
     </div>
-  </header>
 
-  <main class="main-content">
-    <div class="tool-wrapper">
-      <div class="tool-header">
-        <span class="badge">Ferramenta</span>
-        <h1>Gerador de Senha</h1>
-        <p class="hero-desc">Gere senhas fortes e seguras personalizadas com números, símbolos e letras.</p>
-      </div>
+    <span class="nav-label">Navegação</span>
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a href="index.html" class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">⌂</span> Início</span>
+        </a>
+      </li>
 
-      <div class="generator-box">
-        
-        <div class="display-cpf" id="passDisplay" style="font-size: clamp(1.2rem, 4vw, 1.8rem); word-break: break-all;">********</div>
-        
-        <div class="options-row" style="flex-direction: column; gap: 12px; align-items: flex-start; width: 100%; max-width: 400px; margin: 16px auto;">
-          <div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
-            <label style="font-weight: 600;">Comprimento: <span id="lenVal">16</span></label>
-            <input type="range" id="lenRange" min="6" max="64" value="16" oninput="document.getElementById('lenVal').innerText=this.value; generatePass();" style="cursor:pointer;">
+      <!-- Menu Texto com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">✎</span> Texto</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="conversor.html" class="flyout-item">Conversor de Letras</a>
+          <a href="gerador-lorem-ipsum.html" class="flyout-item">Gerador de Lorem Ipsum</a>
+        </div>
+      </li>
+
+      <!-- Menu Documentos Pessoais com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">🪪</span> Documentos</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="gerador-cpf.html" class="flyout-item">Gerador de CPF</a>
+          <a href="gerador-rg.html" class="flyout-item">Gerador de RG</a>
+          <a href="gerador-cnh.html" class="flyout-item">Gerador de CNH</a>
+          <a href="gerador-titulo-eleitor.html" class="flyout-item">Título de Eleitor</a>
+          <a href="gerador-certidoes.html" class="flyout-item">Certidões (Nasc/Casam)</a>
+        </div>
+      </li>
+
+      <!-- Menu Negócios & Empresas com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">🏢</span> Negócios</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="gerador-empresas.html" class="flyout-item">Gerador de Empresas (CNPJ)</a>
+          <a href="gerador-ie.html" class="flyout-item">Inscrição Estadual</a>
+          <a href="gerador-nomes.html" class="flyout-item">Gerador de Nomes</a>
+        </div>
+      </li>
+
+      <!-- Menu Utilitários Gerais com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">⚡</span> Utilitários</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="gerador-senha.html" class="flyout-item">Gerador de Senha</a>
+          <a href="gerador-numeros.html" class="flyout-item">Gerador de Números</a>
+          <a href="gerador-placa.html" class="flyout-item">Placas de Veículos</a>
+          <a href="gerador-imagem.html" class="flyout-item">Gerador de Imagem</a>
+        </div>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <button id="themeToggle" class="theme-toggle-btn">
+        <span>Modo Escuro / Claro</span>
+        <span class="nav-icon">◐</span>
+      </button>
+    </div>
+  </aside>
+
+
+  <div class="app-container">
+    <!-- Topbar para Mobile -->
+    <header class="mobile-topbar">
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+      <a href="index.html" class="brand">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio" class="brand-logo logo-dark" style="height:36px;">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio" class="brand-logo logo-light" style="height:36px;">
+      </a>
+      <button class="menu-toggle" id="mobileThemeToggle" aria-label="Alternar tema">◐</button>
+    </header>
+
+    <main class="main-content">
+      
+      <div class="tool-wrapper">
+        <div class="hero" style="margin-bottom: 28px;">
+          <span class="badge">Segurança</span>
+          <h1>Gerador de Senha</h1>
+          <p class="hero-desc">Crie senhas criptograficamente fortes e personalizadas.</p>
+        </div>
+
+        <div class="generator-box">
+          <div class="display-cpf" id="passDisplay" style="font-size: clamp(1.2rem, 4vw, 1.8rem); word-break: break-all;">********</div>
+          
+          <div class="options-row" style="flex-direction: column; gap: 12px; align-items: flex-start; width: 100%; max-width: 400px; margin: 16px auto;">
+            <div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+              <label style="font-weight: 600;">Comprimento: <span id="lenVal">16</span></label>
+              <input type="range" id="lenRange" min="6" max="64" value="16" oninput="document.getElementById('lenVal').innerText=this.value; generatePass();" style="cursor:pointer; accent-color: var(--btn-bg);">
+            </div>
+            <label class="checkbox-label"><input type="checkbox" id="chkUpper" checked onchange="generatePass()"> Letras maiúsculas (A-Z)</label>
+            <label class="checkbox-label"><input type="checkbox" id="chkLower" checked onchange="generatePass()"> Letras minúsculas (a-z)</label>
+            <label class="checkbox-label"><input type="checkbox" id="chkNum" checked onchange="generatePass()"> Números (0-9)</label>
+            <label class="checkbox-label"><input type="checkbox" id="chkSym" checked onchange="generatePass()"> Símbolos (!@#$%&*)</label>
           </div>
-          <label class="checkbox-label"><input type="checkbox" id="chkUpper" checked onchange="generatePass()"> Letras maiúsculas (A-Z)</label>
-          <label class="checkbox-label"><input type="checkbox" id="chkLower" checked onchange="generatePass()"> Letras minúsculas (a-z)</label>
-          <label class="checkbox-label"><input type="checkbox" id="chkNum" checked onchange="generatePass()"> Números (0-9)</label>
-          <label class="checkbox-label"><input type="checkbox" id="chkSym" checked onchange="generatePass()"> Símbolos (!@#$%&*)</label>
-        </div>
 
-        <div class="footer-buttons" style="margin-top: 20px;">
-          <button class="btn-copy" onclick="generatePass()">Gerar Nova Senha</button>
-          <button class="btn-clear" onclick="copyPass()">Copiar Senha</button>
+          <div class="footer-buttons" style="margin-top: 20px;">
+            <button class="btn-copy" onclick="generatePass()">Gerar Nova Senha</button>
+            <button class="btn-clear" onclick="copyPass()">Copiar Senha</button>
+          </div>
         </div>
-    
       </div>
-    </div>
-  </main>
+    
+    </main>
 
-  <footer class="footer">
-    <p>&copy; ellerio. Feito para ser rápido e direto.</p>
-  </footer>
+    <footer class="footer">
+      <p>&copy; ellerio. Feito para ser rápido, minimalista e satisfatório.</p>
+    </footer>
+  </div>
 
   <div id="toast" class="toast">Copiado com sucesso!</div>
 
-  <script>
-    function showToast(msg = 'Copiado com sucesso!') {
-      const t = document.getElementById('toast');
-      if (t) {
-        t.textContent = msg;
-        t.style.display = 'block';
-        setTimeout(() => { t.style.display = 'none'; }, 2000);
-      }
-    }
-  </script>
   
     <script>
       function generatePass() {
@@ -81,43 +149,63 @@
         const n = document.getElementById('chkNum').checked ? "0123456789" : "";
         const s = document.getElementById('chkSym').checked ? "!@#$%&*_-+=?~" : "";
         const chars = u + l + n + s;
-        if (!chars) {
-          document.getElementById('passDisplay').innerText = "Selecione uma opção";
-          return;
-        }
+        if (!chars) return document.getElementById('passDisplay').innerText = "Selecione uma opção";
         let pass = "";
         const array = new Uint32Array(len);
         window.crypto.getRandomValues(array);
-        for(let i = 0; i < len; i++) {
-          pass += chars[array[i] % chars.length];
-        }
+        for(let i = 0; i < len; i++) pass += chars[array[i] % chars.length];
         document.getElementById('passDisplay').innerText = pass;
       }
       async function copyPass() {
-        const text = document.getElementById('passDisplay').innerText;
-        if (text && text !== "Selecione uma opção") {
-          await navigator.clipboard.writeText(text);
-          showToast('Senha copiada!');
-        }
+        await navigator.clipboard.writeText(document.getElementById('passDisplay').innerText);
+        showToast('Senha copiada!');
       }
       window.addEventListener('DOMContentLoaded', generatePass);
     </script>
     
   
   <script>
+    // Theme toggle
     const themeBtn = document.getElementById('themeToggle');
+    const mobileThemeBtn = document.getElementById('mobileThemeToggle');
     const html = document.documentElement;
     const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
     html.setAttribute('data-theme', savedTheme);
-    if (themeBtn) {
-      themeBtn.addEventListener('click', () => {
-        const currentTheme = html.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-        html.setAttribute('data-theme', newTheme);
-        localStorage.setItem('ellerio-theme', newTheme);
+
+    function toggleTheme() {
+      const current = html.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('ellerio-theme', next);
+    }
+    if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+    if (mobileThemeBtn) mobileThemeBtn.addEventListener('click', toggleTheme);
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const sidebar = document.getElementById('sidebar');
+    if (menuToggle && sidebar) {
+      menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        sidebar.classList.toggle('open');
+      });
+      document.addEventListener('click', (e) => {
+        if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+          sidebar.classList.remove('open');
+        }
       });
     }
+
+    function showToast(msg = 'Copiado com sucesso!') {
+      const t = document.getElementById('toast');
+      if (t) {
+        t.textContent = msg;
+        t.style.display = 'block';
+        setTimeout(() => { t.style.display = 'none'; }, 2000);
+      }
+    }
   </script>
+  <!-- Monetag ad zone -->
   <script>(function(s){s.dataset.zone='11768463',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
 </body>

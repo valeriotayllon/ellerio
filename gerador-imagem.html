@@ -8,66 +8,217 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="navbar">
-    <div class="navbar-content">
+  
+  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
       <a href="index.html" class="brand">
-        <img src="images/fundo transparente fonte escura.png" alt="ellerio logo" class="logo logo-dark">
-        <img src="images/fundo transparente fonte clara.png" alt="ellerio logo" class="logo logo-light">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio" class="brand-logo logo-dark">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio" class="brand-logo logo-light">
       </a>
-      <div class="nav-actions">
-        <a href="index.html" class="nav-back">← Voltar</a>
-        <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
-          <span class="theme-icon">◐</span>
-          <span class="theme-label">Tema</span>
-        </button>
-      </div>
     </div>
-  </header>
 
-  <main class="main-content">
-    <div class="tool-wrapper">
-      <div class="tool-header">
-        <span class="badge">Ferramenta</span>
-        <h1>Gerador de Imagem Placeholder</h1>
-        <p class="hero-desc">Gere e baixe imagens temporárias com dimensões e cores personalizadas para designs e mockups.</p>
+    <span class="nav-label">Navegação</span>
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a href="index.html" class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">⌂</span> Início</span>
+        </a>
+      </li>
+
+      <!-- Menu Texto com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">✎</span> Texto</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="conversor.html" class="flyout-item">Conversor de Letras</a>
+          <a href="gerador-lorem-ipsum.html" class="flyout-item">Gerador de Lorem Ipsum</a>
+        </div>
+      </li>
+
+      <!-- Menu Documentos Pessoais com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">🪪</span> Documentos</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="gerador-cpf.html" class="flyout-item">Gerador de CPF</a>
+          <a href="gerador-rg.html" class="flyout-item">Gerador de RG</a>
+          <a href="gerador-cnh.html" class="flyout-item">Gerador de CNH</a>
+          <a href="gerador-titulo-eleitor.html" class="flyout-item">Título de Eleitor</a>
+          <a href="gerador-certidoes.html" class="flyout-item">Certidões (Nasc/Casam)</a>
+        </div>
+      </li>
+
+      <!-- Menu Negócios & Empresas com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">🏢</span> Negócios</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="gerador-empresas.html" class="flyout-item">Gerador de Empresas (CNPJ)</a>
+          <a href="gerador-ie.html" class="flyout-item">Inscrição Estadual</a>
+          <a href="gerador-nomes.html" class="flyout-item">Gerador de Nomes</a>
+        </div>
+      </li>
+
+      <!-- Menu Utilitários Gerais com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">⚡</span> Utilitários</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="gerador-senha.html" class="flyout-item">Gerador de Senha</a>
+          <a href="gerador-numeros.html" class="flyout-item">Gerador de Números</a>
+          <a href="gerador-placa.html" class="flyout-item">Placas de Veículos</a>
+          <a href="gerador-imagem.html" class="flyout-item">Gerador de Imagem</a>
+        </div>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <button id="themeToggle" class="theme-toggle-btn">
+        <span>Modo Escuro / Claro</span>
+        <span class="nav-icon">◐</span>
+      </button>
+    </div>
+  </aside>
+
+
+  <div class="app-container">
+    <!-- Topbar para Mobile -->
+    <header class="mobile-topbar">
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+      <a href="index.html" class="brand">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio" class="brand-logo logo-dark" style="height:36px;">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio" class="brand-logo logo-light" style="height:36px;">
+      </a>
+      <button class="menu-toggle" id="mobileThemeToggle" aria-label="Alternar tema">◐</button>
+    </header>
+
+    <main class="main-content">
+      
+      <div class="tool-wrapper">
+        <div class="hero" style="margin-bottom: 28px;">
+          <span class="badge">Design</span>
+          <h1>Gerador de Imagem</h1>
+          <p class="hero-desc">Crie e baixe imagens temporárias elegantes para seus protótipos.</p>
+        </div>
+
+        <div class="generator-box">
+          <div style="margin-bottom: 24px; display: flex; justify-content: center;">
+            <canvas id="imgCanvas" width="400" height="240" style="max-width: 100%; border-radius: 14px; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-sm);"></canvas>
+          </div>
+
+          <div class="rng-inputs-grid" style="margin-bottom: 24px;">
+            <div class="input-group">
+              <label>Largura (px)</label>
+              <input type="number" id="imgW" value="600" min="50" max="2000" oninput="updateCanvas()">
+            </div>
+            <div class="input-group">
+              <label>Altura (px)</label>
+              <input type="number" id="imgH" value="400" min="50" max="2000" oninput="updateCanvas()">
+            </div>
+            <div class="input-group">
+              <label>Texto Central</label>
+              <input type="text" id="imgText" value="ellerio placeholder" oninput="updateCanvas()">
+            </div>
+          </div>
+
+          <div class="footer-buttons">
+            <button class="btn-copy" onclick="downloadImage()">Baixar Imagem (.PNG)</button>
+          </div>
+        </div>
       </div>
-
-      <div class="generator-box">
-        
-        <div style="margin-bottom: 20px; display: flex; justify-content: center;">
-          <canvas id="imgCanvas" width="400" height="250" style="max-width: 100%; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: var(--card-shadow);"></canvas>
-        </div>
-
-        <div class="rng-inputs-grid" style="margin-bottom: 20px;">
-          <div class="input-group">
-            <label>Largura (px)</label>
-            <input type="number" id="imgW" value="600" min="50" max="2000" oninput="updateCanvas()">
-          </div>
-          <div class="input-group">
-            <label>Altura (px)</label>
-            <input type="number" id="imgH" value="400" min="50" max="2000" oninput="updateCanvas()">
-          </div>
-          <div class="input-group">
-            <label>Texto Central</label>
-            <input type="text" id="imgText" value="ellerio placeholder" oninput="updateCanvas()" style="padding:12px; border-radius:8px; border:1px solid var(--border-color); background:var(--textarea-bg); color:var(--text-main);">
-          </div>
-        </div>
-
-        <div class="footer-buttons">
-          <button class="btn-copy" onclick="downloadImage()">Baixar Imagem (.PNG)</button>
-        </div>
     
-      </div>
-    </div>
-  </main>
+    </main>
 
-  <footer class="footer">
-    <p>&copy; ellerio. Feito para ser rápido e direto.</p>
-  </footer>
+    <footer class="footer">
+      <p>&copy; ellerio. Feito para ser rápido, minimalista e satisfatório.</p>
+    </footer>
+  </div>
 
   <div id="toast" class="toast">Copiado com sucesso!</div>
 
+  
+    <script>
+      function updateCanvas() {
+        const w = parseInt(document.getElementById('imgW').value) || 600;
+        const h = parseInt(document.getElementById('imgH').value) || 400;
+        const text = document.getElementById('imgText').value || `${w}x${h}`;
+        const canvas = document.getElementById('imgCanvas');
+        canvas.width = Math.min(w, 800);
+        canvas.height = Math.round(canvas.width * (h / w));
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#202020';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#eeede9';
+        ctx.font = 'bold 22px "Plus Jakarta Sans", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+      }
+      function downloadImage() {
+        const w = parseInt(document.getElementById('imgW').value) || 600;
+        const h = parseInt(document.getElementById('imgH').value) || 400;
+        const text = document.getElementById('imgText').value || `${w}x${h}`;
+        const exp = document.createElement('canvas');
+        exp.width = w; exp.height = h;
+        const ctx = exp.getContext('2d');
+        ctx.fillStyle = '#202020';
+        ctx.fillRect(0, 0, w, h);
+        ctx.fillStyle = '#eeede9';
+        const fs = Math.max(16, Math.round(w / 18));
+        ctx.font = `bold ${fs}px "Plus Jakarta Sans", sans-serif`;
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText(text, w / 2, h / 2);
+        const a = document.createElement('a');
+        a.download = `placeholder-${w}x${h}.png`;
+        a.href = exp.toDataURL('image/png');
+        a.click();
+        showToast('Download iniciado!');
+      }
+      window.addEventListener('DOMContentLoaded', updateCanvas);
+    </script>
+    
+  
   <script>
+    // Theme toggle
+    const themeBtn = document.getElementById('themeToggle');
+    const mobileThemeBtn = document.getElementById('mobileThemeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
+
+    function toggleTheme() {
+      const current = html.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('ellerio-theme', next);
+    }
+    if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+    if (mobileThemeBtn) mobileThemeBtn.addEventListener('click', toggleTheme);
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const sidebar = document.getElementById('sidebar');
+    if (menuToggle && sidebar) {
+      menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        sidebar.classList.toggle('open');
+      });
+      document.addEventListener('click', (e) => {
+        if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+          sidebar.classList.remove('open');
+        }
+      });
+    }
+
     function showToast(msg = 'Copiado com sucesso!') {
       const t = document.getElementById('toast');
       if (t) {
@@ -77,73 +228,7 @@
       }
     }
   </script>
-  
-    <script>
-      function updateCanvas() {
-        const w = parseInt(document.getElementById('imgW').value) || 600;
-        const h = parseInt(document.getElementById('imgH').value) || 400;
-        const text = document.getElementById('imgText').value || `${w}x${h}`;
-
-        const canvas = document.getElementById('imgCanvas');
-        canvas.width = Math.min(w, 800);
-        canvas.height = Math.round(canvas.width * (h / w));
-
-        const ctx = canvas.getContext('2d');
-        ctx.fillStyle = '#242424';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        ctx.fillStyle = '#eeede9';
-        ctx.font = 'bold 24px -apple-system, sans-serif';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(text, canvas.width / 2, canvas.height / 2);
-      }
-
-      function downloadImage() {
-        const w = parseInt(document.getElementById('imgW').value) || 600;
-        const h = parseInt(document.getElementById('imgH').value) || 400;
-        const text = document.getElementById('imgText').value || `${w}x${h}`;
-
-        const exportCanvas = document.createElement('canvas');
-        exportCanvas.width = w;
-        exportCanvas.height = h;
-        const ctx = exportCanvas.getContext('2d');
-
-        ctx.fillStyle = '#242424';
-        ctx.fillRect(0, 0, w, h);
-
-        ctx.fillStyle = '#eeede9';
-        const fontSize = Math.max(16, Math.round(w / 18));
-        ctx.font = `bold ${fontSize}px -apple-system, sans-serif`;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(text, w / 2, h / 2);
-
-        const link = document.createElement('a');
-        link.download = `placeholder-${w}x${h}.png`;
-        link.href = exportCanvas.toDataURL('image/png');
-        link.click();
-        showToast('Download iniciado!');
-      }
-
-      window.addEventListener('DOMContentLoaded', updateCanvas);
-    </script>
-    
-  
-  <script>
-    const themeBtn = document.getElementById('themeToggle');
-    const html = document.documentElement;
-    const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
-    html.setAttribute('data-theme', savedTheme);
-    if (themeBtn) {
-      themeBtn.addEventListener('click', () => {
-        const currentTheme = html.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-        html.setAttribute('data-theme', newTheme);
-        localStorage.setItem('ellerio-theme', newTheme);
-      });
-    }
-  </script>
+  <!-- Monetag ad zone -->
   <script>(function(s){s.dataset.zone='11768463',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
 </body>

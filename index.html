@@ -3,228 +3,296 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ellerio — Utilitários e Ferramentas</title>
+  <title>Utilitários e Ferramentas — ellerio</title>
   <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
   <link rel="stylesheet" href="style.css">
-  <script>(function(s){s.dataset.zone='11768463',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 </head>
 <body>
-
-  <!-- Barra Superior Horizontal Liquid Glass -->
-  <header class="navbar">
-    <div class="navbar-content">
+  
+  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
       <a href="index.html" class="brand">
-        <img src="images/fundo transparente fonte escura.png" alt="ellerio logo" class="logo logo-dark">
-        <img src="images/fundo transparente fonte clara.png" alt="ellerio logo" class="logo logo-light">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio" class="brand-logo logo-dark">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio" class="brand-logo logo-light">
       </a>
+    </div>
 
-      <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
-        <span class="theme-icon">◐</span>
-        <span class="theme-label">Tema</span>
+    <span class="nav-label">Navegação</span>
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a href="index.html" class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">⌂</span> Início</span>
+        </a>
+      </li>
+
+      <!-- Menu Texto com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">✎</span> Texto</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="conversor.html" class="flyout-item">Conversor de Letras</a>
+          <a href="gerador-lorem-ipsum.html" class="flyout-item">Gerador de Lorem Ipsum</a>
+        </div>
+      </li>
+
+      <!-- Menu Documentos Pessoais com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">🪪</span> Documentos</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="gerador-cpf.html" class="flyout-item">Gerador de CPF</a>
+          <a href="gerador-rg.html" class="flyout-item">Gerador de RG</a>
+          <a href="gerador-cnh.html" class="flyout-item">Gerador de CNH</a>
+          <a href="gerador-titulo-eleitor.html" class="flyout-item">Título de Eleitor</a>
+          <a href="gerador-certidoes.html" class="flyout-item">Certidões (Nasc/Casam)</a>
+        </div>
+      </li>
+
+      <!-- Menu Negócios & Empresas com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">🏢</span> Negócios</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="gerador-empresas.html" class="flyout-item">Gerador de Empresas (CNPJ)</a>
+          <a href="gerador-ie.html" class="flyout-item">Inscrição Estadual</a>
+          <a href="gerador-nomes.html" class="flyout-item">Gerador de Nomes</a>
+        </div>
+      </li>
+
+      <!-- Menu Utilitários Gerais com Hover Flyout -->
+      <li class="nav-item">
+        <div class="nav-link">
+          <span class="nav-link-left"><span class="nav-icon">⚡</span> Utilitários</span>
+          <span class="nav-arrow">›</span>
+        </div>
+        <div class="flyout-menu">
+          <a href="gerador-senha.html" class="flyout-item">Gerador de Senha</a>
+          <a href="gerador-numeros.html" class="flyout-item">Gerador de Números</a>
+          <a href="gerador-placa.html" class="flyout-item">Placas de Veículos</a>
+          <a href="gerador-imagem.html" class="flyout-item">Gerador de Imagem</a>
+        </div>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <button id="themeToggle" class="theme-toggle-btn">
+        <span>Modo Escuro / Claro</span>
+        <span class="nav-icon">◐</span>
       </button>
     </div>
-  </header>
+  </aside>
 
-  <!-- Conteúdo Principal -->
-  <main class="main-content">
-    <div class="hero">
-      <span class="badge">Ferramentas Gratuitas</span>
-      <h1>Simplicidade e precisão para o seu dia a dia.</h1>
-      <p class="hero-desc">
-        Acesse utilitários rápidos e minimalistas para manipular textos, formatar códigos e otimizar tarefas direto no seu navegador.
-      </p>
-    </div>
 
-    <!-- Grade de Ferramentas Completa -->
-    <section class="tools-grid">
-      <!-- Texto -->
-      <article class="tool-card">
-        <div class="card-content">
-          <span class="card-tag">Texto</span>
-          <h2>Conversor de Letras</h2>
-          <p>Alterne entre maiúsculas, minúsculas, título e frases instantaneamente.</p>
-        </div>
-        <div class="card-footer">
-          <a href="conversor.html" class="btn-action"><span>Acessar</span><span class="arrow">→</span></a>
-        </div>
-      </article>
+  <div class="app-container">
+    <!-- Topbar para Mobile -->
+    <header class="mobile-topbar">
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+      <a href="index.html" class="brand">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio" class="brand-logo logo-dark" style="height:36px;">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio" class="brand-logo logo-light" style="height:36px;">
+      </a>
+      <button class="menu-toggle" id="mobileThemeToggle" aria-label="Alternar tema">◐</button>
+    </header>
 
-      <!-- Números -->
-      <article class="tool-card">
-        <div class="card-content">
-          <span class="card-tag">Utilitários</span>
-          <h2>Gerador de Números</h2>
-          <p>Sorteie múltiplos números aleatórios com intervalos personalizados.</p>
-        </div>
-        <div class="card-footer">
-          <a href="gerador-numeros.html" class="btn-action"><span>Acessar</span><span class="arrow">→</span></a>
-        </div>
-      </article>
+    <main class="main-content">
+      
+      <div class="hero">
+        <span class="badge">✦ Suíte Minimalista</span>
+        <h1>Ferramentas simples, velozes e precisas.</h1>
+        <p class="hero-desc">
+          Uma seleção de utilitários rápidos com design satisfatório, focados em produtividade, manipulação de texto e geração de dados para testes.
+        </p>
+      </div>
 
-      <!-- Senha -->
-      <article class="tool-card">
-        <div class="card-content">
-          <span class="card-tag">Segurança</span>
-          <h2>Gerador de Senha</h2>
-          <p>Crie senhas fortes e seguras com letras, números e caracteres especiais.</p>
-        </div>
-        <div class="card-footer">
-          <a href="gerador-senha.html" class="btn-action"><span>Acessar</span><span class="arrow">→</span></a>
-        </div>
-      </article>
+      <section class="tools-grid">
+        <a href="conversor.html" class="tool-card">
+          <div>
+            <span class="card-tag">Texto</span>
+            <h2>Conversor de Letras</h2>
+            <p>Alterne entre maiúsculas, minúsculas, título e frases instantaneamente.</p>
+          </div>
+          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+        </a>
 
-      <!-- CPF -->
-      <article class="tool-card">
-        <div class="card-content">
-          <span class="card-tag">Documentos</span>
-          <h2>Gerador de CPF</h2>
-          <p>Gere números de CPF válidos com ou sem pontuação para homologação.</p>
-        </div>
-        <div class="card-footer">
-          <a href="gerador-cpf.html" class="btn-action"><span>Acessar</span><span class="arrow">→</span></a>
-        </div>
-      </article>
+        <a href="gerador-senha.html" class="tool-card">
+          <div>
+            <span class="card-tag">Segurança</span>
+            <h2>Gerador de Senha</h2>
+            <p>Crie credenciais seguras e aleatórias com símbolos, letras e números.</p>
+          </div>
+          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+        </a>
 
-      <!-- RG -->
-      <article class="tool-card">
-        <div class="card-content">
-          <span class="card-tag">Documentos</span>
-          <h2>Gerador de RG</h2>
-          <p>Gere números de Registro Geral com dígito verificador para testes.</p>
-        </div>
-        <div class="card-footer">
-          <a href="gerador-rg.html" class="btn-action"><span>Acessar</span><span class="arrow">→</span></a>
-        </div>
-      </article>
+        <a href="gerador-cpf.html" class="tool-card">
+          <div>
+            <span class="card-tag">Documentos</span>
+            <h2>Gerador de CPF</h2>
+            <p>Gere números de CPF válidos com cálculo matemático para testes de sistemas.</p>
+          </div>
+          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+        </a>
 
-      <!-- CNH -->
-      <article class="tool-card">
-        <div class="card-content">
-          <span class="card-tag">Documentos</span>
-          <h2>Gerador de CNH</h2>
-          <p>Gere números de CNH com cálculo dos dois dígitos verificadores.</p>
-        </div>
-        <div class="card-footer">
-          <a href="gerador-cnh.html" class="btn-action"><span>Acessar</span><span class="arrow">→</span></a>
-        </div>
-      </article>
+        <a href="gerador-rg.html" class="tool-card">
+          <div>
+            <span class="card-tag">Documentos</span>
+            <h2>Gerador de RG</h2>
+            <p>Gere registros gerais com dígitos verificadores e formatação opcional.</p>
+          </div>
+          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+        </a>
 
-      <!-- Título de Eleitor -->
-      <article class="tool-card">
-        <div class="card-content">
-          <span class="card-tag">Documentos</span>
-          <h2>Gerador de Título de Eleitor</h2>
-          <p>Gere números de título eleitoral oficiais por Unidade Federativa.</p>
-        </div>
-        <div class="card-footer">
-          <a href="gerador-titulo-eleitor.html" class="btn-action"><span>Acessar</span><span class="arrow">→</span></a>
-        </div>
-      </article>
+        <a href="gerador-nomes.html" class="tool-card">
+          <div>
+            <span class="card-tag">Cadastros</span>
+            <h2>Gerador de Nomes</h2>
+            <p>Nomes completos realistas brasileiros para homologação e mockups.</p>
+          </div>
+          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+        </a>
 
-      <!-- Certidões -->
-      <article class="tool-card">
-        <div class="card-content">
-          <span class="card-tag">Documentos</span>
-          <h2>Gerador de Certidões</h2>
-          <p>Matrículas de nascimento, casamento e óbito no padrão CNJ de 32 dígitos.</p>
-        </div>
-        <div class="card-footer">
-          <a href="gerador-certidoes.html" class="btn-action"><span>Acessar</span><span class="arrow">→</span></a>
-        </div>
-      </article>
+        <a href="gerador-empresas.html" class="tool-card">
+          <div>
+            <span class="card-tag">Empresarial</span>
+            <h2>Gerador de Empresas</h2>
+            <p>Razão Social e CNPJs válidos calculados segundo a Receita Federal.</p>
+          </div>
+          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+        </a>
 
-      <!-- Nomes -->
-      <article class="tool-card">
-        <div class="card-content">
-          <span class="card-tag">Cadastros</span>
-          <h2>Gerador de Nomes</h2>
-          <p>Nomes completos realistas brasileiros para homologação de dados.</p>
-        </div>
-        <div class="card-footer">
-          <a href="gerador-nomes.html" class="btn-action"><span>Acessar</span><span class="arrow">→</span></a>
-        </div>
-      </article>
+        <a href="gerador-numeros.html" class="tool-card">
+          <div>
+            <span class="card-tag">Utilitários</span>
+            <h2>Gerador de Números</h2>
+            <p>Sorteios de números aleatórios com intervalos e sem repetições.</p>
+          </div>
+          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+        </a>
 
-      <!-- Empresas -->
-      <article class="tool-card">
-        <div class="card-content">
-          <span class="card-tag">Empresarial</span>
-          <h2>Gerador de Empresas</h2>
-          <p>Razão Social fictícia e CNPJ válido calculados para desenvolvimento.</p>
-        </div>
-        <div class="card-footer">
-          <a href="gerador-empresas.html" class="btn-action"><span>Acessar</span><span class="arrow">→</span></a>
-        </div>
-      </article>
+        <a href="gerador-certidoes.html" class="tool-card">
+          <div>
+            <span class="card-tag">Documentos</span>
+            <h2>Gerador de Certidões</h2>
+            <p>Matrículas de nascimento, casamento e óbito no padrão 32 dígitos CNJ.</p>
+          </div>
+          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+        </a>
 
-      <!-- Inscrição Estadual -->
-      <article class="tool-card">
-        <div class="card-content">
-          <span class="card-tag">Empresarial</span>
-          <h2>Gerador de Inscrição Estadual</h2>
-          <p>Inscrições estaduais válidas para SP, RJ, MG e outros estados.</p>
-        </div>
-        <div class="card-footer">
-          <a href="gerador-ie.html" class="btn-action"><span>Acessar</span><span class="arrow">→</span></a>
-        </div>
-      </article>
+        <a href="gerador-cnh.html" class="tool-card">
+          <div>
+            <span class="card-tag">Documentos</span>
+            <h2>Gerador de CNH</h2>
+            <p>Números de CNH válidos com cálculo dos 11 dígitos do Denatran.</p>
+          </div>
+          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+        </a>
 
-      <!-- Placas de Veículos -->
-      <article class="tool-card">
-        <div class="card-content">
-          <span class="card-tag">Veículos</span>
-          <h2>Gerador de Placa de Veículos</h2>
-          <p>Gere placas nos padrões Mercosul (BRA2E19) e tradicional cinza.</p>
-        </div>
-        <div class="card-footer">
-          <a href="gerador-placa.html" class="btn-action"><span>Acessar</span><span class="arrow">→</span></a>
-        </div>
-      </article>
+        <a href="gerador-ie.html" class="tool-card">
+          <div>
+            <span class="card-tag">Empresarial</span>
+            <h2>Inscrição Estadual</h2>
+            <p>Inscrições estaduais calculadas para SP, RJ, MG, RS, CE e outros estados.</p>
+          </div>
+          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+        </a>
 
-      <!-- Lorem Ipsum -->
-      <article class="tool-card">
-        <div class="card-content">
-          <span class="card-tag">Design</span>
-          <h2>Gerador de Lorem Ipsum</h2>
-          <p>Textos temporários de preenchimento para mockups e diagramação.</p>
-        </div>
-        <div class="card-footer">
-          <a href="gerador-lorem-ipsum.html" class="btn-action"><span>Acessar</span><span class="arrow">→</span></a>
-        </div>
-      </article>
+        <a href="gerador-lorem-ipsum.html" class="tool-card">
+          <div>
+            <span class="card-tag">Design</span>
+            <h2>Gerador de Lorem Ipsum</h2>
+            <p>Textos placeholder limpos para preenchimento de mockups e protótipos.</p>
+          </div>
+          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+        </a>
 
-      <!-- Imagem Placeholder -->
-      <article class="tool-card">
-        <div class="card-content">
-          <span class="card-tag">Design</span>
-          <h2>Gerador de Imagem</h2>
-          <p>Crie imagens temporárias com tamanhos e textos customizados para download.</p>
-        </div>
-        <div class="card-footer">
-          <a href="gerador-imagem.html" class="btn-action"><span>Acessar</span><span class="arrow">→</span></a>
-        </div>
-      </article>
-    </section>
-  </main>
+        <a href="gerador-titulo-eleitor.html" class="tool-card">
+          <div>
+            <span class="card-tag">Documentos</span>
+            <h2>Título de Eleitor</h2>
+            <p>Algoritmo oficial do TSE com validação por Unidade Federativa.</p>
+          </div>
+          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+        </a>
 
-  <footer class="footer">
-    <p>&copy; ellerio. Feito para ser rápido e direto.</p>
-  </footer>
+        <a href="gerador-imagem.html" class="tool-card">
+          <div>
+            <span class="card-tag">Design</span>
+            <h2>Gerador de Imagem</h2>
+            <p>Banners e placeholders em dimensões customizadas para download em PNG.</p>
+          </div>
+          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+        </a>
 
-  <!-- Script para alternar o Tema e persistir no navegador -->
+        <a href="gerador-placa.html" class="tool-card">
+          <div>
+            <span class="card-tag">Veículos</span>
+            <h2>Placas de Veículos</h2>
+            <p>Gere placas de carros nos padrões Mercosul e cinza tradicional.</p>
+          </div>
+          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+        </a>
+      </section>
+    
+    </main>
+
+    <footer class="footer">
+      <p>&copy; ellerio. Feito para ser rápido, minimalista e satisfatório.</p>
+    </footer>
+  </div>
+
+  <div id="toast" class="toast">Copiado com sucesso!</div>
+
+  
+  
   <script>
+    // Theme toggle
     const themeBtn = document.getElementById('themeToggle');
+    const mobileThemeBtn = document.getElementById('mobileThemeToggle');
     const html = document.documentElement;
-
     const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
     html.setAttribute('data-theme', savedTheme);
 
-    themeBtn.addEventListener('click', () => {
-      const currentTheme = html.getAttribute('data-theme');
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      html.setAttribute('data-theme', newTheme);
-      localStorage.setItem('ellerio-theme', newTheme);
-    });
+    function toggleTheme() {
+      const current = html.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('ellerio-theme', next);
+    }
+    if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+    if (mobileThemeBtn) mobileThemeBtn.addEventListener('click', toggleTheme);
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const sidebar = document.getElementById('sidebar');
+    if (menuToggle && sidebar) {
+      menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        sidebar.classList.toggle('open');
+      });
+      document.addEventListener('click', (e) => {
+        if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+          sidebar.classList.remove('open');
+        }
+      });
+    }
+
+    function showToast(msg = 'Copiado com sucesso!') {
+      const t = document.getElementById('toast');
+      if (t) {
+        t.textContent = msg;
+        t.style.display = 'block';
+        setTimeout(() => { t.style.display = 'none'; }, 2000);
+      }
+    }
   </script>
+  <!-- Monetag ad zone -->
+  <script>(function(s){s.dataset.zone='11768463',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
 </body>
 </html>
