@@ -1,40 +1,88 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conversor de Maiúsculas e Minúsculas</title>
+  <title>Conversor de Maiúsculas e Minúsculas — ellerio</title>
+  <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="container">
-    <a href="index.html" style="text-decoration: none; color: #2563eb; font-size: 0.9rem; display: inline-block; margin-bottom: 12px;">← Voltar para a Página Inicial</a>
-    <h1>Conversor de Maiúsculas e Minúsculas</h1>
-    <p class="subtitle">Cole seu texto abaixo e escolha a transformação desejada.</p>
+  <!-- Barra de navegação com a Logo aumentada e Botão de Tema -->
+  <header class="navbar">
+    <a href="index.html" class="brand">
+      <img src="images/fundo transparente fonte escura.png" alt="ellerio logo" class="logo logo-dark">
+      <img src="images/fundo transparente fonte clara.png" alt="ellerio logo" class="logo logo-light">
+    </a>
 
-    <textarea id="textInput" placeholder="Digite ou cole seu texto aqui..."></textarea>
-
-    <div class="stats">
-      <span>Caracteres: <strong id="charCount">0</strong></span>
-      <span>Palavras: <strong id="wordCount">0</strong></span>
-      <span>Linhas: <strong id="lineCount">0</strong></span>
+    <div class="nav-actions">
+      <a href="index.html" class="nav-back">← Voltar</a>
+      <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
+        <span class="theme-icon">◐</span>
+        <span class="theme-label">Tema</span>
+      </button>
     </div>
+  </header>
 
-    <div class="actions">
-      <button onclick="transformText('upper')">MAIÚSCULAS</button>
-      <button onclick="transformText('lower')">minúsculas</button>
-      <button onclick="transformText('title')">Primeira Letra De Cada Palavra</button>
-      <button onclick="transformText('sentence')">Primeira letra da frase</button>
-      <button onclick="transformText('alternating')">aLtErNaDaS</button>
-      <button onclick="transformText('inverse')">iNVERTER mAIÚSCULAS</button>
-      <button class="primary" onclick="copyToClipboard()">Copiar Texto</button>
-      <button class="danger" onclick="clearText()">Limpar</button>
+  <main class="main-content">
+    <div class="tool-wrapper">
+      <div class="tool-header">
+        <span class="badge">Ferramenta</span>
+        <h1>Conversor de Letras</h1>
+        <p class="hero-desc">Digite ou cole o texto abaixo e selecione a opção desejada para formatar instantaneamente.</p>
+      </div>
+
+      <!-- Caixa de Texto -->
+      <div class="editor-box">
+        <textarea id="textInput" placeholder="Digite ou cole seu texto aqui..." spellcheck="false"></textarea>
+        
+        <div class="stats-bar">
+          <div class="stat-item">Caracteres: <strong id="charCount">0</strong></div>
+          <div class="stat-item">Palavras: <strong id="wordCount">0</strong></div>
+          <div class="stat-item">Linhas: <strong id="lineCount">0</strong></div>
+        </div>
+      </div>
+
+      <!-- Botões de Ação -->
+      <div class="button-group">
+        <button onclick="transformText('upper')">MAIÚSCULAS</button>
+        <button onclick="transformText('lower')">minúsculas</button>
+        <button onclick="transformText('title')">Primeira Letra Em Maiúsculo</button>
+        <button onclick="transformText('sentence')">Primeira letra de cada frase</button>
+        <button onclick="transformText('alternating')">aLtErNaDaS</button>
+        <button onclick="transformText('inverse')">iNVERTER mAIÚSCULAS</button>
+      </div>
+
+      <!-- Controles Secundários (Copiar e Limpar) -->
+      <div class="footer-buttons">
+        <button class="btn-copy" onclick="copyToClipboard()">Copiar Texto</button>
+        <button class="btn-clear" onclick="clearText()">Limpar Tudo</button>
+      </div>
     </div>
-  </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; ellerio. Feito para ser rápido e direto.</p>
+  </footer>
 
   <div id="toast" class="toast">Texto copiado!</div>
 
+  <!-- Script de transformação e de persistência do Tema Claro/Escuro -->
   <script src="script.js"></script>
+  <script>
+    const themeBtn = document.getElementById('themeToggle');
+    const html = document.documentElement;
+
+    const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
+
+    themeBtn.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('ellerio-theme', newTheme);
+    });
+  </script>
 </body>
 </html>
