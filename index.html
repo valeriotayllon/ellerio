@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conversor de Maiúsculas e Minúsculas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>Conversor de Maiúsculas e Minúsculas</h1>
+    <p class="subtitle">Cole seu texto abaixo e escolha a transformação desejada.</p>
+
+    <textarea id="textInput" placeholder="Digite ou cole seu texto aqui..."></textarea>
+
+    <div class="stats">
+      <span>Caracteres: <strong id="charCount">0</strong></span>
+      <span>Palavras: <strong id="wordCount">0</strong></span>
+      <span>Linhas: <strong id="lineCount">0</strong></span>
+    </div>
+
+    <div class="actions">
+      <button onclick="transformText('upper')">MAIÚSCULAS</button>
+      <button onclick="transformText('lower')">minúsculas</button>
+      <button onclick="transformText('title')">Primeira Letra De Cada Palavra</button>
+      <button onclick="transformText('sentence')">Primeira letra da frase</button>
+      <button onclick="transformText('alternating')">aLtErNaDaS</button>
+      <button onclick="transformText('inverse')">iNVERTER mAIÚSCULAS</button>
+      <button class="primary" onclick="copyToClipboard()">Copiar Texto</button>
+      <button class="danger" onclick="clearText()">Limpar</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">Texto copiado!</div>
+
+  <script src="script.js"></script>
+</body>
+</html>
