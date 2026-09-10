@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de CPF — ellerio</title>
+  <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Barra Superior Horizontal Liquid Glass -->
+  <header class="navbar">
+    <div class="navbar-content">
+      <a href="index.html" class="brand">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio logo" class="logo logo-dark">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio logo" class="logo logo-light">
+      </a>
+
+      <div class="nav-actions">
+        <a href="index.html" class="nav-back">← Voltar</a>
+        <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
+          <span class="theme-icon">◐</span>
+          <span class="theme-label">Tema</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="tool-wrapper">
+      <div class="tool-header">
+        <span class="badge">Ferramenta</span>
+        <h1>Gerador de CPF</h1>
+        <p class="hero-desc">Gere números de CPF válidos para testes de software, cadastros e desenvolvimento de sistemas.</p>
+      </div>
+
+      <!-- Caixa Principal do Gerador -->
+      <div class="generator-box">
+        <div class="display-cpf" id="cpfDisplay">000.000.000-00</div>
+
+        <!-- Opção de Pontuação -->
+        <div class="options-row">
+          <label class="checkbox-label">
+            <input type="checkbox" id="maskCheckbox" checked>
+            <span>Gerar com pontuação (ex: 000.000.000-00)</span>
+          </label>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="footer-buttons">
+          <button class="btn-copy" onclick="generateCPF()">Gerar Novo CPF</button>
+          <button class="btn-clear" onclick="copyCPF()">Copiar</button>
+        </div>
+      </div>
+
+      <p class="tool-disclaimer">
+        * Os números gerados seguem as regras de validação matemática do Ministério da Fazenda e destinam-se exclusivamente para testes e homologação de software.
+      </p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; ellerio. Feito para ser rápido e direto.</p>
+  </footer>
+
+  <div id="toast" class="toast">CPF copiado!</div>
+
+  <script>
+    // Algoritmo Oficial de Geração de CPF Válido
+    function generateCPF() {
+      const mask = document.getElementById('maskCheckbox').checked;
+      const randomDigits = () => Math.floor(Math.random() * 9);
+
+      // 9 primeiros dígitos
+      const digits = Array.from({ length: 9 }, () => randomDigits());
+
+      // Cálculo do 1º Dígito Verificador
+      let sum1 = 0;
+      for (let i = 0; i < 9; i++) {
+        sum1 += digits[i] * (10 - i);
+      }
+      let d1 = 11 - (sum1 % 11);
+      if (d1 >= 10) d1 = 0;
+      digits.push(d1);
+
+      // Cálculo do 2º Dígito Verificador
+      let sum2 = 0;
+      for (let i = 0; i < 10; i++) {
+        sum2 += digits[i] * (11 - i);
+      }
+      let d2 = 11 - (sum2 % 11);
+      if (d2 >= 10) d2 = 0;
+      digits.push(d2);
+
+      let cpfFinal = digits.join('');
+
+      if (mask) {
+        cpfFinal = cpfFinal.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+      }
+
+      document.getElementById('cpfDisplay').textContent = cpfFinal;
+    }
+
+    // Copiar para a área de transferência
+    async function copyCPF() {
+      const cpfText = document.getElementById('cpfDisplay').textContent;
+      if (!cpfText || cpfText === '000.000.000-00') {
+        generateCPF();
+      }
+      try {
+        await navigator.clipboard.writeText(document.getElementById('cpfDisplay').textContent);
+        showToast('CPF copiado com sucesso!');
+      } catch (e) {
+        showToast('Falha ao copiar.');
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 2000);
+    }
+
+    // Gerar um automaticamente assim que abre a página
+    window.addEventListener('DOMContentLoaded', generateCPF);
+
+    // Gerenciador do Tema Claro/Escuro
+    const themeBtn = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
+
+    themeBtn.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('ellerio-theme', newTheme);
+    });
+  </script>
+</body>
+</html>
