@@ -1,111 +1,78 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ferramentas Online</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-
-    body {
-      background-color: #f8fafc;
-      color: #1e293b;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 24px;
-      text-align: center;
-    }
-
-    .hero {
-      max-width: 650px;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 16px;
-      color: #0f172a;
-    }
-
-    p {
-      font-size: 1.15rem;
-      color: #64748b;
-      margin-bottom: 32px;
-      line-height: 1.6;
-    }
-
-    .btn-primary {
-      display: inline-block;
-      background-color: #2563eb;
-      color: #ffffff;
-      padding: 14px 28px;
-      font-size: 1.05rem;
-      font-weight: 600;
-      text-decoration: none;
-      border-radius: 8px;
-      transition: background-color 0.2s, transform 0.1s;
-      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
-    }
-
-    .btn-primary:hover {
-      background-color: #1d4ed8;
-      transform: translateY(-1px);
-    }
-
-    .card-grid {
-      margin-top: 48px;
-      display: grid;
-      gap: 20px;
-      width: 100%;
-      max-width: 600px;
-    }
-
-    .tool-card {
-      background: #ffffff;
-      padding: 20px;
-      border-radius: 8px;
-      border: 1px solid #e2e8f0;
-      text-align: left;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .tool-card h3 {
-      font-size: 1.1rem;
-      margin-bottom: 4px;
-    }
-
-    .tool-card p {
-      font-size: 0.9rem;
-      margin-bottom: 0;
-    }
-  </style>
+  <title>ellerio — Utilitários e Ferramentas</title>
+  <!-- Favicon usando a versão com fundo transparente -->
+  <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="hero">
-    <h1>Utilitários e Ferramentas Gratuitas</h1>
-    <p>Acesse utilitários rápidos para manipular textos, formatar códigos e facilitar sua rotina direto no navegador.</p>
+  <!-- Barra de navegação com Logo e Botão de Tema -->
+  <header class="navbar">
+    <a href="index.html" class="brand">
+      <!-- Imagem no tema claro -->
+      <img src="images/fundo transparente fonte escura.png" alt="ellerio logo" class="logo logo-dark">
+      <!-- Imagem no tema escuro -->
+      <img src="images/fundo transparente fonte clara.png" alt="ellerio logo" class="logo logo-light">
+    </a>
 
-    <div class="card-grid">
-      <div class="tool-card">
-        <div>
-          <h3>Conversor de Letras</h3>
-          <p>Mude textos para maiúsculas, minúsculas, título e frases.</p>
-        </div>
-        <a href="conversor.html" class="btn-primary" style="padding: 10px 18px; font-size: 0.95rem;">Abrir</a>
-      </div>
+    <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
+      <span class="theme-icon">◐</span>
+      <span class="theme-label">Tema</span>
+    </button>
+  </header>
+
+  <!-- Seção Principal -->
+  <main class="main-content">
+    <div class="hero">
+      <span class="badge">Ferramentas gratuitas</span>
+      <h1>Simplicidade e precisão para o seu dia a dia.</h1>
+      <p class="hero-desc">
+        Acesse utilitários rápidos e minimalistas para manipular textos, formatar códigos e otimizar tarefas direto no seu navegador.
+      </p>
     </div>
-  </div>
 
+    <!-- Grade de Ferramentas -->
+    <section class="tools-grid">
+      <article class="tool-card">
+        <div class="card-content">
+          <span class="card-tag">Texto</span>
+          <h2>Conversor de Letras</h2>
+          <p>Alterne instantaneamente entre maiúsculas, minúsculas, título de palavras e primeiras letras de frases.</p>
+        </div>
+        <div class="card-footer">
+          <a href="conversor.html" class="btn-action">
+            <span>Acessar</span>
+            <span class="arrow">→</span>
+          </a>
+        </div>
+      </article>
+      <!-- Futuras ferramentas podem ser coladas aqui no mesmo formato -->
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; ellerio. Feito para ser rápido e direto.</p>
+  </footer>
+
+  <!-- Script simples para alternar o tema Claro/Escuro -->
+  <script>
+    const themeBtn = document.getElementById('themeToggle');
+    const html = document.documentElement;
+
+    // Recupera preferência anterior salva
+    const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
+
+    themeBtn.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('ellerio-theme', newTheme);
+    });
+  </script>
 </body>
 </html>
