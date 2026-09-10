@@ -163,8 +163,25 @@ body {
   align-items: center;
 }
 
+/* ==========================================================
+   HERO CENTRALIZADO
+   ========================================================== */
 .hero {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  text-align: center;
+  max-width: 750px;
 }
 
 .badge {
@@ -194,7 +211,7 @@ h1 {
   color: var(--text-muted);
   max-width: 580px;
   line-height: 1.6;
-  margin-bottom: 36px;
+  margin: 0 auto 36px auto; /* 0 auto centraliza horizontalmente o bloco */
   text-align: center;
 }
 
