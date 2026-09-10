@@ -4,31 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ellerio — Utilitários e Ferramentas</title>
-  <!-- Favicon usando a versão com fundo transparente -->
   <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Barra de navegação com Logo e Botão de Tema -->
+  <!-- Barra Superior Horizontal Liquid Glass -->
   <header class="navbar">
-    <a href="index.html" class="brand">
-      <!-- Imagem no tema claro -->
-      <img src="images/fundo transparente fonte escura.png" alt="ellerio logo" class="logo logo-dark">
-      <!-- Imagem no tema escuro -->
-      <img src="images/fundo transparente fonte clara.png" alt="ellerio logo" class="logo logo-light">
-    </a>
+    <div class="navbar-content">
+      <a href="index.html" class="brand">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio logo" class="logo logo-dark">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio logo" class="logo logo-light">
+      </a>
 
-    <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
-      <span class="theme-icon">◐</span>
-      <span class="theme-label">Tema</span>
-    </button>
+      <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
+        <span class="theme-icon">◐</span>
+        <span class="theme-label">Tema</span>
+      </button>
+    </div>
   </header>
 
-  <!-- Seção Principal -->
+  <!-- Conteúdo Principal -->
   <main class="main-content">
     <div class="hero">
-      <span class="badge">Ferramentas gratuitas</span>
+      <span class="badge">Ferramentas Gratuitas</span>
       <h1>Simplicidade e precisão para o seu dia a dia.</h1>
       <p class="hero-desc">
         Acesse utilitários rápidos e minimalistas para manipular textos, formatar códigos e otimizar tarefas direto no seu navegador.
@@ -41,16 +40,15 @@
         <div class="card-content">
           <span class="card-tag">Texto</span>
           <h2>Conversor de Letras</h2>
-          <p>Alterne instantaneamente entre maiúsculas, minúsculas, título de palavras e primeiras letras de frases.</p>
+          <p>Alterne instantaneamente entre maiúsculas, minúsculas, títulos de palavras e primeiras letras de frases.</p>
         </div>
         <div class="card-footer">
           <a href="conversor.html" class="btn-action">
-            <span>Acessar</span>
+            <span>Acessar Ferramenta</span>
             <span class="arrow">→</span>
           </a>
         </div>
       </article>
-      <!-- Futuras ferramentas podem ser coladas aqui no mesmo formato -->
     </section>
   </main>
 
@@ -58,12 +56,11 @@
     <p>&copy; ellerio. Feito para ser rápido e direto.</p>
   </footer>
 
-  <!-- Script simples para alternar o tema Claro/Escuro -->
+  <!-- Script para alternar o Tema e persistir no navegador -->
   <script>
     const themeBtn = document.getElementById('themeToggle');
     const html = document.documentElement;
 
-    // Recupera preferência anterior salva
     const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
     html.setAttribute('data-theme', savedTheme);
 
