@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Lorem Ipsum — ellerio</title>
+  <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-content">
+      <a href="index.html" class="brand">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio logo" class="logo logo-dark">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio logo" class="logo logo-light">
+      </a>
+      <div class="nav-actions">
+        <a href="index.html" class="nav-back">← Voltar</a>
+        <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
+          <span class="theme-icon">◐</span>
+          <span class="theme-label">Tema</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="tool-wrapper">
+      <div class="tool-header">
+        <span class="badge">Ferramenta</span>
+        <h1>Gerador de Lorem Ipsum</h1>
+        <p class="hero-desc">Gere textos de preenchimento (placeholder) para designs, layouts e testes gráficos.</p>
+      </div>
+
+      <div class="generator-box">
+        
+        <div class="editor-box" style="margin-bottom: 20px;">
+          <textarea id="loremOutput" style="height: 220px;" readonly></textarea>
+        </div>
+
+        <div class="options-row" style="gap: 16px;">
+          <div class="input-group">
+            <label>Quantidade de Parágrafos</label>
+            <input type="number" id="loremCount" min="1" max="10" value="3" style="width: 120px;">
+          </div>
+        </div>
+
+        <div class="footer-buttons">
+          <button class="btn-copy" onclick="generateLorem()">Gerar Novo Texto</button>
+          <button class="btn-clear" onclick="copyLorem()">Copiar Texto</button>
+        </div>
+    
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; ellerio. Feito para ser rápido e direto.</p>
+  </footer>
+
+  <div id="toast" class="toast">Copiado com sucesso!</div>
+
+  <script>
+    function showToast(msg = 'Copiado com sucesso!') {
+      const t = document.getElementById('toast');
+      if (t) {
+        t.textContent = msg;
+        t.style.display = 'block';
+        setTimeout(() => { t.style.display = 'none'; }, 2000);
+      }
+    }
+  </script>
+  
+    <script>
+      const paragraphs = [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida.",
+        "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci. Aenean nec lorem. In porttitor. Donec laoreet nonummy augue.",
+        "Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy. Fusce aliquet pede non pede. Suspendisse dapibus lorem pellentesque magna."
+      ];
+
+      function generateLorem() {
+        const count = parseInt(document.getElementById('loremCount').value) || 1;
+        let result = [];
+        for (let i = 0; i < count; i++) {
+          result.push(paragraphs[i % paragraphs.length]);
+        }
+        document.getElementById('loremOutput').value = result.join('\n\n');
+      }
+
+      async function copyLorem() {
+        await navigator.clipboard.writeText(document.getElementById('loremOutput').value);
+        showToast('Lorem Ipsum copiado!');
+      }
+      window.addEventListener('DOMContentLoaded', generateLorem);
+    </script>
+    
+  
+  <script>
+    const themeBtn = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('ellerio-theme', newTheme);
+      });
+    }
+  </script>
+  <script>(function(s){s.dataset.zone='11768463',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+</body>
+</html>

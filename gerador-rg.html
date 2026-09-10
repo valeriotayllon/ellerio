@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de RG — ellerio</title>
+  <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-content">
+      <a href="index.html" class="brand">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio logo" class="logo logo-dark">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio logo" class="logo logo-light">
+      </a>
+      <div class="nav-actions">
+        <a href="index.html" class="nav-back">← Voltar</a>
+        <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
+          <span class="theme-icon">◐</span>
+          <span class="theme-label">Tema</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="tool-wrapper">
+      <div class="tool-header">
+        <span class="badge">Ferramenta</span>
+        <h1>Gerador de RG</h1>
+        <p class="hero-desc">Gere números de RG (Registro Geral) válidos para preenchimento e testes cadastrais.</p>
+      </div>
+
+      <div class="generator-box">
+        
+        <div class="display-cpf" id="rgDisplay">00.000.000-0</div>
+        
+        <div class="options-row">
+          <label class="checkbox-label">
+            <input type="checkbox" id="rgMask" checked onchange="generateRG()">
+            <span>Gerar com pontuação (ex: 00.000.000-0)</span>
+          </label>
+        </div>
+
+        <div class="footer-buttons">
+          <button class="btn-copy" onclick="generateRG()">Gerar Novo RG</button>
+          <button class="btn-clear" onclick="copyRG()">Copiar RG</button>
+        </div>
+        <p class="tool-disclaimer" style="margin-top:20px;">* Números aleatórios fictícios destinados unicamente para desenvolvimento e testes de software.</p>
+    
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; ellerio. Feito para ser rápido e direto.</p>
+  </footer>
+
+  <div id="toast" class="toast">Copiado com sucesso!</div>
+
+  <script>
+    function showToast(msg = 'Copiado com sucesso!') {
+      const t = document.getElementById('toast');
+      if (t) {
+        t.textContent = msg;
+        t.style.display = 'block';
+        setTimeout(() => { t.style.display = 'none'; }, 2000);
+      }
+    }
+  </script>
+  
+    <script>
+      function generateRG() {
+        const mask = document.getElementById('rgMask').checked;
+        const d = Array.from({length: 8}, () => Math.floor(Math.random() * 10));
+        let sum = 0;
+        for (let i = 0; i < 8; i++) {
+          sum += d[i] * (2 + i);
+        }
+        let digit = 11 - (sum % 11);
+        let digChar = digit === 10 ? 'X' : (digit === 11 ? '0' : digit.toString());
+        
+        let rg = d.join('') + digChar;
+        if (mask) {
+          rg = rg.replace(/^(\d{2})(\d{3})(\d{3})([0-9X])$/, '$1.$2.$3-$4');
+        }
+        document.getElementById('rgDisplay').innerText = rg;
+      }
+      async function copyRG() {
+        await navigator.clipboard.writeText(document.getElementById('rgDisplay').innerText);
+        showToast('RG copiado!');
+      }
+      window.addEventListener('DOMContentLoaded', generateRG);
+    </script>
+    
+  
+  <script>
+    const themeBtn = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('ellerio-theme', newTheme);
+      });
+    }
+  </script>
+  <script>(function(s){s.dataset.zone='11768463',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+</body>
+</html>

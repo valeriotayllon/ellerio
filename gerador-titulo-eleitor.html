@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Título de Eleitor — ellerio</title>
+  <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-content">
+      <a href="index.html" class="brand">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio logo" class="logo logo-dark">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio logo" class="logo logo-light">
+      </a>
+      <div class="nav-actions">
+        <a href="index.html" class="nav-back">← Voltar</a>
+        <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
+          <span class="theme-icon">◐</span>
+          <span class="theme-label">Tema</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="tool-wrapper">
+      <div class="tool-header">
+        <span class="badge">Ferramenta</span>
+        <h1>Gerador de Título de Eleitor</h1>
+        <p class="hero-desc">Gere números de Título de Eleitor válidos segundo o cálculo oficial da Justiça Eleitoral (TSE).</p>
+      </div>
+
+      <div class="generator-box">
+        
+        <div class="display-cpf" id="tituloDisplay">0000 0000 0000</div>
+        
+        <div class="options-row" style="width: 100%; max-width: 320px; margin: 16px auto;">
+          <div class="input-group" style="width: 100%;">
+            <label>UF do Título</label>
+            <select id="tituloUf" onchange="generateTitulo()" style="padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--textarea-bg); color: var(--text-main); font-size: 1rem; outline: none;">
+              <option value="01">São Paulo (SP)</option>
+              <option value="02">Minas Gerais (MG)</option>
+              <option value="03">Rio de Janeiro (RJ)</option>
+              <option value="04">Rio Grande do Sul (RS)</option>
+              <option value="05">Bahia (BA)</option>
+              <option value="06">Paraná (PR)</option>
+              <option value="07">Ceará (CE)</option>
+              <option value="08">Pernambuco (PE)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="footer-buttons">
+          <button class="btn-copy" onclick="generateTitulo()">Gerar Título de Eleitor</button>
+          <button class="btn-clear" onclick="copyTitulo()">Copiar Título</button>
+        </div>
+        <p class="tool-disclaimer" style="margin-top:20px;">* Segue as regras do algoritmo módulo 11 de dígitos verificadores do Tribunal Superior Eleitoral (TSE).</p>
+    
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; ellerio. Feito para ser rápido e direto.</p>
+  </footer>
+
+  <div id="toast" class="toast">Copiado com sucesso!</div>
+
+  <script>
+    function showToast(msg = 'Copiado com sucesso!') {
+      const t = document.getElementById('toast');
+      if (t) {
+        t.textContent = msg;
+        t.style.display = 'block';
+        setTimeout(() => { t.style.display = 'none'; }, 2000);
+      }
+    }
+  </script>
+  
+    <script>
+      function generateTitulo() {
+        const ufCode = document.getElementById('tituloUf').value;
+        const rnd = () => Math.floor(Math.random() * 10);
+        const d = Array.from({length: 8}, () => rnd()); // 8 dígitos de inscrição
+        const ufDigits = [parseInt(ufCode[0]), parseInt(ufCode[1])];
+
+        // 1º dígito verificador
+        let s1 = 0;
+        for (let i = 0; i < 8; i++) {
+          s1 += d[i] * (2 + i);
+        }
+        let d1 = s1 % 11;
+        if (d1 === 10) d1 = 0;
+
+        // 2º dígito verificador
+        let s2 = (ufDigits[0] * 7) + (ufDigits[1] * 8) + (d1 * 9);
+        let d2 = s2 % 11;
+        if (d2 === 10) d2 = 0;
+
+        const num = d.join('') + ufCode + d1.toString() + d2.toString();
+        const formatted = num.replace(/^(\d{4})(\d{4})(\d{4})$/, '$1 $2 $3');
+        document.getElementById('tituloDisplay').innerText = formatted;
+      }
+
+      async function copyTitulo() {
+        await navigator.clipboard.writeText(document.getElementById('tituloDisplay').innerText);
+        showToast('Título de Eleitor copiado!');
+      }
+      window.addEventListener('DOMContentLoaded', generateTitulo);
+    </script>
+    
+  
+  <script>
+    const themeBtn = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('ellerio-theme', newTheme);
+      });
+    }
+  </script>
+  <script>(function(s){s.dataset.zone='11768463',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+</body>
+</html>

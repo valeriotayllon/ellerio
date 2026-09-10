@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Empresas — ellerio</title>
+  <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-content">
+      <a href="index.html" class="brand">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio logo" class="logo logo-dark">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio logo" class="logo logo-light">
+      </a>
+      <div class="nav-actions">
+        <a href="index.html" class="nav-back">← Voltar</a>
+        <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
+          <span class="theme-icon">◐</span>
+          <span class="theme-label">Tema</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="tool-wrapper">
+      <div class="tool-header">
+        <span class="badge">Ferramenta</span>
+        <h1>Gerador de Empresas</h1>
+        <p class="hero-desc">Gere dados fictícios completos de empresas com CNPJ válido e Razão Social para testes.</p>
+      </div>
+
+      <div class="generator-box">
+        
+        <div style="width: 100%; display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
+          <div style="text-align: left;">
+            <label style="font-size:0.85rem; font-weight:600; color:var(--text-muted);">Razão Social</label>
+            <div class="display-cpf" id="razaoDisplay" style="font-size:1.3rem; padding:12px; margin-bottom:0;">Empresa Exemplo Ltda</div>
+          </div>
+          <div style="text-align: left;">
+            <label style="font-size:0.85rem; font-weight:600; color:var(--text-muted);">CNPJ</label>
+            <div class="display-cpf" id="cnpjDisplay" style="font-size:1.3rem; padding:12px; margin-bottom:0;">00.000.000/0001-00</div>
+          </div>
+        </div>
+
+        <div class="options-row">
+          <label class="checkbox-label">
+            <input type="checkbox" id="cnpjMask" checked onchange="generateCompany()">
+            <span>Gerar CNPJ com pontuação</span>
+          </label>
+        </div>
+
+        <div class="footer-buttons">
+          <button class="btn-copy" onclick="generateCompany()">Gerar Nova Empresa</button>
+          <button class="btn-clear" onclick="copyCompany()">Copiar Dados</button>
+        </div>
+        <p class="tool-disclaimer" style="margin-top:20px;">* Dados fictícios com algoritmo matemático de CNPJ válido da Receita Federal para homologação de sistemas.</p>
+    
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; ellerio. Feito para ser rápido e direto.</p>
+  </footer>
+
+  <div id="toast" class="toast">Copiado com sucesso!</div>
+
+  <script>
+    function showToast(msg = 'Copiado com sucesso!') {
+      const t = document.getElementById('toast');
+      if (t) {
+        t.textContent = msg;
+        t.style.display = 'block';
+        setTimeout(() => { t.style.display = 'none'; }, 2000);
+      }
+    }
+  </script>
+  
+    <script>
+      const companyPrefix = ["Alfa", "Nexus", "Vanguard", "Apex", "Horizonte", "Omni", "Solaris", "Inova", "Delta", "Prime", "Lúmina", "Quantum"];
+      const companySectors = ["Tecnologia", "Logística", "Consultoria", "Comércio", "Serviços", "Engenharia", "Alimentos", "Sistemas", "Digital"];
+      const companySuffix = ["Ltda", "S.A.", "Me", "Eireli"];
+
+      function generateCNPJ(mask) {
+        let n = Array.from({length: 8}, () => Math.floor(Math.random() * 10)).concat([0, 0, 0, 1]);
+        let w1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+        let s1 = n.reduce((acc, v, i) => acc + v * w1[i], 0);
+        let d1 = 11 - (s1 % 11);
+        d1 = d1 >= 10 ? 0 : d1;
+        n.push(d1);
+
+        let w2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+        let s2 = n.reduce((acc, v, i) => acc + v * w2[i], 0);
+        let d2 = 11 - (s2 % 11);
+        d2 = d2 >= 10 ? 0 : d2;
+        n.push(d2);
+
+        let str = n.join('');
+        return mask ? str.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, '$1.$2.$3/$4-$5') : str;
+      }
+
+      function generateCompany() {
+        const mask = document.getElementById('cnpjMask').checked;
+        const p = companyPrefix[Math.floor(Math.random() * companyPrefix.length)];
+        const s = companySectors[Math.floor(Math.random() * companySectors.length)];
+        const suf = companySuffix[Math.floor(Math.random() * companySuffix.length)];
+        
+        document.getElementById('razaoDisplay').innerText = `${p} ${s} ${suf}`;
+        document.getElementById('cnpjDisplay').innerText = generateCNPJ(mask);
+      }
+
+      async function copyCompany() {
+        const text = `Razão Social: ${document.getElementById('razaoDisplay').innerText}\nCNPJ: ${document.getElementById('cnpjDisplay').innerText}`;
+        await navigator.clipboard.writeText(text);
+        showToast('Dados da empresa copiados!');
+      }
+      window.addEventListener('DOMContentLoaded', generateCompany);
+    </script>
+    
+  
+  <script>
+    const themeBtn = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('ellerio-theme', newTheme);
+      });
+    }
+  </script>
+  <script>(function(s){s.dataset.zone='11768463',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+</body>
+</html>

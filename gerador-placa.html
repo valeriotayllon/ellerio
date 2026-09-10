@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Placas de Veículos — ellerio</title>
+  <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-content">
+      <a href="index.html" class="brand">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio logo" class="logo logo-dark">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio logo" class="logo logo-light">
+      </a>
+      <div class="nav-actions">
+        <a href="index.html" class="nav-back">← Voltar</a>
+        <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
+          <span class="theme-icon">◐</span>
+          <span class="theme-label">Tema</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="tool-wrapper">
+      <div class="tool-header">
+        <span class="badge">Ferramenta</span>
+        <h1>Gerador de Placa de Veículos</h1>
+        <p class="hero-desc">Gere placas de carros e motos no padrão Mercosul (BRA2E19) e no padrão cinza tradicional (ABC-1234).</p>
+      </div>
+
+      <div class="generator-box">
+        
+        <div class="display-cpf" id="placaDisplay" style="font-size: clamp(2rem, 6vw, 3rem); letter-spacing: 0.15em;">BRA2E19</div>
+        
+        <div class="options-row" style="gap: 20px;">
+          <label class="checkbox-label"><input type="radio" name="placaTipo" value="mercosul" checked onchange="generatePlaca()"> Padrão Mercosul</label>
+          <label class="checkbox-label"><input type="radio" name="placaTipo" value="antiga" onchange="generatePlaca()"> Padrão Antigo (Cinza)</label>
+        </div>
+
+        <div class="footer-buttons">
+          <button class="btn-copy" onclick="generatePlaca()">Gerar Nova Placa</button>
+          <button class="btn-clear" onclick="copyPlaca()">Copiar Placa</button>
+        </div>
+    
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; ellerio. Feito para ser rápido e direto.</p>
+  </footer>
+
+  <div id="toast" class="toast">Copiado com sucesso!</div>
+
+  <script>
+    function showToast(msg = 'Copiado com sucesso!') {
+      const t = document.getElementById('toast');
+      if (t) {
+        t.textContent = msg;
+        t.style.display = 'block';
+        setTimeout(() => { t.style.display = 'none'; }, 2000);
+      }
+    }
+  </script>
+  
+    <script>
+      function generatePlaca() {
+        const tipo = document.querySelector('input[name="placaTipo"]:checked').value;
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const rndL = () => letters[Math.floor(Math.random() * letters.length)];
+        const rndN = () => Math.floor(Math.random() * 10);
+
+        let placa = "";
+        if (tipo === 'mercosul') {
+          // Formato: LLLNLNN
+          placa = `${rndL()}${rndL()}${rndL()}${rndN()}${rndL()}${rndN()}${rndN()}`;
+        } else {
+          // Formato: LLL-NNNN
+          placa = `${rndL()}${rndL()}${rndL()}-${rndN()}${rndN()}${rndN()}${rndN()}`;
+        }
+        document.getElementById('placaDisplay').innerText = placa;
+      }
+
+      async function copyPlaca() {
+        await navigator.clipboard.writeText(document.getElementById('placaDisplay').innerText);
+        showToast('Placa copiada!');
+      }
+      window.addEventListener('DOMContentLoaded', generatePlaca);
+    </script>
+    
+  
+  <script>
+    const themeBtn = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('ellerio-theme', newTheme);
+      });
+    }
+  </script>
+  <script>(function(s){s.dataset.zone='11768463',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+</body>
+</html>

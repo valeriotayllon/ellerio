@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Imagem Placeholder — ellerio</title>
+  <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-content">
+      <a href="index.html" class="brand">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio logo" class="logo logo-dark">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio logo" class="logo logo-light">
+      </a>
+      <div class="nav-actions">
+        <a href="index.html" class="nav-back">← Voltar</a>
+        <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
+          <span class="theme-icon">◐</span>
+          <span class="theme-label">Tema</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="tool-wrapper">
+      <div class="tool-header">
+        <span class="badge">Ferramenta</span>
+        <h1>Gerador de Imagem Placeholder</h1>
+        <p class="hero-desc">Gere e baixe imagens temporárias com dimensões e cores personalizadas para designs e mockups.</p>
+      </div>
+
+      <div class="generator-box">
+        
+        <div style="margin-bottom: 20px; display: flex; justify-content: center;">
+          <canvas id="imgCanvas" width="400" height="250" style="max-width: 100%; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: var(--card-shadow);"></canvas>
+        </div>
+
+        <div class="rng-inputs-grid" style="margin-bottom: 20px;">
+          <div class="input-group">
+            <label>Largura (px)</label>
+            <input type="number" id="imgW" value="600" min="50" max="2000" oninput="updateCanvas()">
+          </div>
+          <div class="input-group">
+            <label>Altura (px)</label>
+            <input type="number" id="imgH" value="400" min="50" max="2000" oninput="updateCanvas()">
+          </div>
+          <div class="input-group">
+            <label>Texto Central</label>
+            <input type="text" id="imgText" value="ellerio placeholder" oninput="updateCanvas()" style="padding:12px; border-radius:8px; border:1px solid var(--border-color); background:var(--textarea-bg); color:var(--text-main);">
+          </div>
+        </div>
+
+        <div class="footer-buttons">
+          <button class="btn-copy" onclick="downloadImage()">Baixar Imagem (.PNG)</button>
+        </div>
+    
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; ellerio. Feito para ser rápido e direto.</p>
+  </footer>
+
+  <div id="toast" class="toast">Copiado com sucesso!</div>
+
+  <script>
+    function showToast(msg = 'Copiado com sucesso!') {
+      const t = document.getElementById('toast');
+      if (t) {
+        t.textContent = msg;
+        t.style.display = 'block';
+        setTimeout(() => { t.style.display = 'none'; }, 2000);
+      }
+    }
+  </script>
+  
+    <script>
+      function updateCanvas() {
+        const w = parseInt(document.getElementById('imgW').value) || 600;
+        const h = parseInt(document.getElementById('imgH').value) || 400;
+        const text = document.getElementById('imgText').value || `${w}x${h}`;
+
+        const canvas = document.getElementById('imgCanvas');
+        canvas.width = Math.min(w, 800);
+        canvas.height = Math.round(canvas.width * (h / w));
+
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#242424';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = '#eeede9';
+        ctx.font = 'bold 24px -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+      }
+
+      function downloadImage() {
+        const w = parseInt(document.getElementById('imgW').value) || 600;
+        const h = parseInt(document.getElementById('imgH').value) || 400;
+        const text = document.getElementById('imgText').value || `${w}x${h}`;
+
+        const exportCanvas = document.createElement('canvas');
+        exportCanvas.width = w;
+        exportCanvas.height = h;
+        const ctx = exportCanvas.getContext('2d');
+
+        ctx.fillStyle = '#242424';
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.fillStyle = '#eeede9';
+        const fontSize = Math.max(16, Math.round(w / 18));
+        ctx.font = `bold ${fontSize}px -apple-system, sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(text, w / 2, h / 2);
+
+        const link = document.createElement('a');
+        link.download = `placeholder-${w}x${h}.png`;
+        link.href = exportCanvas.toDataURL('image/png');
+        link.click();
+        showToast('Download iniciado!');
+      }
+
+      window.addEventListener('DOMContentLoaded', updateCanvas);
+    </script>
+    
+  
+  <script>
+    const themeBtn = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('ellerio-theme', newTheme);
+      });
+    }
+  </script>
+  <script>(function(s){s.dataset.zone='11768463',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+</body>
+</html>

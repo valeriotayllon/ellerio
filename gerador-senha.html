@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Senha — ellerio</title>
+  <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-content">
+      <a href="index.html" class="brand">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio logo" class="logo logo-dark">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio logo" class="logo logo-light">
+      </a>
+      <div class="nav-actions">
+        <a href="index.html" class="nav-back">← Voltar</a>
+        <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
+          <span class="theme-icon">◐</span>
+          <span class="theme-label">Tema</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="tool-wrapper">
+      <div class="tool-header">
+        <span class="badge">Ferramenta</span>
+        <h1>Gerador de Senha</h1>
+        <p class="hero-desc">Gere senhas fortes e seguras personalizadas com números, símbolos e letras.</p>
+      </div>
+
+      <div class="generator-box">
+        
+        <div class="display-cpf" id="passDisplay" style="font-size: clamp(1.2rem, 4vw, 1.8rem); word-break: break-all;">********</div>
+        
+        <div class="options-row" style="flex-direction: column; gap: 12px; align-items: flex-start; width: 100%; max-width: 400px; margin: 16px auto;">
+          <div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <label style="font-weight: 600;">Comprimento: <span id="lenVal">16</span></label>
+            <input type="range" id="lenRange" min="6" max="64" value="16" oninput="document.getElementById('lenVal').innerText=this.value; generatePass();" style="cursor:pointer;">
+          </div>
+          <label class="checkbox-label"><input type="checkbox" id="chkUpper" checked onchange="generatePass()"> Letras maiúsculas (A-Z)</label>
+          <label class="checkbox-label"><input type="checkbox" id="chkLower" checked onchange="generatePass()"> Letras minúsculas (a-z)</label>
+          <label class="checkbox-label"><input type="checkbox" id="chkNum" checked onchange="generatePass()"> Números (0-9)</label>
+          <label class="checkbox-label"><input type="checkbox" id="chkSym" checked onchange="generatePass()"> Símbolos (!@#$%&*)</label>
+        </div>
+
+        <div class="footer-buttons" style="margin-top: 20px;">
+          <button class="btn-copy" onclick="generatePass()">Gerar Nova Senha</button>
+          <button class="btn-clear" onclick="copyPass()">Copiar Senha</button>
+        </div>
+    
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; ellerio. Feito para ser rápido e direto.</p>
+  </footer>
+
+  <div id="toast" class="toast">Copiado com sucesso!</div>
+
+  <script>
+    function showToast(msg = 'Copiado com sucesso!') {
+      const t = document.getElementById('toast');
+      if (t) {
+        t.textContent = msg;
+        t.style.display = 'block';
+        setTimeout(() => { t.style.display = 'none'; }, 2000);
+      }
+    }
+  </script>
+  
+    <script>
+      function generatePass() {
+        const len = parseInt(document.getElementById('lenRange').value);
+        const u = document.getElementById('chkUpper').checked ? "ABCDEFGHIJKLMNOPQRSTUVWXYZ" : "";
+        const l = document.getElementById('chkLower').checked ? "abcdefghijklmnopqrstuvwxyz" : "";
+        const n = document.getElementById('chkNum').checked ? "0123456789" : "";
+        const s = document.getElementById('chkSym').checked ? "!@#$%&*_-+=?~" : "";
+        const chars = u + l + n + s;
+        if (!chars) {
+          document.getElementById('passDisplay').innerText = "Selecione uma opção";
+          return;
+        }
+        let pass = "";
+        const array = new Uint32Array(len);
+        window.crypto.getRandomValues(array);
+        for(let i = 0; i < len; i++) {
+          pass += chars[array[i] % chars.length];
+        }
+        document.getElementById('passDisplay').innerText = pass;
+      }
+      async function copyPass() {
+        const text = document.getElementById('passDisplay').innerText;
+        if (text && text !== "Selecione uma opção") {
+          await navigator.clipboard.writeText(text);
+          showToast('Senha copiada!');
+        }
+      }
+      window.addEventListener('DOMContentLoaded', generatePass);
+    </script>
+    
+  
+  <script>
+    const themeBtn = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('ellerio-theme', newTheme);
+      });
+    }
+  </script>
+  <script>(function(s){s.dataset.zone='11768463',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+</body>
+</html>

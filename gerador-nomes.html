@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Nomes — ellerio</title>
+  <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-content">
+      <a href="index.html" class="brand">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio logo" class="logo logo-dark">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio logo" class="logo logo-light">
+      </a>
+      <div class="nav-actions">
+        <a href="index.html" class="nav-back">← Voltar</a>
+        <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
+          <span class="theme-icon">◐</span>
+          <span class="theme-label">Tema</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="tool-wrapper">
+      <div class="tool-header">
+        <span class="badge">Ferramenta</span>
+        <h1>Gerador de Nomes</h1>
+        <p class="hero-desc">Gere nomes completos fictícios brasileiros realistas para testes de cadastros.</p>
+      </div>
+
+      <div class="generator-box">
+        
+        <div class="display-cpf" id="nameDisplay" style="font-size: clamp(1.4rem, 4vw, 2rem);">Nome Aleatório</div>
+        
+        <div class="options-row" style="gap: 20px;">
+          <label class="checkbox-label"><input type="radio" name="sexo" value="all" checked onchange="generateName()"> Todos</label>
+          <label class="checkbox-label"><input type="radio" name="sexo" value="m" onchange="generateName()"> Masculino</label>
+          <label class="checkbox-label"><input type="radio" name="sexo" value="f" onchange="generateName()"> Feminino</label>
+        </div>
+
+        <div class="footer-buttons">
+          <button class="btn-copy" onclick="generateName()">Gerar Novo Nome</button>
+          <button class="btn-clear" onclick="copyName()">Copiar Nome</button>
+        </div>
+    
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; ellerio. Feito para ser rápido e direto.</p>
+  </footer>
+
+  <div id="toast" class="toast">Copiado com sucesso!</div>
+
+  <script>
+    function showToast(msg = 'Copiado com sucesso!') {
+      const t = document.getElementById('toast');
+      if (t) {
+        t.textContent = msg;
+        t.style.display = 'block';
+        setTimeout(() => { t.style.display = 'none'; }, 2000);
+      }
+    }
+  </script>
+  
+    <script>
+      const maleNames = ["Gabriel", "Lucas", "Mateus", "Felipe", "Bruno", "Rodrigo", "Thiago", "Leonardo", "Arthur", "Bernardo", "Rafael", "Enzo", "Pedro", "Gustavo", "Eduardo"];
+      const femaleNames = ["Julia", "Beatriz", "Mariana", "Larissa", "Camila", "Leticia", "Helena", "Isabela", "Alice", "Laura", "Sophia", "Manuela", "Valentina", "Carolina"];
+      const lastNames = ["Silva", "Santos", "Oliveira", "Souza", "Rodrigues", "Ferreira", "Alves", "Pereira", "Lima", "Gomes", "Costa", "Ribeiro", "Martins", "Carvalho", "Almeida", "Lopes", "Soares", "Fernandes", "Vieira", "Barbosa"];
+
+      function generateName() {
+        const sexo = document.querySelector('input[name="sexo"]:checked').value;
+        let pool = [];
+        if (sexo === 'm') pool = maleNames;
+        else if (sexo === 'f') pool = femaleNames;
+        else pool = maleNames.concat(femaleNames);
+
+        const first = pool[Math.floor(Math.random() * pool.length)];
+        const mid = lastNames[Math.floor(Math.random() * lastNames.length)];
+        let last = lastNames[Math.floor(Math.random() * lastNames.length)];
+        while (last === mid) {
+          last = lastNames[Math.floor(Math.random() * lastNames.length)];
+        }
+        document.getElementById('nameDisplay').innerText = `${first} ${mid} ${last}`;
+      }
+      async function copyName() {
+        await navigator.clipboard.writeText(document.getElementById('nameDisplay').innerText);
+        showToast('Nome copiado!');
+      }
+      window.addEventListener('DOMContentLoaded', generateName);
+    </script>
+    
+  
+  <script>
+    const themeBtn = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('ellerio-theme', newTheme);
+      });
+    }
+  </script>
+  <script>(function(s){s.dataset.zone='11768463',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+</body>
+</html>
