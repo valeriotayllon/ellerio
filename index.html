@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home | 3lits</title>
+  <title>Utilitários e Ferramentas — ellerio</title>
   <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  
   <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
@@ -26,7 +25,7 @@
         </a>
       </li>
 
-      <!-- Menu Texto com Hover Flyout -->
+      <!-- Menu Texto -->
       <li class="nav-item">
         <div class="nav-link">
           <span class="nav-link-left"><span class="nav-icon">✎</span> Texto</span>
@@ -38,7 +37,7 @@
         </div>
       </li>
 
-      <!-- Menu Documentos Pessoais com Hover Flyout -->
+      <!-- Menu Documentos -->
       <li class="nav-item">
         <div class="nav-link">
           <span class="nav-link-left"><span class="nav-icon">🪪</span> Documentos</span>
@@ -53,7 +52,7 @@
         </div>
       </li>
 
-      <!-- Menu Negócios & Empresas com Hover Flyout -->
+      <!-- Menu Negócios -->
       <li class="nav-item">
         <div class="nav-link">
           <span class="nav-link-left"><span class="nav-icon">🏢</span> Negócios</span>
@@ -66,7 +65,7 @@
         </div>
       </li>
 
-      <!-- Menu Utilitários Gerais com Hover Flyout -->
+      <!-- Menu Utilitários -->
       <li class="nav-item">
         <div class="nav-link">
           <span class="nav-link-left"><span class="nav-icon">⚡</span> Utilitários</span>
@@ -89,9 +88,7 @@
     </div>
   </aside>
 
-
   <div class="app-container">
-    <!-- Topbar para Mobile -->
     <header class="mobile-topbar">
       <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
       <a href="index.html" class="brand">
@@ -102,9 +99,8 @@
     </header>
 
     <main class="main-content">
-      
       <div class="hero">
-        <span class="badge">Home</span>
+        <span class="badge">✦ Suíte Minimalista</span>
         <h1>Ferramentas simples, velozes e precisas.</h1>
         <p class="hero-desc">
           Uma seleção de utilitários rápidos com design satisfatório, focados em produtividade, manipulação de texto e geração de dados para testes.
@@ -112,133 +108,168 @@
       </div>
 
       <section class="tools-grid">
+        <!-- 1. Conversor de Letras (Ícone: Aa) -->
         <a href="conversor.html" class="tool-card">
-          <div>
+          <div class="card-topbar">
             <span class="card-tag">Texto</span>
-            <h2>Conversor de Letras</h2>
-            <p>Alterne entre maiúsculas, minúsculas, título e frases instantaneamente.</p>
+            <div class="card-corner-icon font-symbol">Aa</div>
           </div>
-          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+          <h2>Conversor de Letras</h2>
+          <p>Alterne entre maiúsculas, minúsculas, título e frases instantaneamente.</p>
         </a>
 
+        <!-- 2. Gerador de Senha (Ícone: ***) -->
         <a href="gerador-senha.html" class="tool-card">
-          <div>
+          <div class="card-topbar">
             <span class="card-tag">Segurança</span>
-            <h2>Gerador de Senha</h2>
-            <p>Crie credenciais seguras e aleatórias com símbolos, letras e números.</p>
+            <div class="card-corner-icon font-symbol" style="font-size:1.15rem; letter-spacing:1px;">***</div>
           </div>
-          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+          <h2>Gerador de Senha</h2>
+          <p>Crie credenciais seguras e aleatórias com símbolos, letras e números.</p>
         </a>
 
+        <!-- 3. Gerador de CPF (Ícone: Documento) -->
         <a href="gerador-cpf.html" class="tool-card">
-          <div>
+          <div class="card-topbar">
             <span class="card-tag">Documentos</span>
-            <h2>Gerador de CPF</h2>
-            <p>Gere números de CPF válidos com cálculo matemático para testes de sistemas.</p>
+            <div class="card-corner-icon">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="8" y1="13" x2="16" y2="13"></line><line x1="8" y1="17" x2="13" y2="17"></line></svg>
+            </div>
           </div>
-          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+          <h2>Gerador de CPF</h2>
+          <p>Gere números de CPF válidos com cálculo matemático para testes de sistemas.</p>
         </a>
 
+        <!-- 4. Gerador de RG (Ícone: Crachá com foto) -->
         <a href="gerador-rg.html" class="tool-card">
-          <div>
+          <div class="card-topbar">
             <span class="card-tag">Documentos</span>
-            <h2>Gerador de RG</h2>
-            <p>Gere registros gerais com dígitos verificadores e formatação opcional.</p>
+            <div class="card-corner-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"></rect><circle cx="9" cy="11" r="2.5"></circle><path d="M6 17a3 3 0 0 1 6 0"></path><line x1="14" y1="9" x2="18" y2="9"></line><line x1="14" y1="13" x2="18" y2="13"></line></svg>
+            </div>
           </div>
-          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+          <h2>Gerador de RG</h2>
+          <p>Gere registros gerais com dígitos verificadores e formatação opcional.</p>
         </a>
 
+        <!-- 5. Gerador de Nomes (Ícone: Pessoas / Users) -->
         <a href="gerador-nomes.html" class="tool-card">
-          <div>
+          <div class="card-topbar">
             <span class="card-tag">Cadastros</span>
-            <h2>Gerador de Nomes</h2>
-            <p>Nomes completos realistas brasileiros para homologação e mockups.</p>
+            <div class="card-corner-icon">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-3-3.87"></path><path d="M7 21v-2a4 4 0 0 1 3-3.87"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
           </div>
-          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+          <h2>Gerador de Nomes</h2>
+          <p>Nomes completos realistas brasileiros para homologação e mockups.</p>
         </a>
 
+        <!-- 6. Gerador de Empresas (Ícone: Prédio) -->
         <a href="gerador-empresas.html" class="tool-card">
-          <div>
+          <div class="card-topbar">
             <span class="card-tag">Empresarial</span>
-            <h2>Gerador de Empresas</h2>
-            <p>Razão Social e CNPJs válidos calculados segundo a Receita Federal.</p>
+            <div class="card-corner-icon">
+              <svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="9" y1="6" x2="9" y2="6.01"></line><line x1="15" y1="6" x2="15" y2="6.01"></line><line x1="9" y1="11" x2="9" y2="11.01"></line><line x1="15" y1="11" x2="15" y2="11.01"></line><line x1="10" y1="22" x2="10" y2="17"></line><line x1="14" y1="22" x2="14" y2="17"></line></svg>
+            </div>
           </div>
-          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+          <h2>Gerador de Empresas</h2>
+          <p>Razão Social e CNPJs válidos calculados segundo a Receita Federal.</p>
         </a>
 
+        <!-- 7. Gerador de Números (Ícone: 123) -->
         <a href="gerador-numeros.html" class="tool-card">
-          <div>
+          <div class="card-topbar">
             <span class="card-tag">Utilitários</span>
-            <h2>Gerador de Números</h2>
-            <p>Sorteios de números aleatórios com intervalos e sem repetições.</p>
+            <div class="card-corner-icon font-symbol" style="font-size:0.9rem;">123</div>
           </div>
-          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+          <h2>Gerador de Números</h2>
+          <p>Sorteios de números aleatórios com intervalos e sem repetições.</p>
         </a>
 
+        <!-- 8. Gerador de Certidões (Ícone: Certidão com Selo) -->
         <a href="gerador-certidoes.html" class="tool-card">
-          <div>
+          <div class="card-topbar">
             <span class="card-tag">Documentos</span>
-            <h2>Gerador de Certidões</h2>
-            <p>Matrículas de nascimento, casamento e óbito no padrão 32 dígitos CNJ.</p>
+            <div class="card-corner-icon">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><circle cx="12" cy="14" r="2.5"></circle></svg>
+            </div>
           </div>
-          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+          <h2>Gerador de Certidões</h2>
+          <p>Matrículas de nascimento, casamento e óbito no padrão 32 dígitos CNJ.</p>
         </a>
 
+        <!-- 9. Gerador de CNH (Ícone: Carteira CNH) -->
         <a href="gerador-cnh.html" class="tool-card">
-          <div>
+          <div class="card-topbar">
             <span class="card-tag">Documentos</span>
-            <h2>Gerador de CNH</h2>
-            <p>Números de CNH válidos com cálculo dos 11 dígitos do Denatran.</p>
+            <div class="card-corner-icon">
+              <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"></rect><circle cx="8" cy="12" r="2"></circle><line x1="13" y1="10" x2="18" y2="10"></line><line x1="13" y1="14" x2="17" y2="14"></line></svg>
+            </div>
           </div>
-          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+          <h2>Gerador de CNH</h2>
+          <p>Números de CNH válidos com cálculo dos 11 dígitos do Denatran.</p>
         </a>
 
+        <!-- 10. Inscrição Estadual (Ícone: Prancha com check) -->
         <a href="gerador-ie.html" class="tool-card">
-          <div>
+          <div class="card-topbar">
             <span class="card-tag">Empresarial</span>
-            <h2>Inscrição Estadual</h2>
-            <p>Inscrições estaduais calculadas para SP, RJ, MG, RS, CE e outros estados.</p>
+            <div class="card-corner-icon">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+            </div>
           </div>
-          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+          <h2>Inscrição Estadual</h2>
+          <p>Inscrições estaduais calculadas para SP, RJ, MG, RS, CE e outros estados.</p>
         </a>
 
+        <!-- 11. Lorem Ipsum (Ícone: Parágrafo / Texto) -->
         <a href="gerador-lorem-ipsum.html" class="tool-card">
-          <div>
+          <div class="card-topbar">
             <span class="card-tag">Design</span>
-            <h2>Gerador de Lorem Ipsum</h2>
-            <p>Textos placeholder limpos para preenchimento de mockups e protótipos.</p>
+            <div class="card-corner-icon">
+              <svg viewBox="0 0 24 24"><line x1="21" y1="10" x2="3" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="15" y1="18" x2="3" y2="18"></line></svg>
+            </div>
           </div>
-          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+          <h2>Gerador de Lorem Ipsum</h2>
+          <p>Textos placeholder limpos para preenchimento de mockups e protótipos.</p>
         </a>
 
+        <!-- 12. Título de Eleitor (Ícone: Votação) -->
         <a href="gerador-titulo-eleitor.html" class="tool-card">
-          <div>
+          <div class="card-topbar">
             <span class="card-tag">Documentos</span>
-            <h2>Título de Eleitor</h2>
-            <p>Algoritmo oficial do TSE com validação por Unidade Federativa.</p>
+            <div class="card-corner-icon">
+              <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+            </div>
           </div>
-          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+          <h2>Título de Eleitor</h2>
+          <p>Algoritmo oficial do TSE com validação por Unidade Federativa.</p>
         </a>
 
+        <!-- 13. Gerador de Imagem (Ícone: Foto) -->
         <a href="gerador-imagem.html" class="tool-card">
-          <div>
+          <div class="card-topbar">
             <span class="card-tag">Design</span>
-            <h2>Gerador de Imagem</h2>
-            <p>Banners e placeholders em dimensões customizadas para download em PNG.</p>
+            <div class="card-corner-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+            </div>
           </div>
-          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+          <h2>Gerador de Imagem</h2>
+          <p>Banners e placeholders em dimensões customizadas para download em PNG.</p>
         </a>
 
+        <!-- 14. Placas de Veículos (Ícone: Placa) -->
         <a href="gerador-placa.html" class="tool-card">
-          <div>
+          <div class="card-topbar">
             <span class="card-tag">Veículos</span>
-            <h2>Placas de Veículos</h2>
-            <p>Gere placas de carros nos padrões Mercosul e cinza tradicional.</p>
+            <div class="card-corner-icon">
+              <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+            </div>
           </div>
-          <div class="card-cta"><span>Abrir utilitário</span><span class="arrow">→</span></div>
+          <h2>Placas de Veículos</h2>
+          <p>Gere placas de carros nos padrões Mercosul e cinza tradicional.</p>
         </a>
       </section>
-    
     </main>
 
     <footer class="footer">
@@ -246,12 +277,7 @@
     </footer>
   </div>
 
-  <div id="toast" class="toast">Copiado com sucesso!</div>
-
-  
-  
   <script>
-    // Theme toggle
     const themeBtn = document.getElementById('themeToggle');
     const mobileThemeBtn = document.getElementById('mobileThemeToggle');
     const html = document.documentElement;
@@ -267,7 +293,6 @@
     if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
     if (mobileThemeBtn) mobileThemeBtn.addEventListener('click', toggleTheme);
 
-    // Mobile menu toggle
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.getElementById('sidebar');
     if (menuToggle && sidebar) {
@@ -281,18 +306,8 @@
         }
       });
     }
-
-    function showToast(msg = 'Copiado com sucesso!') {
-      const t = document.getElementById('toast');
-      if (t) {
-        t.textContent = msg;
-        t.style.display = 'block';
-        setTimeout(() => { t.style.display = 'none'; }, 2000);
-      }
-    }
   </script>
   <!-- Monetag ad zone -->
   <script>(function(s){s.dataset.zone='11768463',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-
 </body>
 </html>

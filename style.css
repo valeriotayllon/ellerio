@@ -7,6 +7,7 @@
   --bg-main: #eeede9;
   --bg-surface: rgba(248, 247, 244, 0.7);
   --bg-card: #f8f7f4;
+  --bg-corner-icon: rgba(27, 27, 27, 0.05);
   --bg-sidebar: rgba(238, 237, 233, 0.72);
   --bg-flyout: rgba(248, 247, 244, 0.95);
   --text-main: #1b1b1b;
@@ -30,6 +31,7 @@
   --bg-main: #1b1b1b;
   --bg-surface: rgba(36, 36, 36, 0.7);
   --bg-card: #242424;
+  --bg-corner-icon: rgba(238, 237, 233, 0.06);
   --bg-sidebar: rgba(27, 27, 27, 0.75);
   --bg-flyout: rgba(32, 32, 32, 0.96);
   --text-main: #eeede9;
@@ -71,9 +73,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ==========================================================
-   SIDEBAR LIQUID GLASS & LOGO AUMENTADA
-   ========================================================== */
+/* SIDEBAR LIQUID GLASS & LOGO */
 .sidebar {
   width: 280px;
   min-height: 100vh;
@@ -188,9 +188,7 @@ body {
   opacity: 1;
 }
 
-/* ==========================================================
-   FLYOUT HOVER SUBMENU
-   ========================================================== */
+/* FLYOUT HOVER SUBMENU */
 .flyout-menu {
   position: absolute;
   left: calc(100% + 10px);
@@ -273,9 +271,7 @@ body {
   transform: translateY(-1px);
 }
 
-/* ==========================================================
-   APP CONTAINER & TOPBAR MOBILE
-   ========================================================== */
+/* APP CONTAINER */
 .app-container {
   flex: 1;
   display: flex;
@@ -323,9 +319,7 @@ body {
   align-items: center;
 }
 
-/* ==========================================================
-   HERO
-   ========================================================= */
+/* HERO */
 .hero {
   display: flex;
   flex-direction: column;
@@ -371,7 +365,7 @@ body {
 }
 
 /* ==========================================================
-   CARDS COM INVERSÃO DE COR NO HOVER
+   CARDS MINIMALISTAS COM ÍCONE NO CANTO SUPERIOR DIREITO
    ========================================================== */
 .tools-grid {
   display: grid;
@@ -383,7 +377,7 @@ body {
 .tool-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: 18px;
+  border-radius: 20px;
   padding: 26px 24px;
   display: flex;
   flex-direction: column;
@@ -392,20 +386,58 @@ body {
   transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
   position: relative;
   overflow: hidden;
-  cursor: pointer;
+}
+
+/* Linha superior do card: Tag à esquerda, Ícone minimalista no canto direito */
+.card-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  width: 100%;
 }
 
 .card-tag {
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.09em;
   color: var(--text-faint);
-  margin-bottom: 12px;
-  display: block;
   transition: color 0.25s ease, opacity 0.25s ease;
+}
+
+/* Ícone no canto superior */
+.card-corner-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: var(--bg-corner-icon);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-corner-icon svg {
+  width: 17px;
+  height: 17px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.card-corner-icon.font-symbol {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  font-size: 1.05rem;
 }
 
 .tool-card h2 {
@@ -425,7 +457,7 @@ body {
   transition: color 0.25s ease, opacity 0.25s ease;
 }
 
-/* Inversão total de cor ao passar o mouse */
+/* INVERSÃO DE COR TOTAL NO HOVER */
 .tool-card:hover {
   transform: translateY(-4px);
   background: var(--text-main);
@@ -447,13 +479,22 @@ body {
   opacity: 0.65;
 }
 
+.tool-card:hover .card-corner-icon {
+  background: rgba(238, 237, 233, 0.16);
+  color: var(--bg-main);
+  transform: scale(1.08);
+}
+
+[data-theme="dark"] .tool-card:hover .card-corner-icon {
+  background: rgba(27, 27, 27, 0.15);
+  color: var(--bg-main);
+}
+
 .card-cta {
   display: none !important;
 }
 
-/* ==========================================================
-   TOOL WORKSPACE
-   ========================================================== */
+/* TOOL WORKSPACE */
 .tool-wrapper {
   width: 100%;
   max-width: 780px;
@@ -523,9 +564,7 @@ textarea:focus {
   color: var(--text-main);
 }
 
-/* ==========================================================
-   BOTÕES E CONTROLES TÁTEIS
-   ========================================================== */
+/* BOTÕES */
 .button-group {
   width: 100%;
   display: flex;
@@ -607,9 +646,6 @@ textarea:focus {
   background: rgba(220, 38, 38, 0.05);
 }
 
-/* ==========================================================
-   INPUTS & FORMULÁRIOS
-   ========================================================== */
 .options-row {
   margin-bottom: 22px;
   display: flex;
@@ -708,9 +744,6 @@ textarea:focus {
   to { transform: scale(1); opacity: 1; }
 }
 
-/* ==========================================================
-   FOOTER & TOAST
-   ========================================================== */
 .footer {
   text-align: center;
   padding: 36px 20px;
@@ -736,9 +769,6 @@ textarea:focus {
   animation: popNumber 0.2s ease-out;
 }
 
-/* ==========================================================
-   RESPONSIVIDADE (MOBILE & TABLET)
-   ========================================================== */
 @media (max-width: 860px) {
   body {
     flex-direction: column;
