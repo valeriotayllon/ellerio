@@ -74,10 +74,10 @@ body {
 }
 
 /* ==========================================================
-   LIQUID GLASS SIDEBAR WITH FLYOUT SUBMENUS
+   SIDEBAR LIQUID GLASS & LOGO AUMENTADA
    ========================================================== */
 .sidebar {
-  width: 270px;
+  width: 280px;
   min-height: 100vh;
   background: var(--bg-sidebar);
   backdrop-filter: blur(20px) saturate(180%);
@@ -94,7 +94,7 @@ body {
 }
 
 .sidebar-header {
-  padding: 0 8px 24px 8px;
+  padding: 6px 8px 24px 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -108,9 +108,11 @@ body {
   text-decoration: none;
 }
 
+/* Logo com tamanho ampliado */
 .brand-logo {
-  height: 44px;
+  height: 60px;
   width: auto;
+  display: block;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -121,7 +123,6 @@ body {
 [data-theme="light"] .logo-light { display: none; }
 [data-theme="dark"] .logo-dark { display: none; }
 
-/* Sidebar Navigation Items */
 .nav-menu {
   list-style: none;
   display: flex;
@@ -190,7 +191,9 @@ body {
   opacity: 1;
 }
 
-/* FLYOUT HOVER SUBMENU */
+/* ==========================================================
+   FLYOUT HOVER SUBMENU
+   ========================================================== */
 .flyout-menu {
   position: absolute;
   left: calc(100% + 10px);
@@ -211,7 +214,6 @@ body {
   z-index: 200;
 }
 
-/* Hover bridge so mouse doesn't drop between gap */
 .nav-item::after {
   content: '';
   position: absolute;
@@ -245,7 +247,6 @@ body {
   padding-left: 15px;
 }
 
-/* Sidebar Footer (Theme Button) */
 .sidebar-footer {
   padding-top: 16px;
   border-top: 1px solid var(--border-subtle);
@@ -276,7 +277,7 @@ body {
 }
 
 /* ==========================================================
-   APP CONTENT CONTAINER
+   APP CONTAINER & TOPBAR MOBILE
    ========================================================== */
 .app-container {
   flex: 1;
@@ -286,7 +287,6 @@ body {
   min-height: 100vh;
 }
 
-/* Top mobile glassbar */
 .mobile-topbar {
   display: none;
   padding: 14px 20px;
@@ -298,6 +298,11 @@ body {
   position: sticky;
   top: 0;
   z-index: 90;
+}
+
+.mobile-topbar .brand-logo {
+  height: 48px !important;
+  width: auto;
 }
 
 .menu-toggle {
@@ -322,7 +327,7 @@ body {
 }
 
 /* ==========================================================
-   SATISFYING MINIMALIST HERO & CARDS
+   HERO
    ========================================================== */
 .hero {
   display: flex;
@@ -368,7 +373,9 @@ body {
   margin: 0 auto;
 }
 
-/* TOOLS GRID */
+/* ==========================================================
+   CARDS LIMPOS (SEM O RODAPÉ ABRIR UTILITÁRIO)
+   ========================================================== */
 .tools-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
@@ -380,16 +387,17 @@ body {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: 18px;
-  padding: 24px;
+  padding: 26px 24px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   box-shadow: var(--shadow-sm);
   transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
   color: inherit;
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .tool-card:hover {
@@ -410,9 +418,9 @@ body {
 }
 
 .tool-card h2 {
-  font-size: 1.22rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   letter-spacing: -0.02em;
   color: var(--text-main);
 }
@@ -420,33 +428,16 @@ body {
 .tool-card p {
   font-size: 0.92rem;
   color: var(--text-muted);
-  line-height: 1.5;
-  margin-bottom: 24px;
-  flex: 1;
+  line-height: 1.55;
+  margin-bottom: 0 !important;
 }
 
 .card-cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--text-main);
-  border-top: 1px solid var(--border-subtle);
-  padding-top: 14px;
-  width: 100%;
-}
-
-.card-cta .arrow {
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.tool-card:hover .card-cta .arrow {
-  transform: translateX(4px);
+  display: none !important;
 }
 
 /* ==========================================================
-   TOOL PAGES WORKSPACE (CONVERSOR, GENERATORS)
+   TOOL WORKSPACE
    ========================================================== */
 .tool-wrapper {
   width: 100%;
@@ -517,7 +508,9 @@ textarea:focus {
   color: var(--text-main);
 }
 
-/* SATISFYING TACTILE BUTTONS */
+/* ==========================================================
+   BOTÕES E CONTROLES TÁTEIS
+   ========================================================== */
 .button-group {
   width: 100%;
   display: flex;
@@ -599,7 +592,9 @@ textarea:focus {
   background: rgba(220, 38, 38, 0.05);
 }
 
-/* OPTIONS & INPUTS */
+/* ==========================================================
+   INPUTS & FORMULÁRIOS
+   ========================================================== */
 .options-row {
   margin-bottom: 22px;
   display: flex;
@@ -698,7 +693,9 @@ textarea:focus {
   to { transform: scale(1); opacity: 1; }
 }
 
-/* FOOTER & TOAST */
+/* ==========================================================
+   FOOTER & TOAST
+   ========================================================== */
 .footer {
   text-align: center;
   padding: 36px 20px;
@@ -724,7 +721,9 @@ textarea:focus {
   animation: popNumber 0.2s ease-out;
 }
 
-/* RESPONSIVE BREAKPOINT */
+/* ==========================================================
+   RESPONSIVIDADE (MOBILE & TABLET)
+   ========================================================== */
 @media (max-width: 860px) {
   body {
     flex-direction: column;
@@ -760,13 +759,4 @@ textarea:focus {
     opacity: 1;
     visibility: visible;
   }
-}
-/* Remove a barra 'Abrir utilitário ->' */
-.card-cta {
-  display: none !important;
-}
-
-/* Ajusta o espaçamento do texto do card para ficar mais equilibrado */
-.tool-card p {
-  margin-bottom: 0 !important;
 }
