@@ -761,3 +761,12 @@ textarea:focus {
     visibility: visible;
   }
 }
+/* Remove a barra 'Abrir utilitário ->' */
+.card-cta {
+  display: none !important;
+}
+
+/* Ajusta o espaçamento do texto do card para ficar mais equilibrado */
+.tool-card p {
+  margin-bottom: 0 !important;
+}
