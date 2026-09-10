@@ -9,19 +9,21 @@
 </head>
 <body>
 
-  <!-- Barra de navegação com a Logo aumentada e Botão de Tema -->
+  <!-- Barra Superior Horizontal Liquid Glass -->
   <header class="navbar">
-    <a href="index.html" class="brand">
-      <img src="images/fundo transparente fonte escura.png" alt="ellerio logo" class="logo logo-dark">
-      <img src="images/fundo transparente fonte clara.png" alt="ellerio logo" class="logo logo-light">
-    </a>
+    <div class="navbar-content">
+      <a href="index.html" class="brand">
+        <img src="images/fundo transparente fonte escura.png" alt="ellerio logo" class="logo logo-dark">
+        <img src="images/fundo transparente fonte clara.png" alt="ellerio logo" class="logo logo-light">
+      </a>
 
-    <div class="nav-actions">
-      <a href="index.html" class="nav-back">← Voltar</a>
-      <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
-        <span class="theme-icon">◐</span>
-        <span class="theme-label">Tema</span>
-      </button>
+      <div class="nav-actions">
+        <a href="index.html" class="nav-back">← Voltar</a>
+        <button id="themeToggle" class="theme-btn" aria-label="Alternar tema">
+          <span class="theme-icon">◐</span>
+          <span class="theme-label">Tema</span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -33,7 +35,7 @@
         <p class="hero-desc">Digite ou cole o texto abaixo e selecione a opção desejada para formatar instantaneamente.</p>
       </div>
 
-      <!-- Caixa de Texto -->
+      <!-- Área de Edição e Contadores -->
       <div class="editor-box">
         <textarea id="textInput" placeholder="Digite ou cole seu texto aqui..." spellcheck="false"></textarea>
         
@@ -44,17 +46,17 @@
         </div>
       </div>
 
-      <!-- Botões de Ação -->
+      <!-- Botões de Formatação -->
       <div class="button-group">
         <button onclick="transformText('upper')">MAIÚSCULAS</button>
         <button onclick="transformText('lower')">minúsculas</button>
-        <button onclick="transformText('title')">Primeira Letra Em Maiúsculo</button>
-        <button onclick="transformText('sentence')">Primeira letra de cada frase</button>
+        <button onclick="transformText('title')">Primeira Letra De Cada Palavra</button>
+        <button onclick="transformText('sentence')">Primeira letra da frase</button>
         <button onclick="transformText('alternating')">aLtErNaDaS</button>
         <button onclick="transformText('inverse')">iNVERTER mAIÚSCULAS</button>
       </div>
 
-      <!-- Controles Secundários (Copiar e Limpar) -->
+      <!-- Ações de Saída -->
       <div class="footer-buttons">
         <button class="btn-copy" onclick="copyToClipboard()">Copiar Texto</button>
         <button class="btn-clear" onclick="clearText()">Limpar Tudo</button>
@@ -68,7 +70,6 @@
 
   <div id="toast" class="toast">Texto copiado!</div>
 
-  <!-- Script de transformação e de persistência do Tema Claro/Escuro -->
   <script src="script.js"></script>
   <script>
     const themeBtn = document.getElementById('themeToggle');
