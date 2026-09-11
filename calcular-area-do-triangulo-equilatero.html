@@ -3,14 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gerador de PIS/PASEP | 3lits</title>
+  <title>Calcular Área do Triângulo Equilátero | 3lits</title>
   <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <a href="index.html" class="brand">
@@ -184,26 +182,28 @@
       
       <div class="tool-wrapper">
         <div class="hero" style="margin-bottom: 28px;">
-          <span class="badge">Documentos</span>
-          <h1>Gerador de PIS/PASEP</h1>
-          <p class="hero-desc">Gere números válidos de PIS/PASEP com cálculo de dígito verificador módulo 11 para testes cadastrais.</p>
+          <span class="badge">Geometria</span>
+          <h1>Calcular Área do Triângulo Equilátero</h1>
+          <p class="hero-desc">Calcule a área do triângulo com 3 lados iguais de forma direta (A = (√3 / 4) · L²).</p>
         </div>
 
         <div class="generator-box">
-          <div class="display-cpf" id="pisDisplay">000.00000.00-0</div>
-          <div class="options-row">
-            <label class="checkbox-label">
-              <input type="checkbox" id="pisMask" checked onchange="generatePIS()">
-              <span>Gerar com pontuação (000.00000.00-0)</span>
-            </label>
+          <div class="input-group" style="margin-bottom: 22px;">
+         <label>Lado do Triângulo Equilátero (L)</label>
+         <input type="number" id="inLado" value="6" step="any" min="0" oninput="calcArea()" style="font-size:1.15rem; padding:14px;">
+       </div>
+
+          <div style="text-align: left; margin-bottom: 22px;">
+            <label style="font-size:0.82rem; font-weight:600; color:var(--text-muted);">Área Resultante</label>
+            <div class="display-cpf" id="areaResult" style="font-size: 2.2rem;">0</div>
           </div>
+
           <div class="footer-buttons">
-            <button class="btn-copy" onclick="generatePIS()">Gerar Novo PIS</button>
-            <button class="btn-clear" onclick="copyPIS()">Copiar PIS</button>
+            <button class="btn-copy" onclick="copyAreaResult()">Copiar Área</button>
           </div>
         </div>
       </div>
-    
+        
     </main>
 
     <footer class="footer">
@@ -215,26 +215,18 @@
 
   
     <script>
-      function generatePIS() {
-        const mask = document.getElementById('pisMask').checked;
-        const d = Array.from({length: 10}, () => Math.floor(Math.random() * 10));
-        const weights = [3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
-        let sum = d.reduce((acc, v, i) => acc + v * weights[i], 0);
-        let rem = sum % 11;
-        let dig = 11 - rem;
-        if (dig === 10 || dig === 11) dig = 0;
-
-        let res = d.join('') + dig;
-        if (mask) res = res.replace(/^(\d{3})(\d{5})(\d{2})(\d{1})$/, '$1.$2.$3-$4');
-        document.getElementById('pisDisplay').innerText = res;
+      function calcArea() {
+         const l = parseFloat(document.getElementById('inLado').value) || 0;
+         const a = (Math.sqrt(3) / 4) * (l * l);
+         document.getElementById('areaResult').innerText = a.toFixed(4).replace(/\.?0+$/, '');
+       }
+      async function copyAreaResult() {
+        await navigator.clipboard.writeText(document.getElementById('areaResult').innerText);
+        showToast('Área copiada!');
       }
-      async function copyPIS() {
-        await navigator.clipboard.writeText(document.getElementById('pisDisplay').innerText);
-        showToast('PIS copiado!');
-      }
-      window.addEventListener('DOMContentLoaded', generatePIS);
+      window.addEventListener('DOMContentLoaded', calcArea);
     </script>
-    
+        
   
   <script>
     const themeBtn = document.getElementById('themeToggle');
