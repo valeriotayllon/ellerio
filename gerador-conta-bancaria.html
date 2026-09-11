@@ -3,14 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gerador de Certidões — 3lits</title>
+  <title>Gerador de Conta Bancária — 3lits</title>
   <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
+    <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <a href="index.html" class="brand">
@@ -122,14 +120,12 @@
     </div>
   </aside>
 
-
   <div class="app-container">
-    <!-- Topbar para Mobile -->
     <header class="mobile-topbar">
       <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
       <a href="index.html" class="brand">
-        <img src="images/fundo transparente fonte escura.png" alt="3lits" class="brand-logo logo-dark" style="height:36px;">
-        <img src="images/fundo transparente fonte clara.png" alt="3lits" class="brand-logo logo-light" style="height:36px;">
+        <img src="images/fundo transparente fonte escura.png" alt="3lits" class="brand-logo logo-dark" style="height:38px;">
+        <img src="images/fundo transparente fonte clara.png" alt="3lits" class="brand-logo logo-light" style="height:38px;">
       </a>
       <button class="menu-toggle" id="mobileThemeToggle" aria-label="Alternar tema">◐</button>
     </header>
@@ -138,23 +134,46 @@
       
       <div class="tool-wrapper">
         <div class="hero" style="margin-bottom: 28px;">
-          <span class="badge">Documentos</span>
-          <h1>Gerador de Certidões</h1>
-          <p class="hero-desc">Matrículas no padrão oficial de 32 dígitos estabelecido pelo CNJ.</p>
+          <span class="badge">Financeiro</span>
+          <h1>Gerador de Conta Bancária</h1>
+          <p class="hero-desc">Gere dados fictícios de agência, conta e dígito verificador para os principais bancos brasileiros.</p>
         </div>
 
         <div class="generator-box">
-          <div class="display-cpf" id="certDisplay" style="font-size: clamp(1.1rem, 3.5vw, 1.35rem); word-break: break-all;">000000 00 00 0000 0 00000 000 0000000-00</div>
-          
-          <div class="options-row" style="gap: 16px;">
-            <label class="checkbox-label"><input type="radio" name="tipoCert" value="nasc" checked onchange="generateCert()"> Nascimento</label>
-            <label class="checkbox-label"><input type="radio" name="tipoCert" value="casam" onchange="generateCert()"> Casamento</label>
-            <label class="checkbox-label"><input type="radio" name="tipoCert" value="obito" onchange="generateCert()"> Óbito</label>
+          <div style="width: 100%; display: flex; flex-direction: column; gap: 14px; margin-bottom: 22px;">
+            <div style="text-align: left;">
+              <label style="font-size:0.82rem; font-weight:600; color:var(--text-muted);">Banco Selecionado</label>
+              <div class="display-cpf" id="bancoNomeDisplay" style="font-size:1.3rem; padding:12px; margin-bottom:0;">Banco do Brasil (001)</div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+              <div style="text-align: left;">
+                <label style="font-size:0.82rem; font-weight:600; color:var(--text-muted);">Agência</label>
+                <div class="display-cpf" id="agenciaDisplay" style="font-size:1.4rem; padding:12px; margin-bottom:0;">1234-5</div>
+              </div>
+              <div style="text-align: left;">
+                <label style="font-size:0.82rem; font-weight:600; color:var(--text-muted);">Conta Corrente</label>
+                <div class="display-cpf" id="contaDisplay" style="font-size:1.4rem; padding:12px; margin-bottom:0;">123456-7</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="options-row" style="width: 100%; max-width: 320px; margin: 0 auto 24px;">
+            <div class="input-group" style="width: 100%;">
+              <label>Selecione o Banco</label>
+              <select id="bancoSelect" onchange="generateConta()">
+                <option value="bb">Banco do Brasil</option>
+                <option value="bradesco">Bradesco</option>
+                <option value="itau">Itaú</option>
+                <option value="caixa">Caixa Econômica</option>
+                <option value="santander">Santander</option>
+                <option value="nubank">Nubank</option>
+              </select>
+            </div>
           </div>
 
           <div class="footer-buttons">
-            <button class="btn-copy" onclick="generateCert()">Gerar Nova Matrícula</button>
-            <button class="btn-clear" onclick="copyCert()">Copiar Certidão</button>
+            <button class="btn-copy" onclick="generateConta()">Gerar Nova Conta</button>
+            <button class="btn-clear" onclick="copyConta()">Copiar Dados</button>
           </div>
         </div>
       </div>
@@ -166,56 +185,55 @@
 </footer>
   </div>
 
-  <div id="toast" class="toast">Copiado com sucesso!</div>
+  <div id="toast" class="toast">Copiado!</div>
 
   
     <script>
-      function generateCert() {
-        const tipoMap = { nasc: '1', casam: '2', obito: '3' };
-        const tipoSel = document.querySelector('input[name="tipoCert"]:checked').value;
-        const tipoDig = tipoMap[tipoSel];
-        const rnd = (len) => Array.from({length: len}, () => Math.floor(Math.random() * 10)).join('');
-        const ano = Math.floor(Math.random() * 30 + 1995).toString();
-        const base = `${rnd(6)}0155${ano}${tipoDig}${rnd(5)}${rnd(3)}${rnd(7)}`;
+      const bancos = {
+        bb: { nome: "Banco do Brasil (001)", agLen: 4, ccLen: 8 },
+        bradesco: { nome: "Bradesco (237)", agLen: 4, ccLen: 7 },
+        itau: { nome: "Itaú Unibanco (341)", agLen: 4, ccLen: 5 },
+        caixa: { nome: "Caixa Econômica Federal (104)", agLen: 4, ccLen: 8 },
+        santander: { nome: "Santander (033)", agLen: 4, ccLen: 8 },
+        nubank: { nome: "Nubank (260)", agLen: 4, ccLen: 7 }
+      };
 
-        let s1 = 0;
-        for (let i = 0; i < 30; i++) s1 += parseInt(base[i]) * ((i % 10) + 1);
-        let d1 = s1 % 11; if (d1 === 10) d1 = 1;
+      function generateConta() {
+        const sel = document.getElementById('bancoSelect').value;
+        const b = bancos[sel];
+        const rnd = (l) => Array.from({length: l}, () => Math.floor(Math.random() * 10)).join('');
+        const dig = () => Math.floor(Math.random() * 10);
 
-        let b2 = base + d1;
-        let s2 = 0;
-        for (let i = 0; i < 31; i++) s2 += parseInt(b2[i]) * ((i % 10) + 1);
-        let d2 = s2 % 11; if (d2 === 10) d2 = 1;
-
-        const full = `${base}${d1}${d2}`;
-        document.getElementById('certDisplay').innerText = full.replace(/^(\d{6})(\d{2})(\d{2})(\d{4})(\d{1})(\d{5})(\d{3})(\d{7})(\d{2})$/, '$1 $2 $3 $4 $5 $6 $7 $8-$9');
+        document.getElementById('bancoNomeDisplay').innerText = b.nome;
+        document.getElementById('agenciaDisplay').innerText = `${rnd(b.agLen)}-${dig()}`;
+        document.getElementById('contaDisplay').innerText = `${rnd(b.ccLen)}-${dig()}`;
       }
-      async function copyCert() {
-        await navigator.clipboard.writeText(document.getElementById('certDisplay').innerText);
-        showToast('Matrícula copiada!');
+
+      async function copyConta() {
+        const t = `${document.getElementById('bancoNomeDisplay').innerText}\nAgência: ${document.getElementById('agenciaDisplay').innerText}\nConta: ${document.getElementById('contaDisplay').innerText}`;
+        await navigator.clipboard.writeText(t);
+        showToast('Dados bancários copiados!');
       }
-      window.addEventListener('DOMContentLoaded', generateCert);
+      window.addEventListener('DOMContentLoaded', generateConta);
     </script>
     
   
   <script>
-    // Theme toggle
     const themeBtn = document.getElementById('themeToggle');
     const mobileThemeBtn = document.getElementById('mobileThemeToggle');
     const html = document.documentElement;
-    const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
+    const savedTheme = localStorage.getItem('3lits-theme') || localStorage.getItem('ellerio-theme') || 'light';
     html.setAttribute('data-theme', savedTheme);
 
     function toggleTheme() {
       const current = html.getAttribute('data-theme');
       const next = current === 'light' ? 'dark' : 'light';
       html.setAttribute('data-theme', next);
-      localStorage.setItem('ellerio-theme', next);
+      localStorage.setItem('3lits-theme', next);
     }
     if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
     if (mobileThemeBtn) mobileThemeBtn.addEventListener('click', toggleTheme);
 
-    // Mobile menu toggle
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.getElementById('sidebar');
     if (menuToggle && sidebar) {
@@ -230,7 +248,7 @@
       });
     }
 
-    function showToast(msg = 'Copiado com sucesso!') {
+    function showToast(msg = 'Copiado!') {
       const t = document.getElementById('toast');
       if (t) {
         t.textContent = msg;
@@ -239,8 +257,6 @@
       }
     }
   </script>
-  <!-- Monetag ad zone -->
   <script>(function(s){s.dataset.zone='11768463',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-
 </body>
 </html>

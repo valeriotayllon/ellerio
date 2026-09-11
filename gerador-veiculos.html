@@ -3,14 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gerador de Certidões — 3lits</title>
+  <title>Gerador de Veículos — 3lits</title>
   <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
+    <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <a href="index.html" class="brand">
@@ -122,14 +120,12 @@
     </div>
   </aside>
 
-
   <div class="app-container">
-    <!-- Topbar para Mobile -->
     <header class="mobile-topbar">
       <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
       <a href="index.html" class="brand">
-        <img src="images/fundo transparente fonte escura.png" alt="3lits" class="brand-logo logo-dark" style="height:36px;">
-        <img src="images/fundo transparente fonte clara.png" alt="3lits" class="brand-logo logo-light" style="height:36px;">
+        <img src="images/fundo transparente fonte escura.png" alt="3lits" class="brand-logo logo-dark" style="height:38px;">
+        <img src="images/fundo transparente fonte clara.png" alt="3lits" class="brand-logo logo-light" style="height:38px;">
       </a>
       <button class="menu-toggle" id="mobileThemeToggle" aria-label="Alternar tema">◐</button>
     </header>
@@ -138,23 +134,41 @@
       
       <div class="tool-wrapper">
         <div class="hero" style="margin-bottom: 28px;">
-          <span class="badge">Documentos</span>
-          <h1>Gerador de Certidões</h1>
-          <p class="hero-desc">Matrículas no padrão oficial de 32 dígitos estabelecido pelo CNJ.</p>
+          <span class="badge">Veículos</span>
+          <h1>Gerador de Veículos</h1>
+          <p class="hero-desc">Gere dados veiculares completos com marca, modelo, ano, placa mercosul, renavam e cor para testes.</p>
         </div>
 
         <div class="generator-box">
-          <div class="display-cpf" id="certDisplay" style="font-size: clamp(1.1rem, 3.5vw, 1.35rem); word-break: break-all;">000000 00 00 0000 0 00000 000 0000000-00</div>
-          
-          <div class="options-row" style="gap: 16px;">
-            <label class="checkbox-label"><input type="radio" name="tipoCert" value="nasc" checked onchange="generateCert()"> Nascimento</label>
-            <label class="checkbox-label"><input type="radio" name="tipoCert" value="casam" onchange="generateCert()"> Casamento</label>
-            <label class="checkbox-label"><input type="radio" name="tipoCert" value="obito" onchange="generateCert()"> Óbito</label>
+          <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:24px; text-align:left;">
+            <div>
+              <label style="font-size:0.82rem; font-weight:600; color:var(--text-muted);">Veículo / Modelo</label>
+              <div class="display-cpf" id="veicNome" style="font-size:1.3rem; padding:12px; margin-bottom:0;">Toyota Corolla 2.0</div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div>
+                <label style="font-size:0.82rem; font-weight:600; color:var(--text-muted);">Placa Mercosul</label>
+                <div class="display-cpf" id="veicPlaca" style="font-size:1.3rem; padding:12px; margin-bottom:0;">BRA2E19</div>
+              </div>
+              <div>
+                <label style="font-size:0.82rem; font-weight:600; color:var(--text-muted);">RENAVAM</label>
+                <div class="display-cpf" id="veicRenavam" style="font-size:1.3rem; padding:12px; margin-bottom:0;">12345678901</div>
+              </div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div>
+                <label style="font-size:0.82rem; font-weight:600; color:var(--text-muted);">Cor</label>
+                <div class="display-cpf" id="veicCor" style="font-size:1.15rem; padding:12px; margin-bottom:0;">Cinza Chumbo</div>
+              </div>
+              <div>
+                <label style="font-size:0.82rem; font-weight:600; color:var(--text-muted);">Ano de Fabricação</label>
+                <div class="display-cpf" id="veicAno" style="font-size:1.15rem; padding:12px; margin-bottom:0;">2024</div>
+              </div>
+            </div>
           </div>
-
           <div class="footer-buttons">
-            <button class="btn-copy" onclick="generateCert()">Gerar Nova Matrícula</button>
-            <button class="btn-clear" onclick="copyCert()">Copiar Certidão</button>
+            <button class="btn-copy" onclick="generateVeiculo()">Gerar Novo Veículo</button>
+            <button class="btn-clear" onclick="copyVeiculo()">Copiar Tudo</button>
           </div>
         </div>
       </div>
@@ -166,56 +180,58 @@
 </footer>
   </div>
 
-  <div id="toast" class="toast">Copiado com sucesso!</div>
+  <div id="toast" class="toast">Copiado!</div>
 
   
     <script>
-      function generateCert() {
-        const tipoMap = { nasc: '1', casam: '2', obito: '3' };
-        const tipoSel = document.querySelector('input[name="tipoCert"]:checked').value;
-        const tipoDig = tipoMap[tipoSel];
-        const rnd = (len) => Array.from({length: len}, () => Math.floor(Math.random() * 10)).join('');
-        const ano = Math.floor(Math.random() * 30 + 1995).toString();
-        const base = `${rnd(6)}0155${ano}${tipoDig}${rnd(5)}${rnd(3)}${rnd(7)}`;
+      const carros = [
+        "Toyota Corolla 2.0 Altis", "Honda Civic 2.0 Touring", "Volkswagen Golf 1.4 TSI", 
+        "Chevrolet Onix Plus Turbo", "Hyundai HB20 1.0", "Jeep Compass Longitude", 
+        "Fiat Pulse 1.3 Drive", "BMW 320i M Sport", "Ford Ranger 4x4", "Renault Duster 1.6"
+      ];
+      const cores = ["Preto Vulcano", "Branco Polar", "Prata Metálico", "Cinza Chumbo", "Vermelho Carmim", "Azul Noturno"];
 
-        let s1 = 0;
-        for (let i = 0; i < 30; i++) s1 += parseInt(base[i]) * ((i % 10) + 1);
-        let d1 = s1 % 11; if (d1 === 10) d1 = 1;
+      function generateVeiculo() {
+        const c = carros[Math.floor(Math.random() * carros.length)];
+        const cor = cores[Math.floor(Math.random() * cores.length)];
+        const ano = Math.floor(Math.random() * 8) + 2018;
 
-        let b2 = base + d1;
-        let s2 = 0;
-        for (let i = 0; i < 31; i++) s2 += parseInt(b2[i]) * ((i % 10) + 1);
-        let d2 = s2 % 11; if (d2 === 10) d2 = 1;
+        const L = () => "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[Math.floor(Math.random() * 26)];
+        const N = () => Math.floor(Math.random() * 10);
+        const placa = `${L()}${L()}${L()}${N()}${L()}${N()}${N()}`;
+        const renavam = Array.from({length: 11}, N).join('');
 
-        const full = `${base}${d1}${d2}`;
-        document.getElementById('certDisplay').innerText = full.replace(/^(\d{6})(\d{2})(\d{2})(\d{4})(\d{1})(\d{5})(\d{3})(\d{7})(\d{2})$/, '$1 $2 $3 $4 $5 $6 $7 $8-$9');
+        document.getElementById('veicNome').innerText = c;
+        document.getElementById('veicPlaca').innerText = placa;
+        document.getElementById('veicRenavam').innerText = renavam;
+        document.getElementById('veicCor').innerText = cor;
+        document.getElementById('veicAno').innerText = ano;
       }
-      async function copyCert() {
-        await navigator.clipboard.writeText(document.getElementById('certDisplay').innerText);
-        showToast('Matrícula copiada!');
+      async function copyVeiculo() {
+        const t = `Veículo: ${document.getElementById('veicNome').innerText}\nPlaca: ${document.getElementById('veicPlaca').innerText}\nRENAVAM: ${document.getElementById('veicRenavam').innerText}\nCor: ${document.getElementById('veicCor').innerText}\nAno: ${document.getElementById('veicAno').innerText}`;
+        await navigator.clipboard.writeText(t);
+        showToast('Veículo copiado!');
       }
-      window.addEventListener('DOMContentLoaded', generateCert);
+      window.addEventListener('DOMContentLoaded', generateVeiculo);
     </script>
     
   
   <script>
-    // Theme toggle
     const themeBtn = document.getElementById('themeToggle');
     const mobileThemeBtn = document.getElementById('mobileThemeToggle');
     const html = document.documentElement;
-    const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
+    const savedTheme = localStorage.getItem('3lits-theme') || localStorage.getItem('ellerio-theme') || 'light';
     html.setAttribute('data-theme', savedTheme);
 
     function toggleTheme() {
       const current = html.getAttribute('data-theme');
       const next = current === 'light' ? 'dark' : 'light';
       html.setAttribute('data-theme', next);
-      localStorage.setItem('ellerio-theme', next);
+      localStorage.setItem('3lits-theme', next);
     }
     if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
     if (mobileThemeBtn) mobileThemeBtn.addEventListener('click', toggleTheme);
 
-    // Mobile menu toggle
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.getElementById('sidebar');
     if (menuToggle && sidebar) {
@@ -230,7 +246,7 @@
       });
     }
 
-    function showToast(msg = 'Copiado com sucesso!') {
+    function showToast(msg = 'Copiado!') {
       const t = document.getElementById('toast');
       if (t) {
         t.textContent = msg;
@@ -239,8 +255,6 @@
       }
     }
   </script>
-  <!-- Monetag ad zone -->
   <script>(function(s){s.dataset.zone='11768463',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-
 </body>
 </html>

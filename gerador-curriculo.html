@@ -3,14 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gerador de Certidões — 3lits</title>
+  <title>Gerador de Currículo — 3lits</title>
   <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
+    <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <a href="index.html" class="brand">
@@ -122,39 +120,72 @@
     </div>
   </aside>
 
-
   <div class="app-container">
-    <!-- Topbar para Mobile -->
     <header class="mobile-topbar">
       <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
       <a href="index.html" class="brand">
-        <img src="images/fundo transparente fonte escura.png" alt="3lits" class="brand-logo logo-dark" style="height:36px;">
-        <img src="images/fundo transparente fonte clara.png" alt="3lits" class="brand-logo logo-light" style="height:36px;">
+        <img src="images/fundo transparente fonte escura.png" alt="3lits" class="brand-logo logo-dark" style="height:38px;">
+        <img src="images/fundo transparente fonte clara.png" alt="3lits" class="brand-logo logo-light" style="height:38px;">
       </a>
       <button class="menu-toggle" id="mobileThemeToggle" aria-label="Alternar tema">◐</button>
     </header>
 
     <main class="main-content">
       
-      <div class="tool-wrapper">
+      <div class="tool-wrapper" style="max-width: 840px;">
         <div class="hero" style="margin-bottom: 28px;">
-          <span class="badge">Documentos</span>
-          <h1>Gerador de Certidões</h1>
-          <p class="hero-desc">Matrículas no padrão oficial de 32 dígitos estabelecido pelo CNJ.</p>
+          <span class="badge">Carreira</span>
+          <h1>Gerador de Currículo</h1>
+          <p class="hero-desc">Preencha os dados e gere um currículo com layout limpo e minimalista pronto para imprimir ou salvar em PDF.</p>
         </div>
 
         <div class="generator-box">
-          <div class="display-cpf" id="certDisplay" style="font-size: clamp(1.1rem, 3.5vw, 1.35rem); word-break: break-all;">000000 00 00 0000 0 00000 000 0000000-00</div>
-          
-          <div class="options-row" style="gap: 16px;">
-            <label class="checkbox-label"><input type="radio" name="tipoCert" value="nasc" checked onchange="generateCert()"> Nascimento</label>
-            <label class="checkbox-label"><input type="radio" name="tipoCert" value="casam" onchange="generateCert()"> Casamento</label>
-            <label class="checkbox-label"><input type="radio" name="tipoCert" value="obito" onchange="generateCert()"> Óbito</label>
+          <div class="rng-inputs-grid" style="margin-bottom: 16px;">
+            <div class="input-group">
+              <label>Nome Completo</label>
+              <input type="text" id="cvNome" value="Valério Silva">
+            </div>
+            <div class="input-group">
+              <label>Cargo / Profissão Desejada</label>
+              <input type="text" id="cvCargo" value="Desenvolvedor Web Front-end">
+            </div>
+          </div>
+
+          <div class="rng-inputs-grid" style="margin-bottom: 16px;">
+            <div class="input-group">
+              <label>E-mail</label>
+              <input type="text" id="cvEmail" value="contato@exemplo.com">
+            </div>
+            <div class="input-group">
+              <label>Telefone / WhatsApp</label>
+              <input type="text" id="cvTel" value="(11) 98765-4321">
+            </div>
+            <div class="input-group">
+              <label>Cidade / UF</label>
+              <input type="text" id="cvCidade" value="São Paulo, SP">
+            </div>
+          </div>
+
+          <div class="input-group" style="margin-bottom: 16px;">
+            <label>Resumo Profissional</label>
+            <textarea id="cvResumo" style="height: 80px;">Profissional com foco na construção de aplicações rápidas, responsivas e interfaces modernas, sempre prezando pela experiência do usuário e código limpo.</textarea>
+          </div>
+
+          <div class="input-group" style="margin-bottom: 16px;">
+            <label>Experiência Profissional</label>
+            <textarea id="cvExp" style="height: 100px;">Desenvolvedor Front-end — Tech Solutions (2023 - Presente)
+- Desenvolvimento de interfaces responsivas utilizando HTML5, CSS moderno e JavaScript.
+- Otimização de performance web e integração de APIs.</textarea>
+          </div>
+
+          <div class="input-group" style="margin-bottom: 24px;">
+            <label>Formação Acadêmica e Cursos</label>
+            <textarea id="cvFormacao" style="height: 80px;">Graduação em Tecnologia / Farmácia
+Cursos de Aperfeiçoamento em Engenharia de Software e Desenvolvimento Web Moderno</textarea>
           </div>
 
           <div class="footer-buttons">
-            <button class="btn-copy" onclick="generateCert()">Gerar Nova Matrícula</button>
-            <button class="btn-clear" onclick="copyCert()">Copiar Certidão</button>
+            <button class="btn-copy" onclick="printCV()">Imprimir / Salvar em PDF</button>
           </div>
         </div>
       </div>
@@ -166,56 +197,71 @@
 </footer>
   </div>
 
-  <div id="toast" class="toast">Copiado com sucesso!</div>
+  <div id="toast" class="toast">Copiado!</div>
 
   
     <script>
-      function generateCert() {
-        const tipoMap = { nasc: '1', casam: '2', obito: '3' };
-        const tipoSel = document.querySelector('input[name="tipoCert"]:checked').value;
-        const tipoDig = tipoMap[tipoSel];
-        const rnd = (len) => Array.from({length: len}, () => Math.floor(Math.random() * 10)).join('');
-        const ano = Math.floor(Math.random() * 30 + 1995).toString();
-        const base = `${rnd(6)}0155${ano}${tipoDig}${rnd(5)}${rnd(3)}${rnd(7)}`;
+      function printCV() {
+        const nome = document.getElementById('cvNome').value;
+        const cargo = document.getElementById('cvCargo').value;
+        const email = document.getElementById('cvEmail').value;
+        const tel = document.getElementById('cvTel').value;
+        const cidade = document.getElementById('cvCidade').value;
+        const resumo = document.getElementById('cvResumo').value.replace(/\n/g, '<br>');
+        const exp = document.getElementById('cvExp').value.replace(/\n/g, '<br>');
+        const formacao = document.getElementById('cvFormacao').value.replace(/\n/g, '<br>');
 
-        let s1 = 0;
-        for (let i = 0; i < 30; i++) s1 += parseInt(base[i]) * ((i % 10) + 1);
-        let d1 = s1 % 11; if (d1 === 10) d1 = 1;
-
-        let b2 = base + d1;
-        let s2 = 0;
-        for (let i = 0; i < 31; i++) s2 += parseInt(b2[i]) * ((i % 10) + 1);
-        let d2 = s2 % 11; if (d2 === 10) d2 = 1;
-
-        const full = `${base}${d1}${d2}`;
-        document.getElementById('certDisplay').innerText = full.replace(/^(\d{6})(\d{2})(\d{2})(\d{4})(\d{1})(\d{5})(\d{3})(\d{7})(\d{2})$/, '$1 $2 $3 $4 $5 $6 $7 $8-$9');
+        const win = window.open('', '_blank');
+        win.document.write(`
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>${nome} - Currículo</title>
+            <style>
+              body { font-family: 'Helvetica Neue', Arial, sans-serif; color: #1b1b1b; padding: 40px; max-width: 800px; margin: 0 auto; line-height: 1.6; }
+              h1 { margin: 0 0 4px; font-size: 26px; text-transform: uppercase; letter-spacing: 1px; }
+              .cargo { font-size: 16px; color: #555; margin-bottom: 12px; font-weight: 600; }
+              .contato { font-size: 13px; color: #666; border-bottom: 2px solid #1b1b1b; padding-bottom: 14px; margin-bottom: 24px; }
+              h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #ddd; padding-bottom: 4px; margin-top: 24px; }
+              p { margin: 8px 0; font-size: 14px; }
+              @media print { body { padding: 0; } }
+            </style>
+          </head>
+          <body>
+            <h1>${nome}</h1>
+            <div class="cargo">${cargo}</div>
+            <div class="contato">${cidade} | ${tel} | ${email}</div>
+            <h2>Resumo Profissional</h2>
+            <p>${resumo}</p>
+            <h2>Experiência Profissional</h2>
+            <p>${exp}</p>
+            <h2>Formação & Qualificações</h2>
+            <p>${formacao}</p>
+            <script>window.onload = function() { window.print(); }<\/script>
+          </body>
+          </html>
+        `);
+        win.document.close();
       }
-      async function copyCert() {
-        await navigator.clipboard.writeText(document.getElementById('certDisplay').innerText);
-        showToast('Matrícula copiada!');
-      }
-      window.addEventListener('DOMContentLoaded', generateCert);
     </script>
     
   
   <script>
-    // Theme toggle
     const themeBtn = document.getElementById('themeToggle');
     const mobileThemeBtn = document.getElementById('mobileThemeToggle');
     const html = document.documentElement;
-    const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
+    const savedTheme = localStorage.getItem('3lits-theme') || localStorage.getItem('ellerio-theme') || 'light';
     html.setAttribute('data-theme', savedTheme);
 
     function toggleTheme() {
       const current = html.getAttribute('data-theme');
       const next = current === 'light' ? 'dark' : 'light';
       html.setAttribute('data-theme', next);
-      localStorage.setItem('ellerio-theme', next);
+      localStorage.setItem('3lits-theme', next);
     }
     if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
     if (mobileThemeBtn) mobileThemeBtn.addEventListener('click', toggleTheme);
 
-    // Mobile menu toggle
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.getElementById('sidebar');
     if (menuToggle && sidebar) {
@@ -230,7 +276,7 @@
       });
     }
 
-    function showToast(msg = 'Copiado com sucesso!') {
+    function showToast(msg = 'Copiado!') {
       const t = document.getElementById('toast');
       if (t) {
         t.textContent = msg;
@@ -239,8 +285,6 @@
       }
     }
   </script>
-  <!-- Monetag ad zone -->
   <script>(function(s){s.dataset.zone='11768463',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-
 </body>
 </html>
