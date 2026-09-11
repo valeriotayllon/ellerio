@@ -1,54 +1,64 @@
 /* ==========================================================
-   ELLERIO — DESIGN SYSTEM: MINIMALIST LIQUID GLASS & SIDEBAR
+   3LITS — DESIGN SYSTEM: MINIMALIST LIQUID GLASS & AMBIENT MESH
    ========================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
 
 :root[data-theme="light"] {
-  --bg-main: #eeede9;
-  --bg-surface: rgba(248, 247, 244, 0.7);
-  --bg-card: #f8f7f4;
+  --bg-main: #f3f2ee;
+  --bg-surface: rgba(255, 255, 255, 0.65);
+  --bg-card: rgba(255, 255, 255, 0.75);
   --bg-corner-icon: rgba(27, 27, 27, 0.05);
-  --bg-sidebar: rgba(238, 237, 233, 0.72);
-  --bg-flyout: rgba(248, 247, 244, 0.95);
-  --text-main: #1b1b1b;
-  --text-muted: #656460;
-  --text-faint: #9c9a92;
-  --border-subtle: rgba(27, 27, 27, 0.08);
-  --border-strong: rgba(27, 27, 27, 0.22);
-  --btn-bg: #1b1b1b;
-  --btn-text: #eeede9;
+  --bg-sidebar: rgba(243, 242, 238, 0.75);
+  --bg-flyout: rgba(255, 255, 255, 0.95);
+  --text-main: #141414;
+  --text-muted: #5e5d59;
+  --text-faint: #98968f;
+  --border-subtle: rgba(27, 27, 27, 0.07);
+  --border-strong: rgba(27, 27, 27, 0.2);
+  --btn-bg: #141414;
+  --btn-text: #f3f2ee;
   --btn-hover: #000000;
-  --badge-bg: rgba(27, 27, 27, 0.05);
-  --grid-line: rgba(27, 27, 27, 0.03);
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.03);
-  --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.05);
-  --shadow-flyout: 0 16px 40px rgba(0, 0, 0, 0.08);
-  --glass-border: rgba(255, 255, 255, 0.6);
+  --badge-bg: rgba(255, 255, 255, 0.8);
+  --grid-line: rgba(27, 27, 27, 0.035);
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 16px 36px rgba(0, 0, 0, 0.06);
+  --shadow-flyout: 0 20px 48px rgba(0, 0, 0, 0.09);
+  --glass-border: rgba(255, 255, 255, 0.8);
   --glow: rgba(0, 0, 0, 0.04);
+
+  /* Luzes ambientes para o gradiente claro */
+  --mesh-1: rgba(225, 222, 214, 0.7);
+  --mesh-2: rgba(238, 234, 226, 0.9);
+  --mesh-accent: rgba(210, 206, 196, 0.45);
 }
 
 :root[data-theme="dark"] {
-  --bg-main: #1b1b1b;
-  --bg-surface: rgba(36, 36, 36, 0.7);
-  --bg-card: #242424;
+  --bg-main: #121212;
+  --bg-surface: rgba(28, 28, 28, 0.65);
+  --bg-card: rgba(28, 28, 28, 0.75);
   --bg-corner-icon: rgba(238, 237, 233, 0.06);
-  --bg-sidebar: rgba(27, 27, 27, 0.75);
-  --bg-flyout: rgba(32, 32, 32, 0.96);
-  --text-main: #eeede9;
+  --bg-sidebar: rgba(18, 18, 18, 0.78);
+  --bg-flyout: rgba(24, 24, 24, 0.96);
+  --text-main: #f3f2ee;
   --text-muted: #a3a19b;
   --text-faint: #6c6a65;
-  --border-subtle: rgba(238, 237, 233, 0.09);
-  --border-strong: rgba(238, 237, 233, 0.26);
-  --btn-bg: #eeede9;
-  --btn-text: #1b1b1b;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.22);
+  --btn-bg: #f3f2ee;
+  --btn-text: #121212;
   --btn-hover: #ffffff;
-  --badge-bg: rgba(238, 237, 233, 0.07);
-  --grid-line: rgba(238, 237, 233, 0.025);
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.35);
-  --shadow-flyout: 0 16px 48px rgba(0, 0, 0, 0.5);
+  --badge-bg: rgba(255, 255, 255, 0.06);
+  --grid-line: rgba(255, 255, 255, 0.03);
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 16px 36px rgba(0, 0, 0, 0.45);
+  --shadow-flyout: 0 20px 48px rgba(0, 0, 0, 0.6);
   --glass-border: rgba(255, 255, 255, 0.08);
-  --glow: rgba(238, 237, 233, 0.06);
+  --glow: rgba(255, 255, 255, 0.06);
+
+  /* Luzes ambientes para o gradiente escuro */
+  --mesh-1: rgba(32, 32, 38, 0.8);
+  --mesh-2: rgba(20, 23, 28, 0.9);
+  --mesh-accent: rgba(45, 42, 55, 0.4);
 }
 
 * {
@@ -65,15 +75,31 @@ body {
   min-height: 100vh;
   display: flex;
   background-image: 
+    radial-gradient(circle at 15% 15%, var(--mesh-accent) 0%, transparent 45%),
+    radial-gradient(circle at 85% 30%, var(--mesh-1) 0%, transparent 50%),
+    radial-gradient(circle at 50% 80%, var(--mesh-2) 0%, transparent 60%),
     linear-gradient(var(--grid-line) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size: 36px 36px;
-  background-position: center top;
+  background-size: 
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    36px 36px,
+    36px 36px;
+  background-position: 
+    center top,
+    center top,
+    center top,
+    center top,
+    center top;
+  background-attachment: fixed;
   transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
   overflow-x: hidden;
 }
 
-/* SIDEBAR LIQUID GLASS & LOGO */
+/* ==========================================================
+   SIDEBAR LIQUID GLASS & FLYOUT SUBMENUS
+   ========================================================== */
 .sidebar {
   width: 280px;
   min-height: 100vh;
@@ -188,12 +214,12 @@ body {
   opacity: 1;
 }
 
-/* FLYOUT HOVER SUBMENU */
+/* Submenu Flutuante (Flyout) */
 .flyout-menu {
   position: absolute;
   left: calc(100% + 10px);
   top: 0;
-  width: 230px;
+  width: 260px;
   background: var(--bg-flyout);
   backdrop-filter: blur(24px) saturate(190%);
   -webkit-backdrop-filter: blur(24px) saturate(190%);
@@ -271,7 +297,9 @@ body {
   transform: translateY(-1px);
 }
 
-/* APP CONTAINER */
+/* ==========================================================
+   APP CONTAINER & TOPBAR MOBILE
+   ========================================================== */
 .app-container {
   flex: 1;
   display: flex;
@@ -319,7 +347,9 @@ body {
   align-items: center;
 }
 
-/* HERO */
+/* ==========================================================
+   HERO
+   ========================================================== */
 .hero {
   display: flex;
   flex-direction: column;
@@ -365,7 +395,7 @@ body {
 }
 
 /* ==========================================================
-   CARDS MINIMALISTAS COM ÍCONE NO CANTO SUPERIOR DIREITO
+   CARDS MINIMALISTAS COM ÍCONE NO CANTO & INVERSÃO DE COR
    ========================================================== */
 .tools-grid {
   display: grid;
@@ -376,6 +406,8 @@ body {
 
 .tool-card {
   background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-subtle);
   border-radius: 20px;
   padding: 26px 24px;
@@ -391,7 +423,6 @@ body {
   overflow: hidden;
 }
 
-/* Linha superior do card: Tag à esquerda, Ícone minimalista no canto direito */
 .card-topbar {
   display: flex;
   align-items: center;
@@ -409,7 +440,6 @@ body {
   transition: color 0.25s ease, opacity 0.25s ease;
 }
 
-/* Ícone no canto superior */
 .card-corner-icon {
   width: 34px;
   height: 34px;
@@ -457,7 +487,7 @@ body {
   transition: color 0.25s ease, opacity 0.25s ease;
 }
 
-/* INVERSÃO DE COR TOTAL NO HOVER */
+/* Inversão total de cor no Hover */
 .tool-card:hover {
   transform: translateY(-4px);
   background: var(--text-main);
@@ -494,7 +524,9 @@ body {
   display: none !important;
 }
 
-/* TOOL WORKSPACE */
+/* ==========================================================
+   TOOL WORKSPACE
+   ========================================================== */
 .tool-wrapper {
   width: 100%;
   max-width: 780px;
@@ -512,6 +544,7 @@ body {
   box-shadow: var(--shadow-md);
   margin-bottom: 24px;
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .display-cpf {
@@ -564,7 +597,9 @@ textarea:focus {
   color: var(--text-main);
 }
 
-/* BOTÕES */
+/* ==========================================================
+   BOTÕES E CONTROLES TÁTEIS
+   ========================================================== */
 .button-group {
   width: 100%;
   display: flex;
@@ -646,6 +681,9 @@ textarea:focus {
   background: rgba(220, 38, 38, 0.05);
 }
 
+/* ==========================================================
+   INPUTS & FORMULÁRIOS
+   ========================================================== */
 .options-row {
   margin-bottom: 22px;
   display: flex;
@@ -693,6 +731,7 @@ textarea:focus {
 
 .input-group input[type="number"],
 .input-group input[type="text"],
+.input-group input[type="date"],
 .input-group select {
   background-color: var(--bg-main);
   color: var(--text-main);
@@ -744,6 +783,9 @@ textarea:focus {
   to { transform: scale(1); opacity: 1; }
 }
 
+/* ==========================================================
+   FOOTER & TOAST
+   ========================================================== */
 .footer {
   text-align: center;
   padding: 36px 20px;
@@ -769,6 +811,9 @@ textarea:focus {
   animation: popNumber 0.2s ease-out;
 }
 
+/* ==========================================================
+   RESPONSIVIDADE (MOBILE & TABLET)
+   ========================================================== */
 @media (max-width: 860px) {
   body {
     flex-direction: column;
