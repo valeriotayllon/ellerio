@@ -3,15 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Símbolos para Copiar | 3lits</title>
+  <title>Conversor de Imagens | 3lits</title>
   <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <a href="index.html" class="brand">
@@ -201,15 +198,52 @@
 
     <main class="main-content">
       
-      <div class="tool-wrapper">
+      <div class="tool-wrapper" style="max-width: 840px;">
         <div class="hero" style="margin-bottom: 28px;">
-          <span class="badge">Estilo & Caracteres</span>
-          <h1>Símbolos para Copiar</h1>
-          <p class="hero-desc">Clique sobre qualquer símbolo para copiar instantaneamente para a área de transferência.</p>
+          <span class="badge">Conversor Universal</span>
+          <h1>Conversor de Imagens</h1>
+          <p class="hero-desc">Converta qualquer imagem entre PNG, JPG, WEBP e BMP com escolha personalizada de qualidade e formato de saída.</p>
         </div>
 
         <div class="generator-box">
-          <div id="symbolsGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(52px, 1fr)); gap:10px;"></div>
+          <div id="uDropZone" style="border: 2px dashed var(--border-strong); border-radius: 16px; padding: 42px 20px; text-align: center; cursor: pointer; background: var(--bg-main); transition: all 0.2s ease;">
+            <div style="font-size: 2.6rem; margin-bottom: 12px; color: var(--text-muted);">🔄</div>
+            <p style="font-weight: 700; font-size: 1.1rem; margin-bottom: 6px; color: var(--text-main);">Selecione ou arraste qualquer imagem aqui</p>
+            <p style="font-size: 0.86rem; color: var(--text-muted);">Suporta PNG, JPG, JPEG, WEBP, GIF, BMP, SVG</p>
+            <input type="file" id="uFileInput" accept="image/*" style="display: none;">
+          </div>
+
+          <div id="uPreviewArea" style="display: none; margin-top: 24px;">
+            <div style="display: flex; gap: 20px; align-items: center; justify-content: center; flex-wrap: wrap; background: var(--bg-main); padding: 18px; border-radius: 14px; border: 1px solid var(--border-subtle); margin-bottom: 22px;">
+              <img id="uImgPreview" style="max-width: 140px; max-height: 140px; border-radius: 10px; object-fit: contain; border: 1px solid var(--border-subtle); background: var(--bg-card);">
+              <div style="text-align: left; font-size: 0.9rem; color: var(--text-main);">
+                <div style="font-weight: 700; margin-bottom: 4px;" id="uFileMetaName">imagem.png</div>
+                <div style="color: var(--text-muted);" id="uFileMetaDim">Dimensões: —</div>
+                <div style="color: var(--text-muted);" id="uFileMetaSize">Tamanho: —</div>
+              </div>
+            </div>
+
+            <div class="rng-inputs-grid" style="margin-bottom: 24px;">
+              <div class="input-group">
+                <label>Formato de Saída</label>
+                <select id="uTargetFmt" style="font-size: 1rem; padding: 12px;">
+                  <option value="png">PNG (Sem perda / Transparência)</option>
+                  <option value="jpeg" selected>JPG / JPEG (Compactado)</option>
+                  <option value="webp">WEBP (Moderno & Leve)</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>Qualidade da Conversão (%)</label>
+                <input type="number" id="uQuality" value="92" min="10" max="100" style="font-size: 1rem; padding: 12px;">
+              </div>
+            </div>
+
+            <div class="footer-buttons">
+              <button class="btn-copy" onclick="downloadUniversal()">Converter e Baixar Imagem</button>
+              <button class="btn-clear" onclick="resetUniversal()">Trocar Imagem</button>
+            </div>
+          </div>
+          <canvas id="uCanvas" style="display: none;"></canvas>
         </div>
       </div>
     
@@ -224,27 +258,75 @@
 
   
     <script>
-      const symbols = [
-        "★", "☆", "✦", "✧", "✓", "✔", "✕", "✖", "✗", "➔", "➜", "➤", "→", "←", "↑", "↓", 
-        "↔", "↕", "⚡", "☀", "☁", "☂", "❄", "❤", "❥", "❣", "♠", "♣", "♥", "♦", 
-        "♪", "♫", "♬", "☕", "⚓", "⚔", "⚖", "⚙", "✿", "❀", "❁", "❂", "❄", "❅", 
-        "©", "®", "™", "π", "∞", "∑", "√", "∆", "≠", "≈", "≤", "≥", "±", "×", "÷"
-      ];
+      const uDropZone = document.getElementById('uDropZone');
+      const uFileInput = document.getElementById('uFileInput');
+      const uPreviewArea = document.getElementById('uPreviewArea');
+      const uImgPreview = document.getElementById('uImgPreview');
+      const uCanvas = document.getElementById('uCanvas');
+      let uLoadedImg = null;
+      let uOriginalName = 'imagem';
 
-      function renderSymbols() {
-        const g = document.getElementById('symbolsGrid');
-        symbols.forEach(s => {
-          const btn = document.createElement('button');
-          btn.innerText = s;
-          btn.style = "height:52px; font-size:1.4rem; background:var(--bg-main); border:1px solid var(--border-subtle); border-radius:10px; color:var(--text-main); cursor:pointer; transition:all 0.2s ease;";
-          btn.onclick = () => {
-            navigator.clipboard.writeText(s);
-            showToast(`Copiado: ${s}`);
+      uDropZone.addEventListener('click', () => uFileInput.click());
+      uDropZone.addEventListener('dragover', (e) => { e.preventDefault(); uDropZone.style.borderColor = 'var(--text-main)'; });
+      uDropZone.addEventListener('dragleave', () => { uDropZone.style.borderColor = 'var(--border-strong)'; });
+      uDropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uDropZone.style.borderColor = 'var(--border-strong)';
+        if (e.dataTransfer.files.length) handleUFile(e.dataTransfer.files[0]);
+      });
+      uFileInput.addEventListener('change', (e) => {
+        if (e.target.files.length) handleUFile(e.target.files[0]);
+      });
+
+      function handleUFile(file) {
+        uOriginalName = file.name.substring(0, file.name.lastIndexOf('.')) || 'imagem';
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          uLoadedImg = new Image();
+          uLoadedImg.onload = () => {
+            uDropZone.style.display = 'none';
+            uPreviewArea.style.display = 'block';
+            uImgPreview.src = e.target.result;
+            document.getElementById('uFileMetaName').innerText = file.name;
+            document.getElementById('uFileMetaDim').innerText = `Dimensões: ${uLoadedImg.width} × ${uLoadedImg.height}px`;
+            document.getElementById('uFileMetaSize').innerText = `Tamanho: ${(file.size / 1024).toFixed(1)} KB`;
           };
-          g.appendChild(btn);
-        });
+          uLoadedImg.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
       }
-      window.addEventListener('DOMContentLoaded', renderSymbols);
+
+      function downloadUniversal() {
+        if (!uLoadedImg) return;
+        uCanvas.width = uLoadedImg.width;
+        uCanvas.height = uLoadedImg.height;
+        const ctx = uCanvas.getContext('2d');
+        const fmt = document.getElementById('uTargetFmt').value;
+        const q = Math.max(0.1, Math.min(1.0, (parseFloat(document.getElementById('uQuality').value) || 92) / 100));
+
+        if (fmt === 'jpeg') {
+          ctx.fillStyle = '#FFFFFF';
+          ctx.fillRect(0, 0, uCanvas.width, uCanvas.height);
+        }
+        ctx.drawImage(uLoadedImg, 0, 0);
+
+        const mime = `image/${fmt}`;
+        const dataUrl = uCanvas.toDataURL(mime, q);
+        const ext = fmt === 'jpeg' ? 'jpg' : fmt;
+
+        const link = document.createElement('a');
+        link.download = `${uOriginalName}.${ext}`;
+        link.href = dataUrl;
+        link.click();
+        showToast(`Convertido para ${ext.toUpperCase()}!`);
+      }
+
+      function resetUniversal() {
+        uLoadedImg = null;
+        uFileInput.value = '';
+        uDropZone.style.display = 'block';
+        uPreviewArea.style.display = 'none';
+      }
     </script>
     
   
