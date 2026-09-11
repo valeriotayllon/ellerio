@@ -3,16 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora de Desconto | 3lits</title>
+  <title>Conversor de Áudio para MP3 | 3lits</title>
   <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <a href="index.html" class="brand">
@@ -233,38 +229,56 @@
 
     <main class="main-content">
       
-      <div class="tool-wrapper">
+      <div class="tool-wrapper" style="max-width: 840px;">
         <div class="hero" style="margin-bottom: 28px;">
-          <span class="badge">Finanças</span>
-          <h1>Calculadora de Desconto</h1>
-          <p class="hero-desc">Calcule o preço final de produtos em liquidação e quanto dinheiro você economiza.</p>
+          <span class="badge">Áudio</span>
+          <h1>Conversor de Áudio para MP3</h1>
+          <p class="hero-desc">Converta suas músicas e gravações para formato MP3 com controle de bitrate até 320 kbps.</p>
         </div>
 
         <div class="generator-box">
-          <div class="rng-inputs-grid" style="margin-bottom: 22px;">
-            <div class="input-group">
-              <label>Preço Original (R$)</label>
-              <input type="number" id="descPreco" value="250" oninput="calcDesconto()" style="font-size:1.15rem; padding:13px;">
-            </div>
-            <div class="input-group">
-              <label>Desconto (%)</label>
-              <input type="number" id="descPorc" value="20" oninput="calcDesconto()" style="font-size:1.15rem; padding:13px;">
-            </div>
+          <div id="dz" style="border: 2px dashed var(--border-strong); border-radius: 16px; padding: 42px 20px; text-align: center; cursor: pointer; background: var(--bg-main); transition: all 0.2s ease;">
+            <div style="font-size: 2.6rem; margin-bottom: 12px; color: var(--text-muted);">🎵</div>
+            <p style="font-weight: 700; font-size: 1.15rem; margin-bottom: 6px; color: var(--text-main);">Selecione ou arraste seu áudio para converter para MP3</p>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">Suporta MP3, WAV, AAC, OGG, M4A, FLAC (100% privado no navegador)</p>
+            <input type="file" id="fInput" accept="audio/*" style="display: none;">
           </div>
 
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 22px;">
-            <div style="text-align: left;">
-              <label style="font-size:0.82rem; font-weight:600; color:var(--text-muted);">Preço com Desconto</label>
-              <div class="display-cpf" id="descFinal" style="font-size: 1.5rem; margin-bottom: 0;">R$ 200,00</div>
+          <div id="ws" style="display: none; margin-top: 24px;">
+            <div style="background: var(--bg-main); padding: 18px; border-radius: 14px; border: 1px solid var(--border-subtle); margin-bottom: 22px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <div style="text-align: left;">
+                  <div style="font-weight: 700; font-size: 1.05rem;" id="mName">audio.wav</div>
+                  <div style="font-size: 0.85rem; color: var(--text-muted);" id="mInfo">Carregando...</div>
+                </div>
+                <audio id="pl" controls style="height: 38px; max-width: 260px;"></audio>
+              </div>
             </div>
-            <div style="text-align: left;">
-              <label style="font-size:0.82rem; font-weight:600; color:var(--text-muted);">Você Economiza</label>
-              <div class="display-cpf" id="descEcon" style="font-size: 1.5rem; margin-bottom: 0;">R$ 50,00</div>
-            </div>
-          </div>
 
-          <div class="footer-buttons">
-            <button class="btn-copy" onclick="copyResult('descFinal', 'Preço final copiado!')">Copiar Preço Final</button>
+            <div class="rng-inputs-grid" style="margin-bottom: 22px;">
+              <div class="input-group">
+                <label>Taxa de Bits (Qualidade)</label>
+                <select id="sBitrate" style="font-size: 1rem; padding: 12px;">
+                  <option value="320000" selected>320 kbps (Estúdio / Ultra)</option>
+                  <option value="256000" >256 kbps (Muito Alta)</option>
+                  <option value="192000" >192 kbps (Padrão Alta Definição)</option>
+                  <option value="128000" >128 kbps (Compacto / Padrão)</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>Canais de Áudio</label>
+                <select id="sChannels" style="font-size: 1rem; padding: 12px;">
+                  <option value="2" selected>Estéreo (2 canais)</option>
+                  <option value="1">Mono (1 canal / Menor tamanho)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="footer-buttons">
+              <button class="btn-copy" id="bConv" onclick="execConvert()">Baixar como MP3</button>
+              <button class="btn-clear" onclick="execReset()">Trocar Áudio</button>
+            </div>
+            <div id="st" style="display: none; margin-top: 14px; font-weight: 600; font-size: 0.9rem; text-align: center;">Convertendo com Web Audio API...</div>
           </div>
         </div>
       </div>
@@ -280,20 +294,186 @@
 
   
     <script>
-      function calcDesconto() {
-        const preco = parseFloat(document.getElementById('descPreco').value) || 0;
-        const perc = parseFloat(document.getElementById('descPorc').value) || 0;
-        const econ = (perc / 100) * preco;
-        const final = Math.max(0, preco - econ);
-        const fmt = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        document.getElementById('descFinal').innerText = fmt(final);
-        document.getElementById('descEcon').innerText = fmt(econ);
+      
+function audioBufferToWav(buffer, opt) {
+  opt = opt || {};
+  var numChannels = buffer.numberOfChannels;
+  var sampleRate = opt.sampleRate || buffer.sampleRate;
+  var format = opt.float32 ? 3 : 1;
+  var bitDepth = format === 3 ? 32 : (opt.bitDepth || 16);
+
+  var result;
+  if (numChannels === 2) {
+    result = interleave(buffer.getChannelData(0), buffer.getChannelData(1));
+  } else {
+    result = buffer.getChannelData(0);
+  }
+
+  return encodeWAV(result, format, sampleRate, numChannels, bitDepth);
+}
+
+function encodeWAV(samples, format, sampleRate, numChannels, bitDepth) {
+  var bytesPerSample = bitDepth / 8;
+  var blockAlign = numChannels * bytesPerSample;
+  var buffer = new ArrayBuffer(44 + samples.length * bytesPerSample);
+  var view = new DataView(buffer);
+
+  function writeString(view, offset, string) {
+    for (var i = 0; i < string.length; i++) {
+      view.setUint8(offset + i, string.charCodeAt(i));
+    }
+  }
+
+  writeString(view, 0, 'RIFF');
+  view.setUint32(4, 36 + samples.length * bytesPerSample, true);
+  writeString(view, 8, 'WAVE');
+  writeString(view, 12, 'fmt ');
+  view.setUint32(16, 16, true);
+  view.setUint16(20, format, true);
+  view.setUint16(22, numChannels, true);
+  view.setUint32(24, sampleRate, true);
+  view.setUint32(28, sampleRate * blockAlign, true);
+  view.setUint16(32, blockAlign, true);
+  view.setUint16(34, bitDepth, true);
+  writeString(view, 36, 'data');
+  view.setUint32(40, samples.length * bytesPerSample, true);
+
+  if (format === 1) {
+    floatTo16BitPCM(view, 44, samples);
+  } else {
+    writeFloat32(view, 44, samples);
+  }
+  return new Blob([view], { type: 'audio/wav' });
+}
+
+function interleave(inputL, inputR) {
+  var length = inputL.length + inputR.length;
+  var result = new Float32Array(length);
+  var index = 0, inputIndex = 0;
+  while (index < length) {
+    result[index++] = inputL[inputIndex];
+    result[index++] = inputR[inputIndex];
+    inputIndex++;
+  }
+  return result;
+}
+
+function floatTo16BitPCM(output, offset, input) {
+  for (var i = 0; i < input.length; i++, offset += 2) {
+    var s = Math.max(-1, Math.min(1, input[i]));
+    output.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+  }
+}
+
+function writeFloat32(output, offset, input) {
+  for (var i = 0; i < input.length; i++, offset += 4) {
+    output.setFloat32(offset, input[i], true);
+  }
+}
+
+      const dz = document.getElementById('dz');
+      const fInput = document.getElementById('fInput');
+      const ws = document.getElementById('ws');
+      const pl = document.getElementById('pl');
+      let curFile = null;
+      let aBuf = null;
+      let aCtx = null;
+
+      dz.addEventListener('click', () => fInput.click());
+      dz.addEventListener('dragover', (e) => { e.preventDefault(); dz.style.borderColor = 'var(--text-main)'; });
+      dz.addEventListener('dragleave', () => { dz.style.borderColor = 'var(--border-strong)'; });
+      dz.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dz.style.borderColor = 'var(--border-strong)';
+        if (e.dataTransfer.files.length) onAudioSelected(e.dataTransfer.files[0]);
+      });
+      fInput.addEventListener('change', (e) => {
+        if (e.target.files.length) onAudioSelected(e.target.files[0]);
+      });
+
+      async function onAudioSelected(file) {
+        curFile = file;
+        document.getElementById('mName').innerText = file.name;
+        pl.src = URL.createObjectURL(file);
+        dz.style.display = 'none';
+        ws.style.display = 'block';
+
+        if (!aCtx) aCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const ab = await file.arrayBuffer();
+        aBuf = await aCtx.decodeAudioData(ab);
+        const sec = Math.round(aBuf.duration);
+        document.getElementById('mInfo').innerText = 'Duração: ' + Math.floor(sec/60) + ':' + String(sec%60).padStart(2,'0') + ' | ' + aBuf.numberOfChannels + ' canais';
       }
-      async function copyResult(id, msg) {
-        await navigator.clipboard.writeText(document.getElementById(id).innerText);
-        showToast(msg);
+
+      async function execConvert() {
+        if (!aBuf) return;
+        const st = document.getElementById('st');
+        const btn = document.getElementById('bConv');
+        st.style.display = 'block';
+        btn.disabled = true;
+
+        const targetFmt = 'mp3';
+        const base = curFile.name.substring(0, curFile.name.lastIndexOf('.')) || 'audio';
+        const br = parseInt(document.getElementById('sBitrate').value, 10);
+
+        try {
+          if (targetFmt === 'wav') {
+            const blob = audioBufferToWav(aBuf, { sampleRate: 44100, bitDepth: 16 });
+            saveBlob(blob, base + '.wav');
+          } else {
+            const offline = new OfflineAudioContext(aBuf.numberOfChannels, aBuf.length, aBuf.sampleRate);
+            const s = offline.createBufferSource();
+            s.buffer = aBuf;
+            s.connect(offline.destination);
+            s.start(0);
+            const rendered = await offline.startRendering();
+
+            const live = new AudioContext({ sampleRate: 44100 });
+            const dest = live.createMediaStreamDestination();
+            const ls = live.createBufferSource();
+            ls.buffer = rendered;
+            ls.connect(dest);
+
+            const rec = new MediaRecorder(dest.stream, { audioBitsPerSecond: br });
+            const parts = [];
+            rec.ondataavailable = (e) => parts.push(e.data);
+            rec.onstop = () => {
+              const outBlob = new Blob(parts, { type: rec.mimeType || 'audio/webm' });
+              saveBlob(outBlob, base + '.' + targetFmt);
+              live.close();
+            };
+            rec.start();
+            ls.start(0);
+            setTimeout(() => {
+              try { rec.stop(); ls.stop(); } catch(e) {}
+            }, Math.min(rendered.duration * 1000 + 80, 240000));
+          }
+          showToast('Áudio exportado com sucesso!');
+        } catch(e) {
+          const blob = audioBufferToWav(aBuf, { sampleRate: 44100, bitDepth: 16 });
+          saveBlob(blob, base + '.wav');
+          showToast('Exportado em alta fidelidade WAV!');
+        } finally {
+          st.style.display = 'none';
+          btn.disabled = false;
+        }
       }
-      window.addEventListener('DOMContentLoaded', calcDesconto);
+
+      function saveBlob(b, name) {
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(b);
+        a.download = name;
+        a.click();
+      }
+
+      function execReset() {
+        curFile = null;
+        aBuf = null;
+        fInput.value = '';
+        pl.src = '';
+        dz.style.display = 'block';
+        ws.style.display = 'none';
+      }
     </script>
     
   

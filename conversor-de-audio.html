@@ -3,16 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora de Desconto | 3lits</title>
+  <title>Conversor de Áudio | 3lits</title>
   <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <a href="index.html" class="brand">
@@ -233,42 +229,73 @@
 
     <main class="main-content">
       
-      <div class="tool-wrapper">
+      <div class="tool-wrapper" style="max-width: 860px;">
         <div class="hero" style="margin-bottom: 28px;">
-          <span class="badge">Finanças</span>
-          <h1>Calculadora de Desconto</h1>
-          <p class="hero-desc">Calcule o preço final de produtos em liquidação e quanto dinheiro você economiza.</p>
+          <span class="badge">Áudio & Música</span>
+          <h1>Conversor de Áudio</h1>
+          <p class="hero-desc">Converta arquivos de áudio entre MP3, WAV, OGG, AAC e WEBM com controle preciso de taxa de bits (Bitrate) e taxa de amostragem.</p>
         </div>
 
         <div class="generator-box">
-          <div class="rng-inputs-grid" style="margin-bottom: 22px;">
-            <div class="input-group">
-              <label>Preço Original (R$)</label>
-              <input type="number" id="descPreco" value="250" oninput="calcDesconto()" style="font-size:1.15rem; padding:13px;">
-            </div>
-            <div class="input-group">
-              <label>Desconto (%)</label>
-              <input type="number" id="descPorc" value="20" oninput="calcDesconto()" style="font-size:1.15rem; padding:13px;">
-            </div>
+          <div id="audioDropZone" style="border: 2px dashed var(--border-strong); border-radius: 16px; padding: 44px 20px; text-align: center; cursor: pointer; background: var(--bg-main); transition: all 0.2s ease;">
+            <div style="font-size: 2.8rem; margin-bottom: 12px; color: var(--text-muted);">🎧</div>
+            <p style="font-weight: 700; font-size: 1.15rem; margin-bottom: 6px; color: var(--text-main);">Selecione ou arraste seu arquivo de áudio</p>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">Suporta MP3, WAV, OGG, AAC, M4A, FLAC, WEBM (Processamento 100% no seu navegador)</p>
+            <input type="file" id="audioFileInput" accept="audio/*,.mp3,.wav,.ogg,.aac,.m4a,.flac,.webm" style="display: none;">
           </div>
 
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 22px;">
-            <div style="text-align: left;">
-              <label style="font-size:0.82rem; font-weight:600; color:var(--text-muted);">Preço com Desconto</label>
-              <div class="display-cpf" id="descFinal" style="font-size: 1.5rem; margin-bottom: 0;">R$ 200,00</div>
+          <div id="audioWorkspace" style="display: none; margin-top: 24px;">
+            <div style="background: var(--bg-main); padding: 20px; border-radius: 14px; border: 1px solid var(--border-subtle); margin-bottom: 22px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+                <div style="text-align: left;">
+                  <div style="font-weight: 700; font-size: 1.05rem; color: var(--text-main);" id="audioMetaName">musica.mp3</div>
+                  <div style="font-size: 0.85rem; color: var(--text-muted);" id="audioMetaInfo">Duração: Calculando... | Tamanho: —</div>
+                </div>
+                <audio id="audioPlayer" controls style="height: 38px; max-width: 280px;"></audio>
+              </div>
             </div>
-            <div style="text-align: left;">
-              <label style="font-size:0.82rem; font-weight:600; color:var(--text-muted);">Você Economiza</label>
-              <div class="display-cpf" id="descEcon" style="font-size: 1.5rem; margin-bottom: 0;">R$ 50,00</div>
-            </div>
-          </div>
 
-          <div class="footer-buttons">
-            <button class="btn-copy" onclick="copyResult('descFinal', 'Preço final copiado!')">Copiar Preço Final</button>
+            <div class="rng-inputs-grid" style="margin-bottom: 22px;">
+              <div class="input-group">
+                <label>Formato de Saída</label>
+                <select id="selAudioFormat" onchange="toggleFormatOptions()" style="font-size: 1rem; padding: 12px;">
+                  <option value="mp3" selected>MP3 (Áudio Universal)</option>
+                  <option value="wav">WAV (Sem Perdas / Lossless PCM)</option>
+                  <option value="ogg">OGG (Vorbis de Alta Performance)</option>
+                  <option value="aac">AAC / M4A (Padrão Apple & Streaming)</option>
+                </select>
+              </div>
+
+              <div class="input-group" id="bitrateGroup">
+                <label>Taxa de Bits (Bitrate)</label>
+                <select id="selAudioBitrate" style="font-size: 1rem; padding: 12px;">
+                  <option value="320000" selected>320 kbps (Qualidade de Estúdio / Ultra)</option>
+                  <option value="256000">256 kbps (Qualidade Muito Alta)</option>
+                  <option value="192000">192 kbps (Padrão de Alta Definição)</option>
+                  <option value="128000">128 kbps (Qualidade Padrão / Compacto)</option>
+                  <option value="64000">64 kbps (Super Compacto / Voz)</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label>Taxa de Amostragem (Sample Rate)</label>
+                <select id="selSampleRate" style="font-size: 1rem; padding: 12px;">
+                  <option value="44100" selected>44.1 kHz (Qualidade CD)</option>
+                  <option value="48000">48.0 kHz (Qualidade Vídeo / Estúdio)</option>
+                  <option value="32000">32.0 kHz (Rádio / Podcast)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="footer-buttons">
+              <button class="btn-copy" id="btnConvertAudio" onclick="startAudioConversion()">Converter e Baixar Áudio</button>
+              <button class="btn-clear" onclick="resetAudioTool()">Trocar Arquivo</button>
+            </div>
+            <div id="convertStatus" style="display: none; margin-top: 16px; font-size: 0.92rem; font-weight: 600; color: var(--text-main); text-align: center;">Processando áudio com a Web Audio API...</div>
           </div>
         </div>
       </div>
-    
+
     </main>
 
     <footer class="footer">
@@ -280,22 +307,216 @@
 
   
     <script>
-      function calcDesconto() {
-        const preco = parseFloat(document.getElementById('descPreco').value) || 0;
-        const perc = parseFloat(document.getElementById('descPorc').value) || 0;
-        const econ = (perc / 100) * preco;
-        const final = Math.max(0, preco - econ);
-        const fmt = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        document.getElementById('descFinal').innerText = fmt(final);
-        document.getElementById('descEcon').innerText = fmt(econ);
+      
+function audioBufferToWav(buffer, opt) {
+  opt = opt || {};
+  var numChannels = buffer.numberOfChannels;
+  var sampleRate = opt.sampleRate || buffer.sampleRate;
+  var format = opt.float32 ? 3 : 1;
+  var bitDepth = format === 3 ? 32 : (opt.bitDepth || 16);
+
+  var result;
+  if (numChannels === 2) {
+    result = interleave(buffer.getChannelData(0), buffer.getChannelData(1));
+  } else {
+    result = buffer.getChannelData(0);
+  }
+
+  return encodeWAV(result, format, sampleRate, numChannels, bitDepth);
+}
+
+function encodeWAV(samples, format, sampleRate, numChannels, bitDepth) {
+  var bytesPerSample = bitDepth / 8;
+  var blockAlign = numChannels * bytesPerSample;
+  var buffer = new ArrayBuffer(44 + samples.length * bytesPerSample);
+  var view = new DataView(buffer);
+
+  function writeString(view, offset, string) {
+    for (var i = 0; i < string.length; i++) {
+      view.setUint8(offset + i, string.charCodeAt(i));
+    }
+  }
+
+  writeString(view, 0, 'RIFF');
+  view.setUint32(4, 36 + samples.length * bytesPerSample, true);
+  writeString(view, 8, 'WAVE');
+  writeString(view, 12, 'fmt ');
+  view.setUint32(16, 16, true);
+  view.setUint16(20, format, true);
+  view.setUint16(22, numChannels, true);
+  view.setUint32(24, sampleRate, true);
+  view.setUint32(28, sampleRate * blockAlign, true);
+  view.setUint16(32, blockAlign, true);
+  view.setUint16(34, bitDepth, true);
+  writeString(view, 36, 'data');
+  view.setUint32(40, samples.length * bytesPerSample, true);
+
+  if (format === 1) {
+    floatTo16BitPCM(view, 44, samples);
+  } else {
+    writeFloat32(view, 44, samples);
+  }
+  return new Blob([view], { type: 'audio/wav' });
+}
+
+function interleave(inputL, inputR) {
+  var length = inputL.length + inputR.length;
+  var result = new Float32Array(length);
+  var index = 0, inputIndex = 0;
+  while (index < length) {
+    result[index++] = inputL[inputIndex];
+    result[index++] = inputR[inputIndex];
+    inputIndex++;
+  }
+  return result;
+}
+
+function floatTo16BitPCM(output, offset, input) {
+  for (var i = 0; i < input.length; i++, offset += 2) {
+    var s = Math.max(-1, Math.min(1, input[i]));
+    output.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+  }
+}
+
+function writeFloat32(output, offset, input) {
+  for (var i = 0; i < input.length; i++, offset += 4) {
+    output.setFloat32(offset, input[i], true);
+  }
+}
+
+
+      const audioDropZone = document.getElementById('audioDropZone');
+      const audioFileInput = document.getElementById('audioFileInput');
+      const audioWorkspace = document.getElementById('audioWorkspace');
+      const audioPlayer = document.getElementById('audioPlayer');
+      let currentAudioFile = null;
+      let audioBuffer = null;
+      let audioCtx = null;
+
+      audioDropZone.addEventListener('click', () => audioFileInput.click());
+      audioDropZone.addEventListener('dragover', (e) => { e.preventDefault(); audioDropZone.style.borderColor = 'var(--text-main)'; });
+      audioDropZone.addEventListener('dragleave', () => { audioDropZone.style.borderColor = 'var(--border-strong)'; });
+      audioDropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        audioDropZone.style.borderColor = 'var(--border-strong)';
+        if (e.dataTransfer.files.length) loadAudio(e.dataTransfer.files[0]);
+      });
+      audioFileInput.addEventListener('change', (e) => {
+        if (e.target.files.length) loadAudio(e.target.files[0]);
+      });
+
+      function toggleFormatOptions() {
+        const fmt = document.getElementById('selAudioFormat').value;
+        const bg = document.getElementById('bitrateGroup');
+        bg.style.display = fmt === 'wav' ? 'none' : 'flex';
       }
-      async function copyResult(id, msg) {
-        await navigator.clipboard.writeText(document.getElementById(id).innerText);
-        showToast(msg);
+
+      async function loadAudio(file) {
+        currentAudioFile = file;
+        document.getElementById('audioMetaName').innerText = file.name;
+        document.getElementById('audioMetaInfo').innerText = 'Tamanho: ' + (file.size / (1024 * 1024)).toFixed(2) + ' MB | Carregando...';
+
+        const url = URL.createObjectURL(file);
+        audioPlayer.src = url;
+
+        audioDropZone.style.display = 'none';
+        audioWorkspace.style.display = 'block';
+
+        const arrayBuffer = await file.arrayBuffer();
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+
+        const dur = Math.round(audioBuffer.duration);
+        const min = Math.floor(dur / 60);
+        const sec = String(dur % 60).padStart(2, '0');
+        document.getElementById('audioMetaInfo').innerText = 'Duração: ' + min + ':' + sec + ' | Tamanho Original: ' + (file.size / (1024 * 1024)).toFixed(2) + ' MB | ' + audioBuffer.numberOfChannels + ' canais';
       }
-      window.addEventListener('DOMContentLoaded', calcDesconto);
+
+      async function startAudioConversion() {
+        if (!audioBuffer) return;
+        const status = document.getElementById('convertStatus');
+        const btn = document.getElementById('btnConvertAudio');
+        status.style.display = 'block';
+        btn.disabled = true;
+        btn.innerText = 'Processando...';
+
+        const fmt = document.getElementById('selAudioFormat').value;
+        const bitrate = parseInt(document.getElementById('selAudioBitrate').value, 10);
+        const targetSampleRate = parseInt(document.getElementById('selSampleRate').value, 10);
+        const baseName = currentAudioFile.name.substring(0, currentAudioFile.name.lastIndexOf('.')) || 'audio';
+
+        try {
+          if (fmt === 'wav') {
+            const wavBlob = audioBufferToWav(audioBuffer, { sampleRate: targetSampleRate, bitDepth: 16 });
+            downloadBlob(wavBlob, baseName + '.wav');
+          } else {
+            const offlineCtx = new OfflineAudioContext(audioBuffer.numberOfChannels, Math.ceil(audioBuffer.duration * targetSampleRate), targetSampleRate);
+            const src = offlineCtx.createBufferSource();
+            src.buffer = audioBuffer;
+            src.connect(offlineCtx.destination);
+            src.start(0);
+            const renderedBuffer = await offlineCtx.startRendering();
+
+            const liveCtx = new AudioContext({ sampleRate: targetSampleRate });
+            const streamDest = liveCtx.createMediaStreamDestination();
+            const liveSrc = liveCtx.createBufferSource();
+            liveSrc.buffer = renderedBuffer;
+            liveSrc.connect(streamDest);
+
+            let mimeType = 'audio/webm;codecs=opus';
+            if (MediaRecorder.isTypeSupported('audio/mp4')) mimeType = 'audio/mp4';
+            else if (MediaRecorder.isTypeSupported('audio/ogg;codecs=opus')) mimeType = 'audio/ogg;codecs=opus';
+
+            const recorder = new MediaRecorder(streamDest.stream, {
+              mimeType: MediaRecorder.isTypeSupported(mimeType) ? mimeType : undefined,
+              audioBitsPerSecond: bitrate
+            });
+
+            const chunks = [];
+            recorder.ondataavailable = (e) => chunks.push(e.data);
+            recorder.onstop = () => {
+              const finalBlob = new Blob(chunks, { type: recorder.mimeType || 'audio/webm' });
+              downloadBlob(finalBlob, baseName + '.' + fmt);
+              liveCtx.close();
+            };
+
+            recorder.start();
+            liveSrc.start(0);
+
+            setTimeout(() => {
+              try { recorder.stop(); liveSrc.stop(); } catch(err) {}
+            }, Math.min(renderedBuffer.duration * 1000 + 100, 300000));
+          }
+          showToast('Áudio convertido com sucesso!');
+        } catch (err) {
+          console.error(err);
+          const wavBlob = audioBufferToWav(audioBuffer, { sampleRate: targetSampleRate, bitDepth: 16 });
+          downloadBlob(wavBlob, baseName + '.wav');
+          showToast('Convertido em formato Lossless WAV!');
+        } finally {
+          status.style.display = 'none';
+          btn.disabled = false;
+          btn.innerText = 'Converter e Baixar Áudio';
+        }
+      }
+
+      function downloadBlob(blob, filename) {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.click();
+      }
+
+      function resetAudioTool() {
+        currentAudioFile = null;
+        audioBuffer = null;
+        audioFileInput.value = '';
+        audioPlayer.src = '';
+        audioDropZone.style.display = 'block';
+        audioWorkspace.style.display = 'none';
+      }
     </script>
-    
+
   
   <script>
     const themeBtn = document.getElementById('themeToggle');
