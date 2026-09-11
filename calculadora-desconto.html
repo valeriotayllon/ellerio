@@ -3,15 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gerador de Inscrição Estadual | 3lits</title>
+  <title>Calculadora de Desconto | 3lits</title>
   <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
+    <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <a href="index.html" class="brand">
@@ -145,14 +142,12 @@
     </div>
   </aside>
 
-
   <div class="app-container">
-    <!-- Topbar para Mobile -->
     <header class="mobile-topbar">
       <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
       <a href="index.html" class="brand">
-        <img src="images/fundo transparente fonte escura.png" alt="3lits" class="brand-logo logo-dark" style="height:36px;">
-        <img src="images/fundo transparente fonte clara.png" alt="3lits" class="brand-logo logo-light" style="height:36px;">
+        <img src="images/fundo transparente fonte escura.png" alt="3lits" class="brand-logo logo-dark" style="height:38px;">
+        <img src="images/fundo transparente fonte clara.png" alt="3lits" class="brand-logo logo-light" style="height:38px;">
       </a>
       <button class="menu-toggle" id="mobileThemeToggle" aria-label="Alternar tema">◐</button>
     </header>
@@ -161,32 +156,36 @@
       
       <div class="tool-wrapper">
         <div class="hero" style="margin-bottom: 28px;">
-          <span class="badge">Empresarial</span>
-          <h1>Gerador de Inscrição Estadual</h1>
-          <p class="hero-desc">Gere números de Inscrição Estadual com dígitos calculados por Estado.</p>
+          <span class="badge">Finanças</span>
+          <h1>Calculadora de Desconto</h1>
+          <p class="hero-desc">Calcule o preço final de produtos em liquidação e quanto dinheiro você economiza.</p>
         </div>
 
         <div class="generator-box">
-          <div class="display-cpf" id="ieDisplay">000.000.000.000</div>
-          
-          <div class="options-row" style="width: 100%; max-width: 320px; margin: 16px auto;">
-            <div class="input-group" style="width: 100%;">
-              <label>Selecione a UF</label>
-              <select id="ufSelect" onchange="generateIE()">
-                <option value="SP">São Paulo (SP)</option>
-                <option value="RJ">Rio de Janeiro (RJ)</option>
-                <option value="MG">Minas Gerais (MG)</option>
-                <option value="RS">Rio Grande do Sul (RS)</option>
-                <option value="PR">Paraná (PR)</option>
-                <option value="CE">Ceará (CE)</option>
-                <option value="BA">Bahia (BA)</option>
-              </select>
+          <div class="rng-inputs-grid" style="margin-bottom: 22px;">
+            <div class="input-group">
+              <label>Preço Original (R$)</label>
+              <input type="number" id="descPreco" value="250" oninput="calcDesconto()" style="font-size:1.15rem; padding:13px;">
+            </div>
+            <div class="input-group">
+              <label>Desconto (%)</label>
+              <input type="number" id="descPorc" value="20" oninput="calcDesconto()" style="font-size:1.15rem; padding:13px;">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 22px;">
+            <div style="text-align: left;">
+              <label style="font-size:0.82rem; font-weight:600; color:var(--text-muted);">Preço com Desconto</label>
+              <div class="display-cpf" id="descFinal" style="font-size: 1.5rem; margin-bottom: 0;">R$ 200,00</div>
+            </div>
+            <div style="text-align: left;">
+              <label style="font-size:0.82rem; font-weight:600; color:var(--text-muted);">Você Economiza</label>
+              <div class="display-cpf" id="descEcon" style="font-size: 1.5rem; margin-bottom: 0;">R$ 50,00</div>
             </div>
           </div>
 
           <div class="footer-buttons">
-            <button class="btn-copy" onclick="generateIE()">Gerar Inscrição</button>
-            <button class="btn-clear" onclick="copyIE()">Copiar IE</button>
+            <button class="btn-copy" onclick="copyResult('descFinal', 'Preço final copiado!')">Copiar Preço Final</button>
           </div>
         </div>
       </div>
@@ -198,61 +197,43 @@
 </footer>
   </div>
 
-  <div id="toast" class="toast">Copiado com sucesso!</div>
+  <div id="toast" class="toast">Copiado!</div>
 
   
     <script>
-      function generateIE() {
-        const uf = document.getElementById('ufSelect').value;
-        const rnd = () => Math.floor(Math.random() * 10);
-        let ie = "";
-        if (uf === 'SP') {
-          const d = Array.from({length: 8}, () => rnd());
-          const w1 = [1, 3, 4, 5, 6, 7, 8, 10];
-          d.push((d.reduce((acc, v, i) => acc + v * w1[i], 0) % 11) % 10);
-          d.push(rnd(), rnd());
-          const w2 = [3, 2, 10, 9, 8, 7, 6, 5, 4, 3, 2];
-          d.push((d.reduce((acc, v, i) => acc + v * w2[i], 0) % 11) % 10);
-          ie = d.join('').replace(/^(\d{3})(\d{3})(\d{3})(\d{3})$/, '$1.$2.$3.$4');
-        } else if (uf === 'RJ') {
-          const d = [rnd() || 1].concat(Array.from({length: 6}, () => rnd()));
-          const w = [2, 7, 6, 5, 4, 3, 2];
-          let rem = d.reduce((acc, v, i) => acc + v * w[i], 0) % 11;
-          d.push(rem <= 1 ? 0 : 11 - rem);
-          ie = d.join('').replace(/^(\d{2})(\d{3})(\d{3})$/, '$1.$2.$3');
-        } else {
-          const d = Array.from({length: 8}, () => rnd());
-          d.push((11 - (d.reduce((acc, v, i) => acc + v * (9 - i), 0) % 11)) % 10);
-          ie = d.join('').replace(/^(\d{3})(\d{3})(\d{3})$/, '$1.$2.$3');
-        }
-        document.getElementById('ieDisplay').innerText = ie;
+      function calcDesconto() {
+        const preco = parseFloat(document.getElementById('descPreco').value) || 0;
+        const perc = parseFloat(document.getElementById('descPorc').value) || 0;
+        const econ = (perc / 100) * preco;
+        const final = Math.max(0, preco - econ);
+        const fmt = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        document.getElementById('descFinal').innerText = fmt(final);
+        document.getElementById('descEcon').innerText = fmt(econ);
       }
-      async function copyIE() {
-        await navigator.clipboard.writeText(document.getElementById('ieDisplay').innerText);
-        showToast('IE copiada!');
+      async function copyResult(id, msg) {
+        await navigator.clipboard.writeText(document.getElementById(id).innerText);
+        showToast(msg);
       }
-      window.addEventListener('DOMContentLoaded', generateIE);
+      window.addEventListener('DOMContentLoaded', calcDesconto);
     </script>
     
   
   <script>
-    // Theme toggle
     const themeBtn = document.getElementById('themeToggle');
     const mobileThemeBtn = document.getElementById('mobileThemeToggle');
     const html = document.documentElement;
-    const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
+    const savedTheme = localStorage.getItem('3lits-theme') || localStorage.getItem('ellerio-theme') || 'light';
     html.setAttribute('data-theme', savedTheme);
 
     function toggleTheme() {
       const current = html.getAttribute('data-theme');
       const next = current === 'light' ? 'dark' : 'light';
       html.setAttribute('data-theme', next);
-      localStorage.setItem('ellerio-theme', next);
+      localStorage.setItem('3lits-theme', next);
     }
     if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
     if (mobileThemeBtn) mobileThemeBtn.addEventListener('click', toggleTheme);
 
-    // Mobile menu toggle
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.getElementById('sidebar');
     if (menuToggle && sidebar) {
@@ -267,7 +248,7 @@
       });
     }
 
-    function showToast(msg = 'Copiado com sucesso!') {
+    function showToast(msg = 'Copiado!') {
       const t = document.getElementById('toast');
       if (t) {
         t.textContent = msg;
@@ -276,8 +257,6 @@
       }
     }
   </script>
-  <!-- Monetag ad zone -->
   <script>(function(s){s.dataset.zone='11768463',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-
 </body>
 </html>

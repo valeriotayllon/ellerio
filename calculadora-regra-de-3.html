@@ -3,15 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gerador de Inscrição Estadual | 3lits</title>
+  <title>Calculadora de Regra de 3 | 3lits</title>
   <link rel="icon" type="image/png" href="images/fundo transparente fonte escura.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
-  <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
+    <!-- SIDEBAR LIQUID GLASS COM FLYOUT MENUS -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <a href="index.html" class="brand">
@@ -145,14 +142,12 @@
     </div>
   </aside>
 
-
   <div class="app-container">
-    <!-- Topbar para Mobile -->
     <header class="mobile-topbar">
       <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
       <a href="index.html" class="brand">
-        <img src="images/fundo transparente fonte escura.png" alt="3lits" class="brand-logo logo-dark" style="height:36px;">
-        <img src="images/fundo transparente fonte clara.png" alt="3lits" class="brand-logo logo-light" style="height:36px;">
+        <img src="images/fundo transparente fonte escura.png" alt="3lits" class="brand-logo logo-dark" style="height:38px;">
+        <img src="images/fundo transparente fonte clara.png" alt="3lits" class="brand-logo logo-light" style="height:38px;">
       </a>
       <button class="menu-toggle" id="mobileThemeToggle" aria-label="Alternar tema">◐</button>
     </header>
@@ -161,32 +156,40 @@
       
       <div class="tool-wrapper">
         <div class="hero" style="margin-bottom: 28px;">
-          <span class="badge">Empresarial</span>
-          <h1>Gerador de Inscrição Estadual</h1>
-          <p class="hero-desc">Gere números de Inscrição Estadual com dígitos calculados por Estado.</p>
+          <span class="badge">Cálculos</span>
+          <h1>Calculadora de Regra de 3</h1>
+          <p class="hero-desc">Resolva proporções diretas de forma rápida inserindo os três valores conhecidos.</p>
         </div>
 
         <div class="generator-box">
-          <div class="display-cpf" id="ieDisplay">000.000.000.000</div>
-          
-          <div class="options-row" style="width: 100%; max-width: 320px; margin: 16px auto;">
-            <div class="input-group" style="width: 100%;">
-              <label>Selecione a UF</label>
-              <select id="ufSelect" onchange="generateIE()">
-                <option value="SP">São Paulo (SP)</option>
-                <option value="RJ">Rio de Janeiro (RJ)</option>
-                <option value="MG">Minas Gerais (MG)</option>
-                <option value="RS">Rio Grande do Sul (RS)</option>
-                <option value="PR">Paraná (PR)</option>
-                <option value="CE">Ceará (CE)</option>
-                <option value="BA">Bahia (BA)</option>
-              </select>
+          <div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px;">
+            <div style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 14px;">
+              <div class="input-group">
+                <label>Valor A</label>
+                <input type="number" id="r3A" value="10" oninput="calcRegra3()">
+              </div>
+              <span style="font-size: 1.2rem; font-weight: 700; color: var(--text-faint); padding-top: 18px;">está para</span>
+              <div class="input-group">
+                <label>Valor B</label>
+                <input type="number" id="r3B" value="100" oninput="calcRegra3()">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 14px;">
+              <div class="input-group">
+                <label>Valor C</label>
+                <input type="number" id="r3C" value="25" oninput="calcRegra3()">
+              </div>
+              <span style="font-size: 1.2rem; font-weight: 700; color: var(--text-faint); padding-top: 18px;">está para</span>
+              <div class="input-group">
+                <label>Valor X (Resultado)</label>
+                <div class="display-cpf" id="r3X" style="font-size: 1.3rem; padding: 11px; margin-bottom: 0;">250</div>
+              </div>
             </div>
           </div>
 
           <div class="footer-buttons">
-            <button class="btn-copy" onclick="generateIE()">Gerar Inscrição</button>
-            <button class="btn-clear" onclick="copyIE()">Copiar IE</button>
+            <button class="btn-copy" onclick="copyResult('r3X', 'Valor X copiado!')">Copiar Resultado (X)</button>
           </div>
         </div>
       </div>
@@ -198,61 +201,45 @@
 </footer>
   </div>
 
-  <div id="toast" class="toast">Copiado com sucesso!</div>
+  <div id="toast" class="toast">Copiado!</div>
 
   
     <script>
-      function generateIE() {
-        const uf = document.getElementById('ufSelect').value;
-        const rnd = () => Math.floor(Math.random() * 10);
-        let ie = "";
-        if (uf === 'SP') {
-          const d = Array.from({length: 8}, () => rnd());
-          const w1 = [1, 3, 4, 5, 6, 7, 8, 10];
-          d.push((d.reduce((acc, v, i) => acc + v * w1[i], 0) % 11) % 10);
-          d.push(rnd(), rnd());
-          const w2 = [3, 2, 10, 9, 8, 7, 6, 5, 4, 3, 2];
-          d.push((d.reduce((acc, v, i) => acc + v * w2[i], 0) % 11) % 10);
-          ie = d.join('').replace(/^(\d{3})(\d{3})(\d{3})(\d{3})$/, '$1.$2.$3.$4');
-        } else if (uf === 'RJ') {
-          const d = [rnd() || 1].concat(Array.from({length: 6}, () => rnd()));
-          const w = [2, 7, 6, 5, 4, 3, 2];
-          let rem = d.reduce((acc, v, i) => acc + v * w[i], 0) % 11;
-          d.push(rem <= 1 ? 0 : 11 - rem);
-          ie = d.join('').replace(/^(\d{2})(\d{3})(\d{3})$/, '$1.$2.$3');
-        } else {
-          const d = Array.from({length: 8}, () => rnd());
-          d.push((11 - (d.reduce((acc, v, i) => acc + v * (9 - i), 0) % 11)) % 10);
-          ie = d.join('').replace(/^(\d{3})(\d{3})(\d{3})$/, '$1.$2.$3');
+      function calcRegra3() {
+        const a = parseFloat(document.getElementById('r3A').value) || 0;
+        const b = parseFloat(document.getElementById('r3B').value) || 0;
+        const c = parseFloat(document.getElementById('r3C').value) || 0;
+        if (a === 0) {
+          document.getElementById('r3X').innerText = "Indefinido";
+          return;
         }
-        document.getElementById('ieDisplay').innerText = ie;
+        const x = (b * c) / a;
+        document.getElementById('r3X').innerText = Number.isInteger(x) ? x : x.toFixed(2);
       }
-      async function copyIE() {
-        await navigator.clipboard.writeText(document.getElementById('ieDisplay').innerText);
-        showToast('IE copiada!');
+      async function copyResult(id, msg) {
+        await navigator.clipboard.writeText(document.getElementById(id).innerText);
+        showToast(msg);
       }
-      window.addEventListener('DOMContentLoaded', generateIE);
+      window.addEventListener('DOMContentLoaded', calcRegra3);
     </script>
     
   
   <script>
-    // Theme toggle
     const themeBtn = document.getElementById('themeToggle');
     const mobileThemeBtn = document.getElementById('mobileThemeToggle');
     const html = document.documentElement;
-    const savedTheme = localStorage.getItem('ellerio-theme') || 'light';
+    const savedTheme = localStorage.getItem('3lits-theme') || localStorage.getItem('ellerio-theme') || 'light';
     html.setAttribute('data-theme', savedTheme);
 
     function toggleTheme() {
       const current = html.getAttribute('data-theme');
       const next = current === 'light' ? 'dark' : 'light';
       html.setAttribute('data-theme', next);
-      localStorage.setItem('ellerio-theme', next);
+      localStorage.setItem('3lits-theme', next);
     }
     if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
     if (mobileThemeBtn) mobileThemeBtn.addEventListener('click', toggleTheme);
 
-    // Mobile menu toggle
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.getElementById('sidebar');
     if (menuToggle && sidebar) {
@@ -267,7 +254,7 @@
       });
     }
 
-    function showToast(msg = 'Copiado com sucesso!') {
+    function showToast(msg = 'Copiado!') {
       const t = document.getElementById('toast');
       if (t) {
         t.textContent = msg;
@@ -276,8 +263,6 @@
       }
     }
   </script>
-  <!-- Monetag ad zone -->
   <script>(function(s){s.dataset.zone='11768463',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-
 </body>
 </html>
